@@ -1,0 +1,15 @@
+.confirm-password-input {
+    width: 217.74px !important;
+}
+
+@media only screen and (width < 700px) {
+    .confirm-password-input {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (max-width: 699px) {
+    .confirm-password-input {
+        width: 100% !important;
+    }
+}

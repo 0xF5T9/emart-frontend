@@ -1,0 +1,152 @@
+.input-wrapper {
+    position: relative;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    border-radius: 4px;
+    outline: 2px solid transparent;
+    background-color: var(--labeled-select-background-color-default);
+    font-size: 1rem;
+    transition: all 0.15s;
+}
+
+.input-wrapper.small {
+    font-size: 0.8rem;
+}
+
+.input-wrapper.large {
+    font-size: 1.2rem;
+}
+
+.input-wrapper:has(*:focus) {
+    outline: 2px solid var(--labeled-select-focus-color);
+}
+
+.input-wrapper.disabled {
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+.input-wrapper.disabled > .input {
+    opacity: 1;
+}
+
+.input-label {
+    padding: 0px 8px;
+    color: var(--labeled-select-label-text-color);
+    font-size: 1em;
+    font-weight: 500;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.input {
+    padding: var(--labeled-select-padding-top-bottom)
+        var(--labeled-select-padding-left-right);
+    border: 2px solid var(--labeled-select-border-color-default);
+    border-radius: 0px 4px 4px 0px;
+    outline: 0;
+    font-size: 1em;
+    width: 100%;
+}
+
+.input-wrapper > .input {
+    color: var(--labeled-select-text-color-default);
+    background-color: var(--labeled-select-inner-background-color-default);
+    font-weight: var(--labeled-select-font-weight-default);
+    transition: all 0.1s;
+}
+
+.input-wrapper > .input::selection {
+    color: var(--general-selection-text-color);
+    background-color: var(--general-selection-background-color);
+}
+
+.input-wrapper > .input:hover {
+    background-color: var(--labeled-select-inner-background-color-hover);
+}
+
+.input-wrapper > .input:focus {
+    background-color: var(--labeled-select-inner-background-color-focus);
+}
+
+.input-wrapper.reverse-background > .input {
+    color: var(--labeled-select-text-color-default-reverse);
+    background-color: var(
+        --labeled-select-inner-background-color-default-reverse
+    );
+    font-weight: var(--labeled-select-font-weight-reverse);
+}
+
+.input-wrapper.reverse-background > .input::selection {
+    color: var(--labeled-select-inner-background-color-default-reverse);
+    background-color: var(--labeled-select-text-color-default-reverse);
+}
+
+.input-wrapper.reverse-background > .input:hover {
+    background-color: var(
+        --labeled-select-inner-background-color-hover-reverse
+    );
+}
+
+.input-wrapper.reverse-background > .input:focus {
+    background-color: var(
+        --labeled-select-inner-background-color-focus-reverse
+    );
+}
+
+.input-wrapper.red {
+    background-color: var(--color-red);
+}
+
+.input-wrapper.red .input {
+    border-color: var(--color-red);
+}
+
+.input-wrapper.orange {
+    background-color: var(--color-orange);
+}
+
+.input-wrapper.orange .input {
+    border-color: var(--color-orange);
+}
+
+.input-wrapper.yellow {
+    background-color: var(--color-yellow);
+}
+
+.input-wrapper.yellow .input {
+    border-color: var(--color-yellow);
+}
+
+.input-wrapper.green {
+    background-color: var(--color-green);
+}
+
+.input-wrapper.green .input {
+    border-color: var(--color-green);
+}
+
+.input-wrapper.blue {
+    background-color: var(--color-blue);
+}
+
+.input-wrapper.blue .input {
+    border-color: var(--color-blue);
+}
+
+.input-wrapper.purple {
+    background-color: var(--color-purple);
+}
+
+.input-wrapper.purple .input {
+    border-color: var(--color-purple);
+}
+
+.input-wrapper.black {
+    background-color: var(--color-black);
+}
+
+.input-wrapper.black .input {
+    border-color: var(--color-black);
+}

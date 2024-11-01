@@ -1,0 +1,211 @@
+/**
+ * @file root.css
+ * @description Element-level styles.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+@font-face {
+    font-family: 'SFProDisplay';
+    src: url('../static/assets/font/SFPRODISPLAY/SFProDisplay-Regular.ttf')
+        format('truetype');
+    font-weight: 400;
+    font-display: auto;
+}
+@font-face {
+    font-family: 'SFProDisplay';
+    src: url('../static/assets/font/SFPRODISPLAY/SFProDisplay-Light.ttf')
+        format('truetype');
+    font-weight: 300;
+    font-display: auto;
+}
+@font-face {
+    font-family: 'SFProDisplay';
+    src: url('../static/assets/font/SFPRODISPLAY/SFProDisplay-Medium.ttf')
+        format('truetype');
+    font-weight: 500;
+    font-display: auto;
+}
+@font-face {
+    font-family: 'SFProDisplay';
+    src: url('../static/assets/font/SFPRODISPLAY/SFProDisplay-Bold.ttf')
+        format('truetype');
+    font-weight: bold;
+    font-display: auto;
+}
+@font-face {
+    font-family: 'SFProDisplay';
+    src: url('../static/assets/font/SFPRODISPLAY/SFProDisplay-Semibold.ttf')
+        format('truetype');
+    font-weight: 600;
+    font-display: auto;
+}
+@font-face {
+    font-family: 'SFProDisplay';
+    src: url('../static/assets/font/SFPRODISPLAY/SFProDisplay-Heavy.ttf')
+        format('truetype');
+    font-weight: 800;
+    font-display: auto;
+}
+
+:root {
+    /* Predefined color variables */
+    --color-white: #fcfcfa;
+    --color-black: #2d2a2e;
+    --color-black-bright: #423f42;
+    --color-gray: #727072;
+    --color-gray-bright: #807e80;
+    --color-gray-darker: #666466;
+    --color-red: #ff6188;
+    --color-red-bright: #ff7093;
+    --color-red-darker: #e5577a;
+    --color-red-vibrant: #ff144f;
+    --color-orange: #fc9a69;
+    --color-orange-bright: #fca478;
+    --color-orange-darker: #e28a5e;
+    --color-orange-vibrant: #fa681e;
+    --color-yellow: #ffd966;
+    --color-yellow-bright: #ffdc75;
+    --color-yellow-darker: #e5c35b;
+    --color-yellow-vibrant: #ffc61a;
+    --color-green: #a8db75;
+    --color-green-bright: #b0de82;
+    --color-green-darker: #97c569;
+    --color-green-vibrant: #82cc38;
+    --color-blue: #78dde8;
+    --color-blue-bright: #85e0ea;
+    --color-blue-darker: #6cc6d0;
+    --color-blue-vibrant: #36ccdd;
+    --color-purple: #aa9cf2;
+    --color-purple-bright: #b2a5f3;
+    --color-purple-darker: #998cd9;
+    --color-purple-vibrant: #7058e9;
+
+    --general-html-overflow: auto;
+    --content-max-width: 1130px;
+
+    --header-height: 0px;
+    --footer-height: 0px;
+    --100vh: 100vh;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    width: 100vw;
+    height: var(--100vh);
+    max-width: 100%;
+    overflow: var(--general-html-overflow);
+    color: var(--general-text-color);
+    background-color: var(--general-body-background-color);
+    font-family: var(--general-font-family);
+    font-size: 87.5%; /* 87.5%: 14px | 93.75%: 15px */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: var(--100vh);
+}
+
+input,
+textarea,
+button,
+select {
+    font-family: var(--general-font-family);
+}
+
+table {
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid;
+}
+
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a:focus {
+    outline: 0;
+}
+
+h1 {
+    font-size: 2.986rem;
+}
+
+h2 {
+    font-size: 2.488rem;
+}
+
+h3 {
+    font-size: 2.074rem;
+}
+
+h4 {
+    font-size: 1.728rem;
+}
+
+h5 {
+    font-size: 1.44rem;
+}
+
+h6 {
+    font-size: 1.2rem;
+}
+
+p {
+    font-size: 1rem;
+}
+
+small {
+    font-size: 0.833rem;
+}
+
+::selection {
+    color: var(--color-black, blue);
+    background-color: var(--color-white, blue);
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    background: var(--color-scrollbar-background, blue);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: var(--color-scrollbar-thumb-background-default, blue);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-scrollbar-thumb-background-hover, blue);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: var(--color-scrollbar-thumb-background-active, blue);
+}
+
+div::-webkit-scrollbar {
+    background: transparent;
+}
+
+div::-webkit-scrollbar-thumb {
+    background: var(--color-div-scrollbar-thumb-background-default, blue);
+}
+
+::placeholder {
+    color: var(--text-dim-color, blue);
+    opacity: 1;
+}
+
+::-ms-input-placeholder {
+    color: var(--text-dim-color, blue);
+}

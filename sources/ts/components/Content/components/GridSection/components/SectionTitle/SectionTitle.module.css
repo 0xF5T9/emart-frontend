@@ -1,0 +1,8 @@
+.section-title {
+    color: var(--section-title-text-color);
+    font-weight: 600;
+}
+
+.section-title + * {
+    margin-top: 16px;
+}

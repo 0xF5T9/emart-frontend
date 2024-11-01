@@ -1,0 +1,81 @@
+.select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+}
+
+.select-wrapper:hover .arrow {
+    color: var(--select-arrow-color-hover, blue);
+}
+
+.select-wrapper:focus-within .arrow {
+    color: var(--select-arrow-color-focus, blue);
+}
+
+.arrow {
+    position: absolute;
+    right: var(--select-padding-left-right);
+    font-size: 1rem;
+    color: var(--select-arrow-color-default, blue);
+    z-index: 1;
+    transition: all 0.15s ease;
+}
+
+.arrow.small {
+    font-size: 0.8rem;
+}
+
+.arrow.large {
+    font-size: 1.2rem;
+}
+
+.select {
+    padding: var(--select-padding-top-bottom) var(--select-padding-left-right);
+    border: var(--select-border-width) solid
+        var(--select-border-color-default, blue);
+    border-radius: var(--select-border-radius);
+    font-size: 1rem;
+    color: var(--select-text-color-default, blue);
+    background-color: var(--select-background-color-default, blue);
+    transition: all 0.15s ease;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+.select:hover {
+    color: var(--select-text-color-hover, blue);
+    background-color: var(--select-background-color-hover, blue);
+    border-color: var(--select-border-color-hover, blue);
+}
+
+.select:focus {
+    outline: 0;
+    color: var(--select-text-color-focus, blue);
+    background-color: var(--select-background-color-focus, blue);
+    border-color: var(--select-border-color-focus, blue);
+}
+
+.select:disabled {
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+.select.small {
+    font-size: 0.8rem;
+}
+
+.select.large {
+    font-size: 1.2rem;
+}
+
+/* .select option {
+    color: var(--text-color, blue);
+    background-color: #fff;
+    border: 0;
+    outline: 0;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+} */

@@ -1,0 +1,228 @@
+.radio-wrapper {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.radio-wrapper:has(*:disabled) {
+    pointer-events: none;
+}
+
+.radio-wrapper > .input {
+    flex-shrink: 0;
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: calc(1em * 0.8);
+    height: calc(1em * 0.8);
+    border: 2px solid var(--radio-border-color-default, blue);
+    border-radius: 50%;
+
+    font-size: 1.5em;
+    background-color: var(--radio-background-color-default, blue);
+    filter: brightness(1);
+    cursor: pointer;
+    transition: all 0.15s;
+    will-change: border, background-color, outline, box-shadow;
+}
+
+.radio-wrapper > .input::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: var(--radio-symbol-color-default, blue);
+    border-radius: 50%;
+    transform: scale(0.6);
+    transition: all 0.15s;
+    will-change: background-color;
+}
+
+.radio-wrapper > .input:hover {
+    background-color: var(--radio-background-color-hover, blue);
+    border: 2px solid var(--radio-border-color-hover, blue);
+}
+
+.radio-wrapper > .input:hover::before {
+    background-color: var(--radio-symbol-color-hover, blue);
+}
+
+.radio-wrapper > .input:active {
+    background-color: var(--radio-background-color-active, blue);
+    border: 2px solid var(--radio-border-color-active, blue);
+}
+
+.radio-wrapper > .input:active::before {
+    background-color: var(--radio-symbol-color-active, blue);
+}
+
+.radio-wrapper > .input:focus {
+    outline: 0;
+    box-shadow: 0 0 0 2px var(--radio-focus-border-color, blue);
+}
+
+.radio-wrapper > .input:checked {
+    background-color: var(--radio-background-color-checked, blue);
+    border: 2px solid var(--radio-border-color-checked, blue);
+}
+
+.radio-wrapper > .input:checked::before {
+    background-color: var(--radio-symbol-color-checked, blue);
+}
+
+.radio-wrapper > .input:disabled {
+    opacity: 0.65;
+}
+
+.radio-wrapper > label {
+    display: flex;
+    margin-left: 8px;
+    color: var(--radio-label-color, blue);
+    cursor: pointer;
+}
+
+.radio-wrapper > label > span {
+    font-size: 1em;
+    filter: brightness(1);
+    user-select: none;
+    transition: all 0.15s;
+    will-change: filter;
+}
+
+.radio-wrapper + .radio-wrapper {
+    margin-left: 12px;
+}
+
+.radio-wrapper .input:disabled ~ label > span {
+    opacity: 0.65;
+}
+
+/* Modifier classes */
+
+.radio-wrapper.small > .input {
+    font-size: 1.26em;
+}
+
+.radio-wrapper.small > label > span {
+    font-size: 0.75em;
+}
+
+.radio-wrapper.large > .input {
+    font-size: 1.75em;
+}
+
+.radio-wrapper.large > label > span {
+    font-size: 1.25em;
+}
+
+/* Color modifier classes */
+
+.radio-wrapper.red {
+    --radio-symbol-color-default: transparent;
+    --radio-symbol-color-hover: transparent;
+    --radio-symbol-color-active: transparent;
+    --radio-symbol-color-checked: var(--color-white, blue);
+    --radio-background-color-default: transparent;
+    --radio-background-color-hover: transparent;
+    --radio-background-color-active: transparent;
+    --radio-background-color-checked: var(--color-red, blue);
+    --radio-border-color-default: var(--color-red, blue);
+    --radio-border-color-hover: var(--color-red, blue);
+    --radio-border-color-active: var(--color-red, blue);
+    --radio-border-color-checked: var(--color-red, blue);
+}
+
+.radio-wrapper.orange {
+    --radio-symbol-color-default: transparent;
+    --radio-symbol-color-hover: transparent;
+    --radio-symbol-color-active: transparent;
+    --radio-symbol-color-checked: var(--color-white, blue);
+    --radio-background-color-default: transparent;
+    --radio-background-color-hover: transparent;
+    --radio-background-color-active: transparent;
+    --radio-background-color-checked: var(--color-orange, blue);
+    --radio-border-color-default: var(--color-orange, blue);
+    --radio-border-color-hover: var(--color-orange, blue);
+    --radio-border-color-active: var(--color-orange, blue);
+    --radio-border-color-checked: var(--color-orange, blue);
+}
+
+.radio-wrapper.yellow {
+    --radio-symbol-color-default: transparent;
+    --radio-symbol-color-hover: transparent;
+    --radio-symbol-color-active: transparent;
+    --radio-symbol-color-checked: var(--color-white, blue);
+    --radio-background-color-default: transparent;
+    --radio-background-color-hover: transparent;
+    --radio-background-color-active: transparent;
+    --radio-background-color-checked: var(--color-yellow, blue);
+    --radio-border-color-default: var(--color-yellow, blue);
+    --radio-border-color-hover: var(--color-yellow, blue);
+    --radio-border-color-active: var(--color-yellow, blue);
+    --radio-border-color-checked: var(--color-yellow, blue);
+}
+
+.radio-wrapper.green {
+    --radio-symbol-color-default: transparent;
+    --radio-symbol-color-hover: transparent;
+    --radio-symbol-color-active: transparent;
+    --radio-symbol-color-checked: var(--color-white, blue);
+    --radio-background-color-default: transparent;
+    --radio-background-color-hover: transparent;
+    --radio-background-color-active: transparent;
+    --radio-background-color-checked: var(--color-green, blue);
+    --radio-border-color-default: var(--color-green, blue);
+    --radio-border-color-hover: var(--color-green, blue);
+    --radio-border-color-active: var(--color-green, blue);
+    --radio-border-color-checked: var(--color-green, blue);
+}
+
+.radio-wrapper.blue {
+    --radio-symbol-color-default: transparent;
+    --radio-symbol-color-hover: transparent;
+    --radio-symbol-color-active: transparent;
+    --radio-symbol-color-checked: var(--color-white, blue);
+    --radio-background-color-default: transparent;
+    --radio-background-color-hover: transparent;
+    --radio-background-color-active: transparent;
+    --radio-background-color-checked: var(--color-blue, blue);
+    --radio-border-color-default: var(--color-blue, blue);
+    --radio-border-color-hover: var(--color-blue, blue);
+    --radio-border-color-active: var(--color-blue, blue);
+    --radio-border-color-checked: var(--color-blue, blue);
+}
+
+.radio-wrapper.purple {
+    --radio-symbol-color-default: transparent;
+    --radio-symbol-color-hover: transparent;
+    --radio-symbol-color-active: transparent;
+    --radio-symbol-color-checked: var(--color-white, blue);
+    --radio-background-color-default: transparent;
+    --radio-background-color-hover: transparent;
+    --radio-background-color-active: transparent;
+    --radio-background-color-checked: var(--color-purple, blue);
+    --radio-border-color-default: var(--color-purple, blue);
+    --radio-border-color-hover: var(--color-purple, blue);
+    --radio-border-color-active: var(--color-purple, blue);
+    --radio-border-color-checked: var(--color-purple, blue);
+}
+
+.radio-wrapper.black {
+    --radio-symbol-color-default: transparent;
+    --radio-symbol-color-hover: transparent;
+    --radio-symbol-color-active: transparent;
+    --radio-symbol-color-checked: var(--color-white, blue);
+    --radio-background-color-default: transparent;
+    --radio-background-color-hover: transparent;
+    --radio-background-color-active: transparent;
+    --radio-background-color-checked: var(--color-black, blue);
+    --radio-border-color-default: var(--color-black, blue);
+    --radio-border-color-hover: var(--color-black, blue);
+    --radio-border-color-active: var(--color-black, blue);
+    --radio-border-color-checked: var(--color-black, blue);
+}

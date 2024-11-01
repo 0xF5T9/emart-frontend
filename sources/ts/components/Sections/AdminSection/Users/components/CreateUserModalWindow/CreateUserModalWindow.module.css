@@ -1,0 +1,262 @@
+.modal-window {
+    --select-text-color-default: var(--text-color, blue);
+    --select-text-color-hover: var(--text-color, blue);
+    --select-text-color-active: var(--text-color, blue);
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 16px;
+    width: 900px;
+    max-width: calc(100vw - 24px);
+    max-height: calc(100vh - 24px);
+    border-radius: 6px;
+    padding: 20px;
+    color: #333;
+    text-align: center;
+    background-color: #fff;
+    box-shadow:
+        rgba(0, 0, 0, 0.08) 0px 8px 16px 0px,
+        rgba(0, 0, 0, 0.06) 0px 4px 4px 0px,
+        rgba(0, 0, 0, 0.1) 0px 0px 2px 0px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    color: var(--text-color, blue);
+}
+
+.content-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.close-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    outline: 0;
+    border-radius: 50%;
+    color: #fff;
+    background-color: #b2b2b2;
+    cursor: pointer;
+    filter: brightness(1);
+    transition: all 0.15s ease;
+    will-change: background-color, filter;
+}
+
+.close-button:hover {
+    background-color: var(--color-primary, blue);
+}
+
+.close-button:active {
+    filter: brightness(0.8);
+}
+
+.close-button-icon {
+    font-size: 14px;
+}
+
+.user-image-wrapper {
+    position: relative;
+    flex-shrink: 1;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: start;
+    align-items: center;
+    row-gap: 16px;
+}
+
+.user-image {
+    flex-shrink: 1;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.upload-user-image-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 8px;
+    width: 100%;
+}
+
+.hidden-user-upload-input {
+    position: absolute;
+    visibility: collapse;
+}
+
+.user-update-form {
+    flex-shrink: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 12px;
+    width: 300px;
+    border-left: 1px solid #e5e5e5;
+    padding-left: 16px;
+    margin-left: 16px;
+    white-space: nowrap;
+}
+
+.form-group {
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 8px;
+}
+
+.label {
+    color: var(--modal-window-text-color, blue);
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+}
+
+.form-message {
+    color: red;
+    font-size: small;
+    text-align: left;
+}
+
+.form-message:empty {
+    display: none;
+}
+
+.submit {
+    /* text-transform: uppercase; */
+    align-self: end;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    column-gap: 8px;
+    min-width: 120px;
+    margin-top: 12px;
+}
+
+@media only screen and (width < 580px) {
+    .modal-window {
+        width: 100vw;
+        height: 100dvh;
+        max-width: unset;
+        max-height: unset;
+        border-radius: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .content-wrapper {
+        flex-flow: column nowrap;
+        row-gap: 24px;
+    }
+
+    .user-update-form {
+        border-left: 0;
+        padding-left: 0;
+        margin-left: 0;
+        width: auto;
+    }
+
+    .submit {
+        min-width: unset;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 579px) {
+    .modal-window {
+        width: 100vw;
+        height: 100dvh;
+        max-width: unset;
+        max-height: unset;
+        border-radius: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .content-wrapper {
+        flex-flow: column nowrap;
+        row-gap: 24px;
+    }
+
+    .user-update-form {
+        border-left: 0;
+        padding-left: 0;
+        margin-left: 0;
+        width: auto;
+    }
+
+    .submit {
+        min-width: unset;
+        width: 100%;
+    }
+}
+
+@media only screen and (height < 680px) {
+    .modal-window {
+        width: 100vw;
+        height: 100dvh;
+        max-width: unset;
+        max-height: unset;
+        border-radius: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .content-wrapper {
+        flex-flow: column nowrap;
+        row-gap: 24px;
+    }
+
+    .user-update-form {
+        border-left: 0;
+        padding-left: 0;
+        margin-left: 0;
+        width: auto;
+    }
+
+    .submit {
+        min-width: unset;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 679px) {
+    .modal-window {
+        width: 100vw;
+        height: 100dvh;
+        max-width: unset;
+        max-height: unset;
+        border-radius: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .content-wrapper {
+        flex-flow: column nowrap;
+        row-gap: 24px;
+    }
+
+    .user-update-form {
+        border-left: 0;
+        padding-left: 0;
+        margin-left: 0;
+        width: auto;
+    }
+
+    .submit {
+        min-width: unset;
+        width: 100%;
+    }
+}

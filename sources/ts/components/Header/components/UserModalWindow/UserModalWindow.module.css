@@ -1,0 +1,165 @@
+.modal-window {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 16px;
+    max-width: 380px;
+    padding: 25px 20px;
+    margin: 0px 12px;
+    border-radius: 6px;
+    color: var(--modal-window-text-color, blue);
+    text-align: center;
+    background-color: var(--modal-window-background-color, blue);
+    box-shadow:
+        rgba(0, 0, 0, 0.08) 0px 8px 16px 0px,
+        rgba(0, 0, 0, 0.06) 0px 4px 4px 0px,
+        rgba(0, 0, 0, 0.1) 0px 0px 2px 0px;
+}
+
+.title {
+    color: var(--modal-window-text-color, blue);
+    margin-bottom: -4px;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.subtitle {
+    color: var(--modal-window-text-dim-color, blue);
+    text-align: center;
+    font-size: 1rem;
+}
+
+.login-form {
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 12px;
+}
+
+.forgot-password-form {
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 12px;
+}
+
+.register-form {
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 12px;
+}
+
+.form-group {
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 8px;
+}
+
+.label {
+    color: var(--modal-window-text-color, blue);
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+}
+
+.input {
+    color: auto;
+}
+
+.form-message {
+    color: red;
+    font-size: small;
+    text-align: left;
+}
+
+.form-message:empty {
+    display: none;
+}
+
+.submit {
+    text-transform: uppercase;
+}
+
+.agreement-text {
+    color: auto;
+}
+
+.term-of-service-link {
+    color: var(--modal-window-text-highlight-color, blue);
+    text-decoration: none;
+}
+
+.term-of-service-link:hover {
+    text-decoration: underline;
+}
+
+.server-message {
+    color: var(--modal-window-text-highlight-color, blue);
+    text-align: center;
+}
+
+.server-message:empty {
+    display: none;
+}
+
+.change-form {
+    text-align: center;
+    font-size: 16px;
+    user-select: none;
+}
+
+.change-form-button {
+    color: var(--modal-window-text-highlight-color, blue);
+    cursor: pointer;
+}
+
+.hr {
+    position: relative;
+    width: 120px;
+    height: 1px;
+    margin: 0px auto 0px auto;
+    background: var(--modal-window-text-dim-color, blue);
+}
+
+.hr::after {
+    content: 'Hoặc';
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    display: block;
+    padding: 0px 10px;
+    transform: translate(-50%, -50%);
+    color: var(--modal-window-text-dim-color, blue);
+    background-color: var(--modal-window-background-color, blue);
+}
+
+.close-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    outline: 0;
+    border-radius: 50%;
+    color: #fff;
+    background-color: #b2b2b2;
+    cursor: pointer;
+    filter: brightness(1);
+    transition: all 0.15s ease;
+}
+
+.close-button:hover {
+    background-color: var(--color-primary, blue);
+}
+
+.close-button:active {
+    filter: brightness(0.8);
+}
+
+.close-button-icon {
+    font-size: 14px;
+}

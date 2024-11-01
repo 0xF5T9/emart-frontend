@@ -1,0 +1,285 @@
+.button {
+    position: relative;
+    padding: calc(var(--button-padding-top-bottom) + var(--button-border-width))
+        calc(var(--button-padding-left-right) + var(--button-border-width));
+    border: 0;
+    font-size: var(--button-font-size);
+    font-weight: var(--button-font-weight);
+    color: var(--button-text-color-default, blue);
+    text-shadow: var(--button-text-shadow, 0 0 4px 4px blue);
+    background: transparent;
+    overflow: visible;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+    z-index: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.button::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: var(--button-border-width) solid
+        var(--button-border-color-default, blue);
+    border-radius: var(--button-border-radius);
+    outline: 2px solid transparent;
+    text-align: center;
+
+    background: var(--button-background-color-default, blue);
+    box-shadow: var(--button-shadow, 0 0 4px 4px blue);
+    filter: var(--button-filter-default, brightness(1));
+    z-index: -1;
+    transition: all 0.15s;
+}
+
+.button:hover {
+    color: var(--button-text-color-hover, blue);
+}
+
+.button:hover::before {
+    border: var(--button-border-width) solid
+        var(--button-border-color-hover, blue);
+    background: var(--button-background-color-hover, blue);
+    filter: var(--button-filter-hover, brightness(1.15));
+}
+
+.button:active {
+    color: var(--button-text-color-active, blue);
+    transition: all 0.05s;
+}
+
+.button:active::before {
+    border: var(--button-border-width) solid
+        var(--button-border-color-active, blue);
+    background: var(--button-background-color-active, blue);
+    filter: var(--button-filter-active, brightness(0.8));
+    transition: all 0.05s;
+}
+
+.button:focus {
+    outline: 0;
+}
+
+.button:focus::before {
+    outline: 2px solid var(--button-focus-border-color, blue);
+}
+
+.button.small {
+    font-size: 0.8rem;
+}
+
+.button.large {
+    font-size: 1.2rem;
+}
+
+.button.loading {
+    color: transparent !important;
+    text-shadow: none !important;
+    user-select: none;
+}
+
+.loading-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 1em;
+    color: var(--button-text-color-default, blue);
+    transform: translate(-50%, -50%);
+}
+
+.button.success {
+    --button-text-color-default: rgba(255, 255, 255, 0.9);
+    --button-text-color-hover: rgba(255, 255, 255, 0.9);
+    --button-text-color-active: rgba(255, 255, 255, 0.9);
+
+    --button-background-color-default: linear-gradient(
+        0deg,
+        rgba(75, 196, 114, 1) 0%,
+        rgba(89, 235, 136, 1) 100%
+    );
+    --button-background-color-hover: var(
+        --button-background-color-default,
+        blue
+    );
+    --button-background-color-active: var(
+        --button-background-color-default,
+        blue
+    );
+    --button-border-color-default: transparent;
+    --button-border-color-hover: transparent;
+    --button-border-color-active: transparent;
+    --button-shadow: 0px 4px 8px rgba(81, 213, 124, 0.2);
+    --button-border-width: 0px;
+    --button-text-shadow: 0px 1px 4px rgba(31, 96, 52, 0.2);
+}
+
+.button.success:hover::before {
+    border: var(--button-border-width) solid
+        var(--button-border-color-hover, blue);
+    background: var(--button-background-color-hover, blue);
+    filter: brightness(1.1);
+}
+
+.button.success:active::before {
+    border: var(--button-border-width) solid
+        var(--button-border-color-active, blue);
+    background: var(--button-background-color-active, blue);
+    filter: brightness(0.8);
+    transition: all 0.05s;
+}
+
+.button.danger {
+    --button-text-color-default: rgba(255, 255, 255, 0.9);
+    --button-text-color-hover: rgba(255, 255, 255, 0.9);
+    --button-text-color-active: rgba(255, 255, 255, 0.9);
+
+    --button-background-color-default: linear-gradient(
+        0deg,
+        rgba(229, 64, 78, 1) 0%,
+        rgba(255, 71, 117, 1) 100%
+    );
+    --button-background-color-hover: var(
+        --button-background-color-default,
+        blue
+    );
+    --button-background-color-active: var(
+        --button-background-color-default,
+        blue
+    );
+    --button-border-color-default: transparent;
+    --button-border-color-hover: transparent;
+    --button-border-color-active: transparent;
+    --button-shadow: 0px 4px 8px rgba(229, 64, 78, 0.2);
+    --button-border-width: 0px;
+    --button-text-shadow: 0px 1px 4px rgba(112, 15, 23, 0.2);
+}
+
+.button.warn {
+    --button-text-color-default: rgba(255, 255, 255, 0.9);
+    --button-text-color-hover: rgba(255, 255, 255, 0.9);
+    --button-text-color-active: rgba(255, 255, 255, 0.9);
+    --button-background-color-default: linear-gradient(
+        0deg,
+        rgba(252, 155, 106, 1) 0%,
+        rgba(252, 178, 105, 1) 100%
+    );
+    --button-background-color-hover: var(
+        --button-background-color-default,
+        blue
+    );
+    --button-background-color-active: var(
+        --button-background-color-default,
+        blue
+    );
+    --button-border-color-default: transparent;
+    --button-border-color-hover: transparent;
+    --button-border-color-active: transparent;
+    --button-shadow: 0px 4px 8px rgba(252, 178, 105, 0.2);
+    --button-border-width: 0px;
+    --button-text-shadow: 0px 1px 4px rgba(125, 43, 3, 0.2);
+}
+
+.button.info {
+    --button-text-color-default: var(--color-white, blue);
+    --button-text-color-hover: var(--color-white, blue);
+    --button-text-color-active: var(--color-white, blue);
+    --button-background-color-default: linear-gradient(
+        0deg,
+        rgba(64, 162, 230, 1) 0%,
+        rgba(71, 208, 255, 1) 100%
+    );
+    --button-background-color-hover: var(
+        --button-background-color-default,
+        blue
+    );
+    --button-background-color-active: var(
+        --button-background-color-default,
+        blue
+    );
+    --button-border-color-default: transparent;
+    --button-border-color-hover: transparent;
+    --button-border-color-active: transparent;
+    --button-shadow: 0px 4px 8px rgba(64, 162, 230, 0.2);
+    --button-border-width: 0px;
+    --button-text-shadow: 0px 1px 4px rgba(15, 72, 113, 0.2);
+}
+
+.button.gray {
+    --button-text-color-default: rgba(255, 255, 255, 0.9);
+    --button-text-color-hover: rgba(255, 255, 255, 0.9);
+    --button-text-color-active: rgba(255, 255, 255, 0.9);
+    --button-background-color-default: linear-gradient(
+        0deg,
+        rgba(103, 115, 145, 1) 0%,
+        rgba(122, 140, 172, 1) 100%
+    );
+    --button-background-color-hover: var(
+        --button-background-color-default,
+        blue
+    );
+    --button-background-color-active: var(
+        --button-background-color-default,
+        blue
+    );
+    --button-border-color-default: transparent;
+    --button-border-color-hover: transparent;
+    --button-border-color-active: transparent;
+    --button-shadow: 0px 4px 8px rgba(122, 140, 172, 0.2);
+    --button-border-width: 0px;
+    --button-text-shadow: 0px 1px 4px rgba(53, 59, 75, 0.2);
+}
+
+.button.white {
+    --button-text-color-default: rgba(0, 0, 0, 0.75);
+    --button-text-color-hover: rgba(0, 0, 0, 0.75);
+    --button-text-color-active: rgba(0, 0, 0, 0.75);
+    --button-background-color-default: linear-gradient(
+        0deg,
+        #d4d4d2 0%,
+        #fcfcfa 100%
+    );
+    --button-background-color-hover: var(
+        --button-background-color-default,
+        blue
+    );
+    --button-background-color-active: var(
+        --button-background-color-default,
+        blue
+    );
+    --button-border-color-default: transparent;
+    --button-border-color-hover: transparent;
+    --button-border-color-active: transparent;
+    --button-shadow: 0px 4px 8px rgba(252, 252, 250, 0.1);
+    --button-border-width: 0px;
+    --button-text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.button:disabled {
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+a.button {
+    display: inline-block;
+    text-decoration: none;
+    line-height: normal;
+    user-select: none;
+}
+
+div.button {
+    display: inline-block;
+    line-height: normal;
+    user-select: none;
+}
+
+.button > i + * {
+    margin-left: 4px;
+}

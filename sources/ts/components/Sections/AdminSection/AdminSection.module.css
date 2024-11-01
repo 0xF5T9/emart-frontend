@@ -1,0 +1,266 @@
+.content-wrapper {
+    --admin-aside-toggle-button-color: var(--text-dim-color, blue);
+    --admin-aside-toggle-button-size: 25px;
+    --admin-aside-background-color: #fff;
+    --admin-aside-border-color: #e5e5e5;
+
+    --admin-aside-bottom-border-top-color: #e5e5e5;
+
+    --admin-aside-list-item-indicator-line-color: var(--color-primary, blue);
+    --admin-aside-list-item-text-color-default: var(--text-dim-color, blue);
+    --admin-aside-list-item-text-color-hover: var(--text-highlight-color, blue);
+    --admin-aside-list-item-text-color-active: var(
+        --text-highlight-color,
+        blue
+    );
+    --admin-aside-list-item-background-color-default: #fff;
+    --admin-aside-list-item-background-color-hover: var(
+        --background-highlight-color,
+        blue
+    );
+    --admin-aside-list-item-background-color-active: hsl(356, 52%, 98%);
+
+    flex-grow: 1;
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    height: 100%;
+}
+
+.aside {
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    width: 250px;
+    border-right: 1px solid var(--admin-aside-border-color, blue);
+    background-color: var(--admin-aside-background-color, blue);
+    transition: width 0.15s ease;
+}
+
+.aside.is-collapsed {
+    width: fit-content;
+    width: 57px;
+}
+
+.aside.is-collapsed .aside-toggle {
+    left: 0;
+    right: 0;
+    top: 12px;
+    margin: 0px auto;
+}
+
+.aside.is-collapsed .aside-logo {
+    width: 57px;
+    padding: 8px;
+}
+
+.aside.is-collapsed .aside-list-item-link {
+    padding: 12px 16px;
+}
+
+.aside.is-collapsed .aside-logo-wrapper {
+    row-gap: 0px;
+}
+
+.aside.is-collapsed .aside-logo-text {
+    width: 0px;
+}
+
+.aside.is-collapsed .aside-list-item-text {
+    display: none;
+}
+
+.aside-toggle {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--admin-aside-toggle-button-size, 25px);
+    height: var(--admin-aside-toggle-button-size, 25px);
+    font-size: var(--admin-aside-toggle-button-size, 25px);
+    color: var(--admin-aside-toggle-button-color, blue);
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.aside-toggle.is-collapsed {
+    opacity: 1;
+}
+
+.aside-top {
+    flex-grow: 1;
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 16px;
+}
+
+.aside-logo-wrapper {
+    flex-shrink: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    row-gap: 12px;
+    width: 100%;
+    margin-top: 80px;
+    transition: row-gap 0.15s ease;
+}
+
+.aside-main-wrapper {
+    flex-grow: 1;
+    width: 100%;
+    height: 0px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.aside-logo {
+    width: 100px;
+    transition: width 0.15s ease;
+}
+
+.aside-logo-text {
+    width: 100px;
+    transition: width 0.15s ease;
+}
+
+.aside-bottom {
+    flex-shrink: 0;
+    border-top: 1px solid var(--admin-aside-bottom-border-top-color, blue);
+    overflow: hidden;
+}
+
+.aside-bottom .aside-list-item:first-child {
+    margin-top: 4px;
+}
+
+.aside-bottom .aside-list-item:last-child {
+    margin-bottom: 4px;
+}
+
+.aside-item-list {
+    list-style-type: none;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.aside-list-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.aside-list-item-link {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    column-gap: 24px;
+    width: 100%;
+    padding: 8px 16px;
+    text-decoration: none;
+    background-color: var(
+        --admin-aside-list-item-background-color-default,
+        blue
+    );
+}
+
+.aside-list-item-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    width: 4px;
+    height: 100%;
+    background: var(--admin-aside-list-item-indicator-line-color);
+}
+
+.aside-list-item-link:hover {
+    background-color: var(--admin-aside-list-item-background-color-hover, blue);
+}
+
+.aside-list-item-link:hover .aside-list-item-icon,
+.aside-list-item-link:hover .aside-list-item-text {
+    color: var(--admin-aside-list-item-text-color-hover, blue);
+}
+
+.aside-list-item-link.is-active {
+    background-color: var(
+        --admin-aside-list-item-background-color-active,
+        blue
+    );
+}
+
+.aside-list-item-link.is-active .aside-list-item-icon,
+.aside-list-item-link.is-active .aside-list-item-text {
+    color: var(--admin-aside-list-item-text-color-active, blue);
+}
+
+.aside-list-item-link.is-active::before {
+    display: block;
+}
+
+.aside-list-item-icon {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    font-size: 25px;
+    color: var(--admin-aside-list-item-text-color-default, blue);
+}
+
+.aside-list-item-text {
+    font-size: 16px;
+    white-space: nowrap;
+    color: var(--admin-aside-list-item-text-color-default, blue);
+}
+
+.content {
+    flex-grow: 1;
+    min-width: 300px;
+    max-height: 100dvh;
+    overflow: hidden;
+}
+
+@media only screen and (width < 769px) {
+    .aside-logo-wrapper {
+        margin-top: calc(
+            12px + var(--admin-aside-toggle-button-size, 0px) + 12px
+        );
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .aside-logo-wrapper {
+        margin-top: calc(
+            12px + var(--admin-aside-toggle-button-size, 0px) + 12px
+        );
+    }
+}
+
+@media only screen and (height < 500px) {
+    .aside-logo-wrapper {
+        margin-top: calc(
+            12px + var(--admin-aside-toggle-button-size, 0px) + 12px
+        );
+    }
+}
+
+@media only screen and (max-height: 499px) {
+    .aside-logo-wrapper {
+        margin-top: calc(
+            12px + var(--admin-aside-toggle-button-size, 0px) + 12px
+        );
+    }
+}

@@ -1,0 +1,24 @@
+* + .link {
+    margin-left: 12px;
+}
+
+.link {
+    height: 50px;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.link:focus {
+    outline: 0;
+}
+
+.logo {
+    width: auto;
+    height: 100%;
+    filter: brightness(1);
+    transition: all 0.1s;
+}
+
+.logo:hover {
+    filter: brightness(1.2);
+}

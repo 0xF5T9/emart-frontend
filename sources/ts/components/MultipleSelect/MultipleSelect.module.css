@@ -1,0 +1,179 @@
+@keyframes transition-in {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.select {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: var(--multiple-select-padding-top-bottom)
+        calc(var(--multiple-select-padding-left-right) * 2 + 1rem)
+        var(--multiple-select-padding-top-bottom)
+        var(--multiple-select-padding-left-right);
+    border: var(--multiple-select-border-width) solid
+        var(--multiple-select-border-color-default, blue);
+    border-radius: var(--multiple-select-border-radius);
+    outline: 0;
+    font-size: 1rem;
+    white-space: nowrap;
+    color: var(--multiple-select-text-color-default, blue);
+    background-color: var(--multiple-select-background-color-default, blue);
+    transition: all 0.15s ease;
+    z-index: 99;
+}
+
+.select.small,
+.select.small .select-list-item {
+    font-size: 0.8rem;
+}
+
+.select.large,
+.select.large .select-list-item {
+    font-size: 1.2rem;
+}
+
+.select:hover {
+    border: var(--multiple-select-border-width) solid
+        var(--multiple-select-border-color-hover, blue);
+    color: var(--multiple-select-text-color-hover, blue);
+    background-color: var(--multiple-select-background-color-hover, blue);
+}
+
+.select:hover .arrow {
+    color: var(--multiple-select-arrow-color-hover, blue);
+}
+
+.select:focus {
+    border: var(--multiple-select-border-width) solid
+        var(--multiple-select-border-color-focus, blue);
+    color: var(--multiple-select-text-color-focus, blue);
+    background-color: var(--multiple-select-background-color-focus, blue);
+}
+
+.select:focus .arrow {
+    color: var(--multiple-select-arrow-color-focus, blue);
+}
+
+/* .select:focus .select-item-list-wrapper, */
+.select.is-open .select-item-list-wrapper {
+    display: block;
+}
+
+.select.disabled {
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+.selected-items {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 8px;
+    line-height: normal;
+    cursor: default;
+    user-select: none;
+}
+
+.selected-items.is-empty {
+    opacity: 0;
+    user-select: none;
+    padding: 4px 0px;
+}
+
+.selected-item {
+    padding: 4px 12px;
+    border-radius: 99px;
+    color: #fff;
+    background-color: var(--color-primary, blue);
+    animation: transition-in 0.15s forwards;
+    animation-timing-function: ease;
+}
+
+.arrow {
+    position: absolute;
+    right: var(--multiple-select-padding-left-right);
+    width: 1rem;
+    font-size: 1rem;
+    color: var(--multiple-select-arrow-color-default, blue);
+    transition: all 0.15s ease;
+}
+
+.select-item-list-wrapper {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    display: none;
+    width: 100%;
+    max-height: var(--multiple-select-item-list-wrapper-max-height);
+    padding: var(--multiple-select-item-list-wrapper-padding);
+    border: var(--multiple-select-item-list-wrapper-border-width, blue) solid
+        var(--multiple-select-item-list-wrapper-border-color, blue);
+    border-radius: var(--multiple-select-item-list-wrapper-border-radius, blue);
+    background-color: var(
+        --multiple-select-item-list-wrapper-background-color,
+        blue
+    );
+    overflow-y: auto;
+}
+
+.select-item-list {
+    list-style-type: none;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 4px;
+}
+
+.select-list-item {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    padding: var(--multiple-select-list-item-padding-top-bottom)
+        var(--multiple-select-list-item-padding-left-right);
+    border-radius: var(--multiple-select-list-item-border-radius);
+    color: var(--multiple-select-list-item-text-color-default, blue);
+    background-color: var(
+        --multiple-select-list-item-background-color-default,
+        blue
+    );
+    font-size: 1rem;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s ease;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.select-list-item:hover {
+    color: var(--multiple-select-list-item-text-color-hover, blue);
+    background-color: var(
+        --multiple-select-list-item-background-color-hover,
+        blue
+    );
+}
+
+.select-list-item:active {
+    color: var(--multiple-select-list-item-text-color-active, blue);
+    background-color: var(
+        --multiple-select-list-item-background-color-active,
+        blue
+    );
+}
+
+.select-list-item.is-selected {
+    color: var(--multiple-select-list-item-text-color-selected, blue);
+    background-color: var(
+        --multiple-select-list-item-background-color-selected,
+        blue
+    );
+}
+
+.select-item-list-empty-text {
+    color: var(--multiple-select-item-list-empty-text-color, blue);
+}

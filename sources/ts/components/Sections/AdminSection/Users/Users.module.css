@@ -1,0 +1,304 @@
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.content-wrapper {
+    --select-text-color-default: var(--text-color, blue);
+    --select-background-color-default: #f0f0f0;
+    --select-border-color-default: #f0f0f0;
+    --select-text-color-hover: var(--text-color, blue);
+    --select-background-color-hover: #f0f0f0;
+    --select-border-color-hover: #f0f0f0;
+    --input-background-color-default: #f0f0f0;
+    --input-background-color-hover: #f0f0f0;
+    --input-background-color-active: #f0f0f0;
+    --input-background-color-focus: #f0f0f0;
+    --input-border-color-default: #f0f0f0;
+    --input-border-color-hover: #f0f0f0;
+    --input-border-color-active: #f0f0f0;
+    --input-border-color-focus: #f0f0f0;
+    --input-background-filter-hover: initial;
+    --input-background-filter-active: initial;
+    --input-background-filter-focus: initial;
+
+    --content-padding: 20px;
+
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 16px;
+    height: 100%;
+}
+
+.title {
+    margin: var(--content-padding, 0px) var(--content-padding, 0px) 0px
+        var(--content-padding, 0px);
+    font-size: 20px;
+    color: var(--text-color, blue);
+    font-weight: 700;
+}
+
+.controls-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: end;
+    align-items: center;
+    column-gap: 16px;
+    row-gap: 16px;
+    margin: 0px var(--content-padding, 0px);
+}
+
+.controls-inputs {
+    flex-grow: 1;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    column-gap: 16px;
+}
+
+.search-input {
+    width: 100%;
+}
+
+.controls-buttons {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    column-gap: 16px;
+}
+
+.control-button {
+    display: flex;
+    flex-flow: row nowrap;
+    column-gap: 4px;
+    justify-content: center;
+    align-items: center;
+}
+
+.users-count {
+    padding: 0px var(--content-padding, 0px);
+    font-weight: 600;
+    font-size: 15px;
+    text-align: right;
+}
+
+.users-wrapper {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    padding: 0px var(--content-padding, 0px);
+    background-color: transparent;
+    overflow-y: auto;
+}
+
+.table-wrapper {
+    display: flex;
+    max-height: 100%;
+    overflow-x: auto;
+    border-radius: 6px;
+    contain: paint;
+    animation: fade-in 0.3s forwards;
+    animation-timing-function: ease;
+}
+
+.table-wrapper::-webkit-scrollbar {
+    height: 4px;
+}
+
+.table {
+    position: relative;
+    width: 100%;
+    border: 0;
+    border-radius: 6px;
+    overflow-y: auto;
+}
+
+.table-head {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 2;
+    background-color: #f0f0f0;
+    border-radius: 6px;
+}
+
+.table-head th {
+    border: 0;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.table-body tr {
+    background-color: #fff;
+}
+
+.table-body tr:nth-child(even) {
+    background-color: hsl(0, 0%, 99%);
+}
+
+.table-body td {
+    border: 0;
+    white-space: nowrap;
+}
+
+.user-item-row {
+    position: relative;
+}
+
+.table-field-id {
+    text-align: left;
+    padding-left: 14px;
+}
+
+.table-field-id-link {
+    color: var(--text-color, blue);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.table-field-id-link:hover {
+    color: var(--text-highlight-color, blue);
+    text-decoration: underline;
+}
+
+.table-field-number {
+    text-align: right;
+}
+
+.table-field-action {
+    display: flex;
+    flex-flow: row nowrap;
+    column-gap: 8px;
+    align-items: center;
+}
+
+.update-user-button {
+    --button-background-color-default: #e5e5e5;
+    --button-background-color-hover: #e5e5e5;
+    --button-background-color-active: #e5e5e5;
+    --button-text-color-default: var(--text-high-contrast-color, blue);
+    --button-text-color-hover: var(--text-high-contrast-color, blue);
+    --button-text-color-active: var(--text-high-contrast-color, blue);
+    --button-filter-default: brightness(1);
+    --button-filter-hover: brightness(0.9);
+    --button-filter-active: brightness(0.8);
+    --button-shadow: 0px 4px 8px rgba(229, 229, 229, 0.5);
+    --button-text-shadow: none;
+    --button-focus-border-color: lightblue;
+}
+
+.status-wrapper {
+    align-self: center;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    row-gap: 32px;
+    margin-top: 48px;
+}
+
+.status-text {
+    font-size: 25px;
+    text-align: center;
+    color: var(--text-color, blue);
+}
+
+.status-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    color: var(--text-dim-color, blue);
+}
+
+.status-loading-icon {
+    width: 60px;
+    color: var(--color-primary, blue);
+}
+
+.pagination-button-list {
+    display: flex;
+    flex-flow: row nowrap;
+    column-gap: 12px;
+    justify-content: center;
+    padding: 0px var(--content-padding) var(--content-padding)
+        var(--content-padding);
+    user-select: none;
+}
+
+.pagination-button-list:empty {
+    display: none;
+}
+
+.pagination-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #000;
+    border-radius: 50%;
+    color: #000;
+    font-size: 15px;
+    text-align: center;
+    background-color: #ffffff00;
+    cursor: pointer;
+    filter: brightness(1);
+    transition: all 0.15s ease;
+    will-change: border, color, background-color, filter;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pagination-button:hover {
+    border: 2px solid var(--color-primary, blue);
+    color: var(--color-white);
+    background-color: var(--color-primary, blue);
+    filter: brightness(1.2);
+}
+
+.pagination-button:active {
+    filter: brightness(0.8);
+}
+
+.pagination-button.current {
+    border: 2px solid var(--color-primary, blue);
+    color: var(--color-white);
+    background-color: var(--color-primary, blue);
+}
+
+@media only screen and (width < 500px) {
+    .controls-inputs {
+        flex-flow: column nowrap;
+        row-gap: 8px;
+        width: 100%;
+    }
+    .controls-buttons {
+        column-gap: 8px;
+    }
+    .control-button {
+        width: 40px !important;
+    }
+    .control-button span {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 499px) {
+    .controls-inputs {
+        flex-flow: column nowrap;
+        row-gap: 8px;
+        width: 100%;
+    }
+    .controls-buttons {
+        column-gap: 8px;
+    }
+    .control-button {
+        width: 40px !important;
+    }
+    .control-button span {
+        display: none;
+    }
+}

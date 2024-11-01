@@ -1,0 +1,24 @@
+.background {
+    position: fixed;
+    width: 100vw;
+    height: var(--100vh);
+    background-image: var(--general-body-background-gradient-color),
+        var(--general-body-background-image-url);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    z-index: -1;
+}
+
+.background::before {
+    content: '';
+    display: block;
+    width: 100vw;
+    height: var(--100vh);
+    background-color: rgba(0, 0, 0, 0);
+    -webkit-backdrop-filter: var(
+        --general-body-background-backdrop-filter,
+        none
+    );
+    backdrop-filter: var(--general-body-background-backdrop-filter, none);
+}

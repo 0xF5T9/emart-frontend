@@ -1,0 +1,224 @@
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+:global(#settings-card) {
+    scroll-margin-top: calc(var(--header-height) + 16px);
+    scroll-margin-bottom: 16px;
+}
+
+.content-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 16px;
+    width: 100%;
+    max-width: var(--content-max-width);
+    padding: 12px;
+    overflow: hidden;
+}
+
+.settings-card {
+    display: flex;
+    flex-flow: column nowrap;
+    flex-shrink: 0;
+    width: 250px;
+    height: fit-content;
+    border: 1px solid var(--card-border-color, blue);
+    border-radius: var(--card-border-radius, 6px);
+    color: var(--card-text-color, blue);
+    background-color: var(--card-background-color, blue);
+    box-shadow: var(--card-box-shadow, 0px 4px 4px blue);
+}
+
+.settings-list {
+    list-style-type: none;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.settings-item {
+    position: relative;
+    padding: 12px;
+    border-bottom: 1px solid var(--card-border-color, blue);
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.settings-item.is-selected .settings-item-icon {
+    color: var(--color-primary, blue);
+}
+
+.settings-item.is-selected .settings-item-text {
+    color: var(--color-primary, blue);
+}
+
+.settings-item.is-dangerous .settings-item-icon {
+    color: red;
+}
+
+.settings-item.is-dangerous .settings-item-text {
+    color: red;
+}
+
+.settings-item:last-child {
+    border-bottom: 0;
+}
+
+.settings-item-link {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    column-gap: 16px;
+}
+
+.settings-item-icon {
+    --icon-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--icon-size, 0px);
+    height: var(--icon-size, 0px);
+    font-size: var(--icon-size, 0px);
+    color: var(--text-high-contrast-color, blue);
+}
+
+.settings-item-text {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-high-contrast-color, blue);
+}
+
+.card {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    border: 1px solid var(--card-border-color, blue);
+    border-radius: var(--card-border-radius, 6px);
+    color: var(--card-text-color, blue);
+    background-color: var(--card-background-color, blue);
+    box-shadow: var(--card-box-shadow, 0px 4px 4px blue);
+}
+
+.card-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--card-border-color, blue);
+}
+
+.card-header-title {
+    position: relative;
+    padding-left: 12px;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--card-text-high-contrast-color, blue);
+}
+
+.card-header-title::before {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    content: '';
+    width: 4px;
+    height: 17px;
+    background-color: var(--color-primary, blue);
+}
+
+.card-body {
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 16px;
+    padding: 20px;
+}
+
+.card-desc {
+    color: var(--card-text-color, blue);
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--card-border-color, blue);
+}
+
+.form {
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 12px;
+}
+
+.label {
+    color: var(--card-text-color, blue);
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.input {
+    color: auto;
+}
+
+.form-message {
+    color: red;
+    font-size: small;
+    text-align: left;
+}
+
+.form-message:empty {
+    display: none;
+}
+
+.submit-wrapper {
+    align-self: end;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    column-gap: 12px;
+}
+
+.submit {
+    margin-top: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 8px;
+    width: fit-content;
+    align-self: end;
+    text-transform: uppercase;
+    user-select: none;
+}
+
+@media only screen and (width < 700px) {
+    .content-wrapper {
+        flex-flow: column nowrap;
+    }
+    .settings-card {
+        width: 100%;
+    }
+    .submit {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 699px) {
+    .content-wrapper {
+        flex-flow: column nowrap;
+    }
+    .settings-card {
+        width: 100%;
+    }
+    .submit {
+        width: 100%;
+    }
+}

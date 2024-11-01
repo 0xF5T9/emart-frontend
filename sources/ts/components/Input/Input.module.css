@@ -1,0 +1,208 @@
+.input-wrapper {
+    position: relative;
+    display: inline-block;
+    font-size: 1rem;
+}
+
+.input-wrapper .icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1em;
+    width: 1em;
+    height: 1em;
+    cursor: pointer;
+    z-index: 1;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.icon:hover ~ .input {
+    border-color: var(--input-border-color-hover, blue);
+}
+
+.input-wrapper::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--input-border-width) / 2);
+    top: calc(var(--input-border-width) / 2);
+    display: block;
+    width: calc(100% - var(--input-border-width));
+    height: calc(100% - var(--input-border-width));
+    border-radius: var(--input-border-radius);
+    background-color: var(--input-background-color-default, blue);
+    filter: var(--input-background-filter-default);
+    transition: all 0.15s;
+}
+
+.input-wrapper:hover::before {
+    background-color: var(--input-background-color-hover, blue);
+    filter: var(--input-background-filter-hover);
+}
+
+.input-wrapper:active::before {
+    background-color: var(--input-background-color-active, blue);
+    filter: var(--input-background-filter-active);
+}
+
+.input-wrapper:focus-within::before {
+    background-color: var(--input-background-color-focus, blue);
+    filter: var(--input-background-filter-focus);
+}
+
+.input-wrapper > .input {
+    display: block;
+    width: 100%;
+    padding: var(--input-padding-top-bottom) var(--input-padding-left-right);
+    border: var(--input-border-width) solid var(--input-border-color-default);
+    border-radius: var(--input-border-radius);
+    outline: none;
+    color: var(--input-text-color-default, blue);
+    background-color: transparent;
+    font-size: 1em;
+    filter: brightness(1);
+    z-index: 0;
+    transition: all 0.15s;
+}
+
+.input-wrapper > .input:hover {
+    color: var(--input-text-color-hover, blue);
+    border: var(--input-border-width) solid
+        var(--input-border-color-hover, blue);
+}
+
+.input-wrapper > .input:active {
+    color: var(--input-text-color-active, blue);
+    border: var(--input-border-width) solid
+        var(--input-border-color-active, blue);
+}
+
+.input-wrapper > .input:focus {
+    color: var(--input-text-color-focus, blue);
+    border: var(--input-border-width) solid
+        var(--input-border-color-focus, blue);
+}
+
+.input::placeholder {
+    color: var(--input-placeholder-text-color, blue);
+}
+
+.input-wrapper.disabled {
+    opacity: 0.65;
+}
+
+input[type='number'].input {
+    appearance: textfield;
+}
+input[type='number'].input *::-webkit-outer-spin-button,
+input[type='number'].input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-wrapper:has(*:disabled) {
+    pointer-events: none;
+}
+
+/* Modifier classes */
+
+.input-wrapper.icon-left .icon {
+    right: initial;
+    left: calc(var(--input-border-width) + var(--input-padding-left-right));
+}
+
+.input-wrapper.icon-left > .input {
+    padding: var(--input-padding-top-bottom) var(--input-padding-left-right)
+        var(--input-padding-top-bottom)
+        calc(var(--input-padding-left-right) * 2 + 1em);
+}
+
+.input-wrapper.icon-right .icon {
+    left: initial;
+    right: calc(var(--input-border-width) + var(--input-padding-left-right));
+}
+
+.input-wrapper.icon-right > .input {
+    padding: var(--input-padding-top-bottom)
+        calc(var(--input-padding-left-right) * 2 + 1em)
+        var(--input-padding-top-bottom) var(--input-padding-left-right);
+}
+
+.input-wrapper.icon-left .icon,
+.input-wrapper.icon-right .icon {
+    color: var(--input-icon-color-default, blue);
+    transition: all 0.15s;
+}
+.input-wrapper.icon-left:focus-within .icon,
+.input-wrapper.icon-right:focus-within .icon {
+    color: var(--input-icon-color-focus, blue);
+}
+
+.input-wrapper.small {
+    font-size: 0.8rem;
+}
+
+.input-wrapper.large {
+    font-size: 1.2rem;
+}
+
+.input-wrapper.transparent {
+    --input-background-color-default: transparent;
+    --input-background-color-hover: transparent;
+    --input-background-color-active: transparent;
+    --input-background-color-focus: transparent;
+}
+
+.input-wrapper.transparent::before {
+    content: '';
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    display: block;
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    border-radius: calc(var(--input-border-radius) - 1px);
+    background-color: rgba(255, 255, 255, 0);
+    transition: all 0.15s;
+}
+
+.input-wrapper.transparent:hover::before {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.input-wrapper.transparent:active::before {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.input-wrapper.transparent:focus-within::before {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Color modifier classes */
+
+.input-wrapper.red {
+    --input-border-color-focus: var(--color-red, blue);
+}
+
+.input-wrapper.orange {
+    --input-border-color-focus: var(--color-orange, blue);
+}
+
+.input-wrapper.yellow {
+    --input-border-color-focus: var(--color-yellow, blue);
+}
+
+.input-wrapper.green {
+    --input-border-color-focus: var(--color-green, blue);
+}
+
+.input-wrapper.blue {
+    --input-border-color-focus: var(--color-blue, blue);
+}
+
+.input-wrapper.purple {
+    --input-border-color-focus: var(--color-purple, blue);
+}
+
+.input-wrapper.black {
+    --input-border-color-focus: var(--color-black, blue);
+}

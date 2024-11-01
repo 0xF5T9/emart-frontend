@@ -1,0 +1,517 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    background-color: transparent;
+    box-shadow: 0px 0px 4px 2px var(--header-shadow-color, blue);
+    overflow: visible;
+    z-index: 100;
+}
+
+/**
+ * Move background to pseudo class element as backdrop filter won't work if nested.
+ * https://stackoverflow.com/questions/60997948/backdrop-filter-not-working-for-nested-elements-in-chrome
+ */
+.header::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: var(--header-background-color, blue);
+    -webkit-backdrop-filter: var(--header-backdrop-filter, none);
+    backdrop-filter: var(--header-backdrop-filter, none);
+    z-index: -1;
+}
+
+.header-content-announcement {
+    display: flex;
+    flex-flow: column nowrap;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: var(--header-announcement-text-color, blue);
+    background-color: var(--header-announcement-background-color, blue);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.header-content-announcement-content-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: var(--content-max-width);
+    padding: 12px 11px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.announcement-text {
+    font-weight: 500;
+    text-align: center;
+}
+
+.announcement-text > i {
+    margin-right: 8px;
+}
+
+.header-content-main {
+    display: flex;
+    flex-flow: column nowrap;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid var(--header-separator-color, blue);
+}
+
+.header-content-main-content-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: var(--content-max-width);
+    padding: 8px 12px;
+}
+
+.header-content-main-left-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: inherit;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.header-content-main-middle-content {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: inherit;
+}
+
+.header-content-main-right-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: inherit;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.header-items {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    column-gap: 16px;
+    margin-left: 90px;
+}
+
+.header-item {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    column-gap: 12px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.header-item-icon {
+    flex-shrink: 0;
+    color: var(--color-primary, blue);
+    height: 24.8px;
+    font-size: 24.8px;
+}
+
+.header-item-user-avatar {
+    flex-shrink: 0;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.header-item-text-top,
+.header-item-text-bottom {
+    color: var(--text-high-contrast-color, blue);
+    transition: color 0.1s ease;
+}
+
+.header-item:hover .header-item-text-top {
+    color: var(--text-highlight-color, blue);
+}
+
+:global(#header-item-user):global(.is-open) .header-item-text-top {
+    color: var(--text-highlight-color, blue);
+}
+
+.hide-mobile-search-input {
+    display: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.basket-icon {
+    position: relative;
+}
+
+.basket-icon::after {
+    position: absolute;
+    content: '0';
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    padding: 6px;
+    color: #fff;
+    font-size: 10px;
+    background-color: var(--color-primary, blue);
+    text-align: center;
+    left: 20px;
+    top: -15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-item-search {
+    display: none;
+}
+
+.product-search-input-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    margin-left: 76px;
+}
+
+.product-search-input-icon {
+    position: absolute;
+    left: 15px;
+    top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.product-search-input-icon.is-searching {
+    --fa-animation-duration: 0.7s;
+    color: var(--color-primary, blue);
+}
+
+.product-search-input-button {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 4px;
+    width: 100px;
+    height: 30px;
+    border: 0;
+    border-radius: 99px;
+    outline: 0;
+    padding: 5px 15px;
+    color: var(--color-white);
+    font-size: 14px;
+    background-color: var(--color-primary, blue);
+    cursor: pointer;
+    filter: brightness(1);
+    transform: translateY(-50%);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.product-search-input-button:hover {
+    filter: brightness(1.1);
+}
+
+.product-search-input-button:active {
+    filter: brightness(0.9);
+}
+
+.product-search-input {
+    width: 100%;
+    height: 40px;
+    padding: 10px 100px 10px calc(15px + 20px + 15px);
+    outline: 0;
+    border: 0;
+    border-radius: 99px;
+    background-color: var(--header-product-search-input-background-color, blue);
+}
+
+.product-search-input::placeholder {
+    color: var(--header-product-search-input-placeholder-text-color, blue);
+}
+
+.header-content-product-category {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    max-width: var(--content-max-width);
+    height: 49px;
+    background-color: transparent;
+    overflow: hidden;
+}
+
+.navbar-left-arrow {
+    position: absolute;
+    left: calc(12px + 7.5px);
+    display: none;
+    padding: 4px;
+    color: var(--color-primary);
+    box-shadow: 0px 0px 16px 8px var(--header-background-color, blue);
+    cursor: pointer;
+    z-index: 1;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.navbar-right-arrow {
+    position: absolute;
+    right: calc(12px + 7.5px);
+    display: none;
+    padding: 4px;
+    color: var(--color-primary);
+    box-shadow: 0px 0px 16px 8px var(--header-background-color, blue);
+    cursor: pointer;
+    z-index: 1;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.user-context-menu > ul {
+    min-width: 138.65px;
+}
+
+@media only screen and (width < 1024px) {
+    .navbar-left-arrow,
+    .navbar-right-arrow {
+        display: inline;
+    }
+    .header-content-product-category {
+        padding: 0px 36px;
+    }
+}
+@media only screen and (max-width: 1023px) {
+    .navbar-left-arrow,
+    .navbar-right-arrow {
+        display: inline;
+    }
+    .header-content-product-category {
+        padding: 0px 36px;
+    }
+}
+
+@media only screen and (width < 902px) {
+    .header-item-text {
+        display: none;
+    }
+    .basket-icon {
+        margin-right: 9px;
+    }
+    .header-item-user > div {
+        display: none !important;
+    }
+    .header-items {
+        column-gap: 32px;
+    }
+}
+@media only screen and (max-width: 901px) {
+    .header-item-text {
+        display: none;
+    }
+    .basket-icon {
+        margin-right: 9px;
+    }
+    .header-item-user > div {
+        display: none !important;
+    }
+    .header-items {
+        column-gap: 32px;
+    }
+}
+
+@media only screen and (width < 369px) {
+    .header-items {
+        margin-left: 0 !important;
+    }
+}
+@media only screen and (max-width: 368px) {
+    .header-items {
+        margin-left: 0 !important;
+    }
+}
+
+@media only screen and (width < 751px) {
+    .product-search-input-wrapper {
+        margin-left: 36px;
+    }
+    .header-items {
+        margin-left: 50px;
+    }
+}
+@media only screen and (max-width: 750px) {
+    .product-search-input-wrapper {
+        margin-left: 36px;
+    }
+    .header-items {
+        margin-left: 50px;
+    }
+}
+
+@media only screen and (width < 627px) {
+    .product-search-input-wrapper {
+        display: none;
+    }
+    .header-item-search {
+        display: flex;
+    }
+    .header-content-main-content-wrapper.show-mobile-search-input
+        :global(#brand-logo),
+    .header-content-main-content-wrapper.show-mobile-search-input .header-item {
+        pointer-events: none;
+        opacity: 0;
+    }
+    .header-content-main-content-wrapper.show-mobile-search-input
+        .product-search-input-wrapper {
+        position: absolute;
+        left: 12px;
+        display: block;
+        width: 320px;
+        margin: 0;
+    }
+    .header-content-main-content-wrapper.show-mobile-search-input
+        .hide-mobile-search-input {
+        position: absolute;
+        right: 12px;
+        display: block;
+        font-size: 25px;
+        color: var(--color-primary, blue);
+        cursor: pointer;
+        filter: brightness(1);
+        transition: filter 0.15s ease;
+    }
+    .header-content-main-content-wrapper.show-mobile-search-input
+        .hide-mobile-search-input:hover {
+        filter: brightness(1.2);
+    }
+    .header-content-main-content-wrapper.show-mobile-search-input
+        .hide-mobile-search-input:active {
+        filter: brightness(0.8);
+    }
+}
+@media only screen and (max-width: 626px) {
+    .product-search-input-wrapper {
+        display: none;
+    }
+    .header-item-search {
+        display: flex;
+    }
+    .header-content-main-content-wrapper.show-mobile-search-input
+        :global(#brand-logo),
+    .header-content-main-content-wrapper.show-mobile-search-input .header-item {
+        pointer-events: none;
+        opacity: 0;
+    }
+    .header-content-main-content-wrapper.show-mobile-search-input
+        .product-search-input-wrapper {
+        position: absolute;
+        left: 12px;
+        display: block;
+        width: 320px;
+        margin: 0;
+    }
+    .header-content-main-content-wrapper.show-mobile-search-input
+        .hide-mobile-search-input {
+        position: absolute;
+        right: 12px;
+        display: block;
+        font-size: 25px;
+        color: var(--color-primary, blue);
+        cursor: pointer;
+        filter: brightness(1);
+        transition: filter 0.15s ease;
+    }
+    .header-content-main-content-wrapper.show-mobile-search-input
+        .hide-mobile-search-input:hover {
+        filter: brightness(1.2);
+    }
+    .header-content-main-content-wrapper.show-mobile-search-input
+        .hide-mobile-search-input:active {
+        filter: brightness(0.8);
+    }
+}
+
+@media only screen and (width < 390px) {
+    .header-content-main-content-wrapper.show-mobile-search-input
+        .product-search-input-wrapper {
+        width: 290px;
+    }
+}
+@media only screen and (max-width: 389px) {
+    .header-content-main-content-wrapper.show-mobile-search-input
+        .product-search-input-wrapper {
+        width: 290px;
+    }
+}
+
+@media only screen and (width < 260px) {
+    .header {
+        height: 100%;
+    }
+    .header div {
+        display: none;
+    }
+    .header::before {
+        -webkit-backdrop-filter: blur(28.5px);
+        backdrop-filter: blur(28.5px);
+    }
+    .header::after {
+        display: block;
+        content: 'Kích thước màn hình thiết bị của bạn không được hỗ trợ.';
+        font-size: 0.8rem;
+        text-align: center;
+    }
+}
+@media only screen and (max-width: 259px) {
+    .header {
+        height: 100%;
+    }
+    .header div {
+        display: none;
+    }
+    .header::before {
+        -webkit-backdrop-filter: blur(28.5px);
+        backdrop-filter: blur(28.5px);
+    }
+    .header::after {
+        display: block;
+        content: 'Kích thước màn hình thiết bị của bạn không được hỗ trợ.';
+        font-size: 0.8rem;
+        text-align: center;
+    }
+}

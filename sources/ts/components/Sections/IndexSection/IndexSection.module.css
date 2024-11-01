@@ -1,0 +1,4 @@
+:global(#products-section) {
+    scroll-margin: var(--header-height);
+    scroll-padding: 1000px;
+}

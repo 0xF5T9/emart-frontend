@@ -1,0 +1,43 @@
+@keyframes popup-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popup-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.popup-window {
+    padding: var(--popup-window-padding);
+    border: var(--popup-window-border-width) solid
+        var(--popup-window-border-color, blue);
+    border-radius: var(--popup-window-border-radius);
+    font-size: 1rem;
+    color: var(--popup-window-text-color, blue);
+    background-color: var(--popup-window-background-color, blue);
+    box-shadow: var(--popup-window-box-shadow, 0 0 4px 4px blue);
+}
+
+.popup-window:empty:before {
+    content: 'This drop-down window is empty.';
+    font-size: small;
+}
+
+.popup-window.animation-in {
+    animation: popup-in 0.1s linear forwards;
+}
+
+.popup-window.animation-out {
+    animation: popup-out 0.1s linear forwards;
+}

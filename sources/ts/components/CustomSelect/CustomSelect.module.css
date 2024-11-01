@@ -1,0 +1,133 @@
+.popup-wrapper {
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+}
+
+.select {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: var(--select-padding-top-bottom)
+        var(--select-padding-left-right, blue);
+    border: var(--select-border-width) solid
+        var(--select-border-color-default, blue);
+    border-radius: var(--select-border-radius);
+    outline: 0;
+    font-size: 1rem;
+    white-space: nowrap;
+    color: var(--select-text-color-default, blue);
+    background-color: var(--select-background-color-default, blue);
+    transition: all 0.15s ease;
+    z-index: 99;
+}
+
+.select.small,
+.select.small .select-list-item {
+    font-size: 0.8rem;
+}
+
+.select.large,
+.select.large .select-list-item {
+    font-size: 1.2rem;
+}
+
+.select:hover {
+    border: var(--select-border-width) solid
+        var(--select-border-color-hover, blue);
+    color: var(--select-text-color-hover, blue);
+    background-color: var(--select-background-color-hover, blue);
+}
+
+.select:hover .arrow {
+    color: var(--select-arrow-color-hover, blue);
+}
+
+.select:focus {
+    border: var(--select-border-width) solid
+        var(--select-border-color-focus, blue);
+    color: var(--select-text-color-focus, blue);
+    background-color: var(--select-background-color-focus, blue);
+}
+
+.select:focus .arrow {
+    color: var(--select-arrow-color-focus, blue);
+}
+
+.select.disabled {
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+.selected-item-text {
+    line-height: normal;
+    cursor: default;
+    user-select: none;
+}
+
+.selected-item-text.is-empty {
+    opacity: 0;
+    user-select: none;
+}
+
+.arrow {
+    position: absolute;
+    right: var(--select-padding-left-right);
+    width: 1rem;
+    font-size: 1rem;
+    color: var(--select-arrow-color-default, blue);
+    transition: all 0.15s ease;
+}
+
+.select-item-list-wrapper {
+    width: 100%;
+    max-height: var(--select-item-list-wrapper-max-height);
+    padding: var(--select-item-list-wrapper-padding);
+    border: var(--select-item-list-wrapper-border-width, blue) solid
+        var(--select-item-list-wrapper-border-color, blue);
+    border-radius: var(--select-item-list-wrapper-border-radius, blue);
+    background-color: var(--select-item-list-wrapper-background-color, blue);
+    overflow-y: auto;
+}
+
+.select-item-list {
+    list-style-type: none;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 4px;
+}
+
+.select-list-item {
+    display: flex;
+    align-items: center;
+    padding: var(--select-list-item-padding-top-bottom)
+        var(--select-list-item-padding-left-right);
+    border-radius: var(--select-list-item-border-radius);
+    color: var(--select-list-item-text-color-default, blue);
+    background-color: var(--select-list-item-background-color-default, blue);
+    font-size: 1rem;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.select-list-item:hover {
+    color: var(--select-list-item-text-color-hover, blue);
+    background-color: var(--select-list-item-background-color-hover, blue);
+}
+
+.select-list-item:active {
+    color: var(--select-list-item-text-color-active, blue);
+    background-color: var(--select-list-item-background-color-active, blue);
+}
+
+.select-list-item.is-selected {
+    color: var(--select-list-item-text-color-selected, blue);
+    background-color: var(--select-list-item-background-color-selected, blue);
+}
+
+.select-item-list-empty-text {
+    color: var(--select-item-list-empty-text-color, blue);
+}

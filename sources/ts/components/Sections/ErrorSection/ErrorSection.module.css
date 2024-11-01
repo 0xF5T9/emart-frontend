@@ -1,0 +1,37 @@
+.error-section {
+    --value: -12px;
+}
+
+.error-status-code {
+    color: var(--color-primary);
+    font-size: 7.142857142857143rem !important;
+    font-weight: 300;
+    transform: translateY(var(--value));
+}
+
+.error-data {
+    display: flex;
+    flex-flow: column wrap;
+    max-width: 600px;
+    line-height: normal;
+    color: var(--color-danger);
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 200;
+    transform: translateY(var(--value));
+}
+
+.homepage-link button {
+    display: block;
+    margin: 24px auto 0px;
+    color: var(--color-white);
+    text-decoration: none;
+    white-space: nowrap;
+    font-size: 1rem;
+    transform: translateY(var(--value));
+}
+
+.homepage-link button a {
+    color: var(--color-white);
+    text-decoration: none;
+}

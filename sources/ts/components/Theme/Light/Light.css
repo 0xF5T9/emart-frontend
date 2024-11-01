@@ -1,0 +1,374 @@
+:root {
+    --color-primary: rgb(225, 30, 49);
+    --color-primary-opa-0: rgba(225, 30, 49, 0);
+    --color-primary-opa-10: rgba(225, 30, 49, 0.1);
+    --color-primary-opa-20: rgba(225, 30, 49, 0.2);
+    --color-primary-opa-40: rgba(225, 30, 49, 0.4);
+    --color-primary-bright: #bd4044;
+    --color-success: var(--color-green, blue);
+    --color-warning: var(--color-yellow, blue);
+    --color-danger: var(--color-red, blue);
+
+    --color-scrollbar-background: #f7f8f9;
+    --color-scrollbar-thumb-background-default: #a6a1a6;
+    --color-scrollbar-thumb-background-hover: var(--color-primary, blue);
+    --color-scrollbar-thumb-background-active: var(
+        --color-primary-bright,
+        blue
+    );
+    --color-div-scrollbar-thumb-background-default: var(--color-primary, blue);
+
+    --text-color: #383838;
+    --text-high-contrast-color: #000;
+    --text-dim-color: #666666;
+    --text-highlight-color: var(--color-primary, blue);
+    --background-color: #f7f8f9;
+    --background-highlight-color: #f8e9ea;
+
+    /* Component variables */
+
+    --header-background-color: rgba(255, 255, 255, 1);
+    --header-shadow-color: rgba(0, 0, 0, 0.05);
+    --header-backdrop-filter: blur(4px);
+    --header-announcement-text-color: #fff;
+    --header-announcement-background-color: var(--color-primary, blue);
+    --header-separator-color: #e6e6e6;
+    --header-product-search-input-background-color: #f0f0f0;
+    --header-product-search-input-placeholder-text-color: #757575;
+
+    --footer-background-color: #f2f2f2;
+    --footer-border-top-color: var(--color-primary, blue);
+    --footer-separator-color: #e6e6e6;
+    --footer-social-item-icon-color-default: #333;
+    --footer-social-item-border-color-default: #2c2c2c;
+    --footer-social-item-icon-background-default: var(
+        --color-primary-opa-0,
+        blue
+    );
+    --footer-social-item-icon-color-hover: #fff;
+    --footer-social-item-border-color-hover: var(--color-primary, blue);
+    --footer-social-item-icon-background-hover: var(--color-primary, blue);
+    --footer-links-item-text-color: #2c2c2c;
+    --footer-contact-item-icon-color: #fff;
+    --footer-contact-item-background-color: var(--color-primary, blue);
+    --footer-contact-item-text-color: var(--text-high-contrast-color, blue);
+    --footer-copyright-text-color: var(--text-color, blue);
+
+    --navbar-item-text-color-default: var(--text-high-contrast-color, blue);
+    --navbar-item-text-color-hover: var(--color-primary, blue);
+    --navbar-item-text-color-active: var(--color-primary, blue);
+    --navbar-item-background-color-default: var(--color-primary-opa-0);
+    --navbar-item-background-color-hover: var(--color-primary-opa-10);
+    --navbar-item-background-color-active: var(--color-primary-opa-20);
+
+    --popup-window-text-color: var(--text-color, blue);
+    --popup-window-text-highlight-color: var(--text-highlight-color, blue);
+    --popup-window-background-color: #fff;
+    --popup-window-background-highlight-color: #f8e9ea;
+    --popup-window-padding: 10px;
+    --popup-window-border-color: #fff;
+    --popup-window-border-width: 2px;
+    --popup-window-border-radius: 4px;
+    --popup-window-box-shadow: rgba(0, 0, 0, 0.08) 0px 8px 16px 0px,
+        rgba(0, 0, 0, 0.06) 0px 4px 4px 0px, rgba(0, 0, 0, 0.1) 0px 0px 2px 0px;
+
+    --card-text-color: var(--text-color, blue);
+    --card-text-high-contrast-color: var(--text-high-contrast-color, blue);
+    --card-text-dim-color: var(--text-dim-color, blue);
+    --card-text-highlight-color: var(--text-highlight-color, blue);
+    --card-background-color: #fff;
+    --card-border-color: #e5e5e5;
+    --card-border-radius: 6px;
+    --card-box-shadow: 0px 4px 10px rgb(0 0 0 / 3%);
+
+    --toast-container-top-right-margin: 32px;
+    --toast-title-color: var(--color-white, blue);
+    --toast-desc-color: var(--color-white, blue);
+    --toast-background-color: linear-gradient(
+        45deg,
+        var(--color-primary, blue) 0%,
+        var(--color-primary-bright, blue) 100%
+    );
+    --toast-border-color: transparent;
+    --toast-border-width: 0px;
+    --toast-border-radius: 4px;
+    --toast-icon-color: var(--color-white, blue);
+    --toast-close-icon-color: var(--color-white, blue);
+    --toast-shadow-color: rgba(0, 0, 0, 0.1);
+
+    --modal-overlay-transition-in-duration: 0.2s;
+    --modal-overlay-transition-out-duration: 0.2s;
+    --modal-overlay-background-color: rgba(0, 0, 0, 0.6);
+    --modal-overlay-backdrop-filter: blur(1px);
+    --modal-window-transition-in-duration: 0.2s;
+    --modal-window-transition-out-duration: 0.2s;
+    --modal-window-margin: 48px;
+    --modal-window-width: auto;
+    --modal-window-height: auto;
+    --modal-window-border-width: 2px;
+    --modal-window-border-radius: 4px;
+    --modal-window-border-color: var(--color-gray, blue);
+    --modal-window-text-color: var(--text-color, blue);
+    --modal-window-text-high-contrast-color: var(
+        --text-high-contrast-color,
+        blue
+    );
+    --modal-window-text-highlight-color: var(--text-highlight-color, blue);
+    --modal-window-text-dim-color: var(--text-dim-color, blue);
+    --modal-window-background-color: #fff;
+    --modal-window-box-shadow: rgba(0, 0, 0, 0.08) 0px 8px 16px 0px,
+        rgba(0, 0, 0, 0.06) 0px 4px 4px 0px, rgba(0, 0, 0, 0.1) 0px 0px 2px 0px;
+    --alert-modal-window-title-text-color: var(--text-color, blue);
+    --alert-modal-window-message-text-color: var(--text-dim-color, blue);
+
+    --button-text-color-default: rgba(255, 255, 255, 0.9);
+    --button-text-color-hover: rgba(255, 255, 255, 0.9);
+    --button-text-color-active: rgba(255, 255, 255, 0.9);
+    --button-background-color-default: linear-gradient(
+        0deg,
+        var(--color-primary, blue) 0%,
+        var(--color-primary, blue) 100%
+    );
+    --button-background-color-hover: var(
+        --button-background-color-default,
+        blue
+    );
+    --button-background-color-active: var(
+        --button-background-color-default,
+        blue
+    );
+    --button-border-color-default: transparent;
+    --button-border-color-hover: transparent;
+    --button-border-color-active: transparent;
+    --button-filter-default: brightness(1);
+    --button-filter-hover: brightness(1.15);
+    --button-filter-active: brightness(0.8);
+    --button-shadow: 0px 4px 8px var(--color-primary-opa-20, blue);
+    --button-focus-border-color: salmon;
+    --button-border-width: 0px;
+    --button-border-radius: 6px;
+    --button-padding-left-right: 12px;
+    --button-padding-top-bottom: 8px;
+    --button-text-shadow: 0px 1px 4px var(--color-primary-opa-20, blue);
+    --button-font-size: 1rem;
+    --button-font-weight: 500;
+
+    --input-placeholder-text-color: var(--text-dim-color, blue);
+    --input-text-color-default: var(--text-color, blue);
+    --input-text-color-hover: var(--input-text-color-default, blue);
+    --input-text-color-active: var(--input-text-color-default, blue);
+    --input-text-color-focus: var(--input-text-color-default, blue);
+    --input-background-color-default: #ffffff;
+    --input-background-color-hover: var(--input-background-color-default, blue);
+    --input-background-color-active: var(
+        --input-background-color-default,
+        blue
+    );
+    --input-background-color-focus: var(--input-background-color-default, blue);
+    --input-background-filter-default: brightness(1);
+    --input-background-filter-hover: brightness(1.2);
+    --input-background-filter-active: brightness(1.2);
+    --input-background-filter-focus: brightness(1.3);
+    --input-border-color-default: #ccc;
+    --input-border-color-hover: var(--input-border-color-default, blue);
+    --input-border-color-active: var(--input-border-color-default, blue);
+    --input-border-color-focus: var(--color-primary, blue);
+    --input-icon-color-default: var(--text-dim-color, blue);
+    --input-icon-color-focus: var(--color-primary, blue);
+    --input-border-width: 1.4px;
+    --input-border-radius: 6px;
+    --input-padding-left-right: 12px;
+    --input-padding-top-bottom: 8px;
+
+    --checkbox-label-color: var(--text-color, blue);
+    --checkbox-symbol-color-default: transparent;
+    --checkbox-symbol-color-hover: var(--checkbox-symbol-color-default, blue);
+    --checkbox-symbol-color-active: var(--checkbox-symbol-color-default, blue);
+    --checkbox-symbol-color-checked: var(--color-white, blue);
+    --checkbox-background-color-default: transparent;
+    --checkbox-background-color-hover: var(
+        --checkbox-background-color-default,
+        blue
+    );
+    --checkbox-background-color-active: var(
+        --checkbox-background-color-default,
+        blue
+    );
+    --checkbox-background-color-checked: var(--color-primary, blue);
+    --checkbox-border-color-default: var(--color-primary, blue);
+    --checkbox-border-color-hover: var(--checkbox-border-color-default, blue);
+    --checkbox-border-color-active: var(--checkbox-border-color-default, blue);
+    --checkbox-border-color-checked: var(--checkbox-border-color-default, blue);
+    --checkbox-focus-border-color: salmon;
+
+    --radio-label-color: var(--text-color, blue);
+    --radio-symbol-color-default: transparent;
+    --radio-symbol-color-hover: transparent;
+    --radio-symbol-color-active: transparent;
+    --radio-symbol-color-checked: #ffffff;
+    --radio-background-color-default: transparent;
+    --radio-background-color-hover: transparent;
+    --radio-background-color-active: transparent;
+    --radio-background-color-checked: var(--color-primary, blue);
+    --radio-border-color-default: var(--color-primary, blue);
+    --radio-border-color-hover: var(--color-primary, blue);
+    --radio-border-color-active: var(--color-primary, blue);
+    --radio-border-color-checked: var(--color-primary, blue);
+    --radio-focus-border-color: salmon;
+
+    --labeled-input-placeholder-text-color: var(--text-dim-color, blue);
+    --labeled-input-label-text-color: #ffffff;
+    --labeled-input-text-color-default: var(--text-color, blue);
+    --labeled-input-inner-background-color-default: #ffffff;
+    --labeled-input-inner-background-color-hover: #ffffff;
+    --labeled-input-inner-background-color-focus: #ffffff;
+    --labeled-input-background-color-default: var(--color-primary, blue);
+    --labeled-input-border-color-default: var(--color-primary, blue);
+    --labeled-input-focus-color: salmon;
+    --labeled-input-font-weight-default: 400;
+    --labeled-input-text-color-default-reverse: #ffffff;
+    --labeled-input-inner-background-color-default-reverse: #2d2a2e;
+    --labeled-input-inner-background-color-hover-reverse: #423f42;
+    --labeled-input-inner-background-color-focus-reverse: #423f42;
+    --labeled-input-padding-left-right: 8px;
+    --labeled-input-padding-top-bottom: 6.8px;
+    --labeled-input-font-weight-reverse: 500;
+
+    --select-text-color-default: var(--text-dim-color, blue);
+    --select-text-color-hover: var(--text-dim-color, blue);
+    --select-text-color-focus: var(--text-color, blue);
+    --select-arrow-color-default: var(--text-dim-color, blue);
+    --select-arrow-color-hover: var(--text-dim-color, blue);
+    --select-arrow-color-focus: var(--text-color, blue);
+    --select-background-color-default: #fff;
+    --select-background-color-hover: #fff;
+    --select-background-color-focus: #fff;
+    --select-border-color-default: #ccc;
+    --select-border-color-hover: #ccc;
+    --select-border-color-focus: var(--color-primary, blue);
+    --select-border-width: 1.4px;
+    --select-padding-left-right: 12px;
+    --select-padding-top-bottom: 8px;
+    --select-border-radius: 6px;
+    --select-item-list-empty-text-color: var(--text-dim-color, blue);
+    --select-item-list-wrapper-padding: 8px;
+    --select-item-list-wrapper-background-color: #fff;
+    --select-item-list-wrapper-border-width: 1.4px;
+    --select-item-list-wrapper-border-radius: 6px;
+    --select-item-list-wrapper-border-color: #ccc;
+    --select-item-list-wrapper-max-height: none;
+    --select-list-item-border-radius: 6px;
+    --select-list-item-padding-top-bottom: 8px;
+    --select-list-item-padding-left-right: 12px;
+    --select-list-item-text-color-default: var(--text-color, blue);
+    --select-list-item-text-color-hover: var(--text-color, blue);
+    --select-list-item-text-color-active: #fff;
+    --select-list-item-text-color-selected: #fff;
+    --select-list-item-background-color-default: #fff;
+    --select-list-item-background-color-hover: #ccc;
+    --select-list-item-background-color-active: var(--color-primary, blue);
+    --select-list-item-background-color-selected: var(--color-primary, blue);
+
+    --multiple-select-text-color-default: var(--text-dim-color, blue);
+    --multiple-select-text-color-hover: var(--text-dim-color, blue);
+    --multiple-select-text-color-focus: var(--text-color, blue);
+    --multiple-select-arrow-color-default: var(--text-dim-color, blue);
+    --multiple-select-arrow-color-hover: var(--text-dim-color, blue);
+    --multiple-select-arrow-color-focus: var(--text-color, blue);
+    --multiple-select-background-color-default: #fff;
+    --multiple-select-background-color-hover: #fff;
+    --multiple-select-background-color-focus: #fff;
+    --multiple-select-border-color-default: #ccc;
+    --multiple-select-border-color-hover: #ccc;
+    --multiple-select-border-color-focus: var(--color-primary, blue);
+    --multiple-select-border-width: 1.4px;
+    --multiple-select-padding-left-right: 12px;
+    --multiple-select-padding-top-bottom: 8px;
+    --multiple-select-border-radius: 6px;
+    --multiple-select-item-list-empty-text-color: var(--text-dim-color, blue);
+    --multiple-select-item-list-wrapper-padding: 8px;
+    --multiple-select-item-list-wrapper-background-color: #fff;
+    --multiple-select-item-list-wrapper-border-width: 1.4px;
+    --multiple-select-item-list-wrapper-border-radius: 6px;
+    --multiple-select-item-list-wrapper-border-color: #ccc;
+    --multiple-select-item-list-wrapper-max-height: none;
+    --multiple-select-list-item-border-radius: 6px;
+    --multiple-select-list-item-padding-top-bottom: 8px;
+    --multiple-select-list-item-padding-left-right: 12px;
+    --multiple-select-list-item-text-color-default: var(--text-color, blue);
+    --multiple-select-list-item-text-color-hover: var(--text-color, blue);
+    --multiple-select-list-item-text-color-active: #fff;
+    --multiple-select-list-item-text-color-selected: #fff;
+    --multiple-select-list-item-background-color-default: #fff;
+    --multiple-select-list-item-background-color-hover: #ccc;
+    --multiple-select-list-item-background-color-active: var(
+        --color-primary,
+        blue
+    );
+    --multiple-select-list-item-background-color-selected: var(
+        --color-primary,
+        blue
+    );
+
+    --labeled-select-label-text-color: #ffffff;
+    --labeled-select-text-color-default: var(--text-color, blue);
+    --labeled-select-inner-background-color-default: #ffffff;
+    --labeled-select-inner-background-color-hover: #ffffff;
+    --labeled-select-inner-background-color-focus: #ffffff;
+    --labeled-select-background-color-default: var(--color-primary, blue);
+    --labeled-select-border-color-default: var(--color-primary, blue);
+    --labeled-select-focus-color: lightblue;
+    --labeled-select-font-weight-default: 400;
+    --labeled-select-text-color-default-reverse: #ffffff;
+    --labeled-select-inner-background-color-default-reverse: #2d2a2e;
+    --labeled-select-inner-background-color-hover-reverse: #423f42;
+    --labeled-select-inner-background-color-focus-reverse: #423f42;
+    --labeled-select-padding-left-right: 8px;
+    --labeled-select-padding-top-bottom: 6.8px;
+    --labeled-select-font-weight-reverse: 500;
+
+    --section-title-text-color: var(--text-high-contrast-color, blue);
+    --section-desc-text-color: var(--text-dim-color, blue);
+
+    /* General variables */
+    /* --general-font-family: -apple-system, BlinkMacSystemFont, 'SFProDisplay',
+        Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; */
+    --general-font-family: -apple-system, BlinkMacSystemFont, 'Lexend',
+        sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    --general-text-color: var(--text-color, blue);
+    --general-body-background-color: var(--background-color, blue);
+    --general-body-background-gradient-color: linear-gradient(
+        to bottom,
+        var(--background-color, blue),
+        var(--background-color, blue)
+    );
+    --general-body-background-image-url: rgba(0, 0, 0, 0);
+    --general-body-background-backdrop-filter: none;
+    --general-selection-text-color: var(--text-color, blue);
+    --general-selection-background-color: var(--color-primary-opa-40, blue);
+}
+
+html {
+    font-weight: 400;
+}
+
+::selection {
+    color: var(--general-selection-text-color, blue);
+    background-color: var(--general-selection-background-color, blue);
+}
+
+@media only screen and (width < 768px) {
+    :root {
+        --header-backdrop-filter: none;
+        --modal-overlay-backdrop-filter: none;
+        --general-body-background-backdrop-filter: none;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    :root {
+        --header-backdrop-filter: none;
+        --modal-overlay-backdrop-filter: none;
+        --general-body-background-backdrop-filter: none;
+    }
+}

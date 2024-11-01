@@ -1,0 +1,166 @@
+@keyframes modal-overlay-fade-in {
+    from {
+        visibility: collapse;
+        background-color: transparent;
+    }
+    to {
+        visibility: visible;
+        background-color: var(--modal-overlay-background-color, blue);
+    }
+}
+
+@keyframes modal-overlay-fade-out {
+    from {
+        visibility: visible;
+        background-color: var(--modal-overlay-background-color, blue);
+    }
+    to {
+        visibility: collapse;
+        background-color: transparent;
+    }
+}
+
+@keyframes modal-window-fade-in {
+    from {
+        opacity: 0;
+        visibility: collapse;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+    }
+}
+
+@keyframes modal-window-fade-out {
+    from {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        visibility: collapse;
+        transform: scale(0.9);
+    }
+}
+
+.modal-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--modal-overlay-background-color, blue);
+    cursor: pointer;
+    animation: modal-overlay-fade-in var(--modal-overlay-transition-in-duration)
+        linear forwards;
+    -webkit-backdrop-filter: var(--modal-overlay-backdrop-filter, none);
+    backdrop-filter: var(--modal-overlay-backdrop-filter, none);
+    z-index: 1000;
+    will-change: visibility, background-color;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.modal-overlay:empty {
+    display: none !important;
+}
+
+.modal-overlay:has(.modal-window:global(.is-close)) {
+    animation: modal-overlay-fade-out
+        var(--modal-overlay-transition-out-duration) ease forwards;
+}
+
+.modal-overlay:global(.is-close) {
+    animation: modal-overlay-fade-out
+        var(--modal-overlay-transition-out-duration) ease forwards;
+}
+
+.modal-window {
+    cursor: auto;
+    animation: modal-window-fade-in var(--modal-window-transition-in-duration)
+        ease forwards;
+}
+
+.modal-window:global(.is-close) {
+    animation: modal-window-fade-out var(--modal-window-transition-out-duration)
+        ease forwards;
+}
+
+.alert-modal-window {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 16px;
+    width: 320px;
+    height: var(--modal-window-height);
+    max-width: calc(100% - var(--modal-window-margin));
+    max-height: calc(100% - var(--modal-window-margin));
+    margin: auto;
+    padding: 30px 20px;
+    border-radius: 20px;
+    color: var(--modal-window-text-color, blue);
+    text-align: center;
+    background-color: var(--modal-window-background-color, blue);
+    box-shadow: var(--modal-window-box-shadow, 0 0 4px 4px blue);
+    overflow: auto;
+    will-change: opacity, transform;
+    filter: blur(0);
+    -webkit-filter: blur(0);
+}
+
+.alert-modal-window .icon {
+    flex-shrink: 0;
+    width: 85px;
+}
+.alert-modal-window.success .icon {
+    color: #52d87d;
+}
+.alert-modal-window.danger .icon {
+    color: #f34463;
+}
+.alert-modal-window.warn .icon {
+    color: #fca769;
+}
+.alert-modal-window.info .icon {
+    color: #44baf3;
+}
+
+.alert-modal-window .title {
+    color: var(--alert-modal-window-title-text-color, blue);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.alert-modal-window .message {
+    color: var(--alert-modal-window-message-text-color, blue);
+    font-size: 1rem;
+}
+
+.alert-modal-window .button-block {
+    display: flex;
+    flex-flow: row nowrap;
+    column-gap: 12px;
+}
+
+.alert-modal-window .button-block button {
+    min-width: 67px;
+}
+
+.alert-modal-window:empty {
+    width: max-content;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.alert-modal-window:empty::before {
+    content: 'This modal window is empty.';
+}
