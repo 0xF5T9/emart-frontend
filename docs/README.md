@@ -97,7 +97,3 @@ NODE_ENV=development
 ## Usage
 
 Check `package.json`, `.vscode` folder for scripts and tasks.
-
-## TODO
-
-- IMPLEMENT: SKU.
