@@ -16,7 +16,6 @@ import {
 import PropTypes from 'prop-types';
 
 import { useLocalStorage } from '@sources/ts/hooks/useLocalStorage';
-import { uploadUrl } from '@root/configs/backend.json';
 import apis from '@sources/ts/apis';
 import staticUrls from '@sources/ts/render/static-urls';
 
@@ -99,7 +98,7 @@ const VyFoodProvider: FunctionComponent<{ children: ReactNode }> = function ({
                 const product: Product = {
                     ...uProduct,
                     imageFileName: uProduct.imageFileName
-                        ? `${uploadUrl}/product/${uProduct.imageFileName}`
+                        ? `${process.env.UPLOAD_URL}/product/${uProduct.imageFileName}`
                         : staticUrls.imagePlaceholder,
                     priority: uProduct.priority,
                 };

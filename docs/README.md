@@ -82,16 +82,13 @@ server {
 # Other backend proxies ...
 ```
 
-### 3. Update project configuration files
+### 3. Set environment variables
 
-Update the project configuration files in `./configs` folder.
-
-### 4. Set environment variables
-
-Set `NODE_ENV` to `development` or `production`
-
-```shell
+```bash
 NODE_ENV=development
+API_URL=https://api.mydomain.com
+UPLOAD_URL=https://upload.mydomain.com
+PORT=8317
 ```
 
 ## Usage

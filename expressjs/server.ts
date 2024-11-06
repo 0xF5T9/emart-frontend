@@ -13,10 +13,39 @@ import path from 'path';
 import express, { ErrorRequestHandler } from 'express';
 import rateLimit from 'express-rate-limit';
 
-import expressConfig from '../configs/express.json';
-
 const rootPath = path.resolve(process.cwd());
 console.log('Loaded paths:', '\n• Root: ', rootPath, '\n');
+
+// Validate environment variables.
+const environmentVariables = {
+    NODE_ENV: process.env.NODE_ENV,
+    API_URL: process.env.API_URL,
+    UPLOAD_URL: process.env.UPLOAD_URL,
+    PORT: process.env.PORT,
+};
+let isConfigurationInvalid = false;
+for (const variable in environmentVariables) {
+    let value =
+        environmentVariables[variable as keyof typeof environmentVariables];
+    if (!value) {
+        console.error(` ENV Variable '${variable}' is undefined.`);
+        isConfigurationInvalid = true;
+    }
+    if (
+        variable === 'NODE_ENV' &&
+        value !== 'development' &&
+        value !== 'production'
+    ) {
+        console.error(
+            `NODE_ENV not set correctly. Expected 'development' or 'production'.`
+        );
+        isConfigurationInvalid = true;
+    }
+}
+if (isConfigurationInvalid)
+    throw new Error(
+        `Misconfiguration detected. Please check if the environment variables are set correctly.`
+    );
 
 const app = express();
 
@@ -63,47 +92,14 @@ const errorHandler: ErrorRequestHandler = function (
 app.use(errorHandler);
 
 // Launch server.
-app.listen(expressConfig.port, () => {
-    console.log(
-        `Loaded environment variables:\n• NODE_ENV: ${process?.env?.NODE_ENV}\n`
-    );
-
+app.listen(process.env.PORT, () => {
+    let environmentVariablesLog = 'Loaded environment variables:\n';
+    for (const variable in environmentVariables) {
+        environmentVariablesLog += `• ${variable}: ${environmentVariables[variable as keyof typeof environmentVariables]}\n`;
+    }
+    console.log(environmentVariablesLog);
     const isProductionMode = process?.env?.NODE_ENV === 'production';
-    if (isProductionMode) {
-        console.log('Application started in production mode:');
-    } else {
-        console.log('Application started in development mode:');
-    }
-
-    const { networkInterfaces } = require('os');
-
-    const nets = networkInterfaces(),
-        results = Object.create(null);
-
-    for (const name of Object.keys(nets)) {
-        for (const net of nets[name]) {
-            const familyV4Value = typeof net.family === 'string' ? 'IPv4' : 4;
-            if (net.family === familyV4Value && !net.internal) {
-                if (!results[name]) {
-                    results[name] = [];
-                }
-                results[name].push(net.address);
-            }
-        }
-    }
-
     console.log(
-        `• localhost: http://localhost:${expressConfig.port}\n• IPv4: http://${results?.Ethernet[0]}:${expressConfig.port}\n`
+        `Application started in ${isProductionMode ? 'production' : 'development'} mode at port ${environmentVariables.PORT}.`
     );
-
-    if (
-        process?.env?.NODE_ENV !== 'production' &&
-        process?.env?.NODE_ENV !== 'development'
-    )
-        console.warn(
-            `NODE_ENV not set correctly. Expected 'development' or 'production'.`
-        );
-    if (process?.env?.NODE_ENV !== `production`)
-        console.warn(`\nThis file is meant for production only, but the NODE_ENV variable is not set to 'production'. To run this project under development mode, please check vscode tasks and package.json.
-`);
 });

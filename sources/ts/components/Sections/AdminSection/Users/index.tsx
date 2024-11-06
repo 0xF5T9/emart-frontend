@@ -19,7 +19,6 @@ import classNames from 'classnames';
 import { useAuth } from '@sources/ts/hooks/useAuth';
 import { useModal } from '@sources/ts/hooks/useModal';
 import { showToast } from '@sources/ts/components/Toast';
-import { uploadUrl } from '@root/configs/backend.json';
 import apis from '@sources/ts/apis';
 import Button from '@sources/ts/components/Button';
 import Input from '@sources/ts/components/Input';
@@ -250,7 +249,7 @@ const Users: FunctionComponent<{
                         index: index + 1,
                         ...uUser,
                         avatarFileName: uUser?.avatarFileName
-                            ? `${uploadUrl}/avatar/${uUser.avatarFileName}`
+                            ? `${process.env.UPLOAD_URL}/avatar/${uUser.avatarFileName}`
                             : staticUrls.avatarPlaceholder,
                         createdAt: new Date(uUser.createdAt),
                     };

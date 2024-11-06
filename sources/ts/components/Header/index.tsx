@@ -25,7 +25,6 @@ import { useVyFood } from '@sources/ts/hooks/useVyFood';
 import { useLocalStorage } from '@sources/ts/hooks/useLocalStorage';
 import { useModal } from '@sources/ts/hooks/useModal';
 import { CircleLoadingThird } from '@sources/ts/components/Icons/CircleLoadingThird';
-import { uploadUrl } from '@root/configs/backend.json';
 import routes from '@sources/ts/global/react-router/routes';
 import BrandLogo from './components/BrandLogo';
 import ProductCategoryNavbar from './components/ProductCategoryNavbar';
@@ -480,7 +479,7 @@ const Header: FunctionComponent = function () {
                                                     'header-item-user-avatar'
                                                 ]
                                             }
-                                            src={`${uploadUrl}/avatar/${sessionData?.avatarFileName}`}
+                                            src={`${process.env.UPLOAD_URL}/avatar/${sessionData?.avatarFileName}`}
                                             onError={(event) => {
                                                 event.currentTarget.src =
                                                     staticUrls.avatarPlaceholder;

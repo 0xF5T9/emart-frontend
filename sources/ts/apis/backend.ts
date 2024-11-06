@@ -42,14 +42,13 @@ import type {
 } from '@sources/ts/types/backend-api';
 import axios from 'axios';
 
-import backendConfig from '@root/configs/backend.json';
 import { APIResult } from '@sources/ts/utility/api';
 import staticTexts from '@sources/ts/render/static-texts';
 const texts = staticTexts.api.backend;
 
 const backend = axios.create({
-    baseURL: backendConfig.apiUrl,
-    timeout: backendConfig.timeout,
+    baseURL: process.env.API_URL,
+    timeout: 5000,
     withCredentials: true,
     fetchOptions: {
         credentials: 'same-origin',

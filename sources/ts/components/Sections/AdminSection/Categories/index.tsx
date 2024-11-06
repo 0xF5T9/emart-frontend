@@ -16,10 +16,8 @@ import {
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { useAuth } from '@sources/ts/hooks/useAuth';
 import { useModal } from '@sources/ts/hooks/useModal';
 import { showToast } from '@sources/ts/components/Toast';
-import { uploadUrl } from '@root/configs/backend.json';
 import apis from '@sources/ts/apis';
 import Button from '@sources/ts/components/Button';
 import Input from '@sources/ts/components/Input';
@@ -110,7 +108,7 @@ const Categories: FunctionComponent<{
                         const category: Category = {
                             ...uCategory,
                             imageFileName: uCategory.imageFileName
-                                ? `${uploadUrl}/category/${uCategory.imageFileName}`
+                                ? `${process.env.UPLOAD_URL}/category/${uCategory.imageFileName}`
                                 : staticUrls.imagePlaceholder,
                             priority: uCategory.priority,
                         };

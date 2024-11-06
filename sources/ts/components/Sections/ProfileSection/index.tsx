@@ -11,7 +11,6 @@ import classNames from 'classnames';
 
 import { useAuth } from '@sources/ts/hooks/useAuth';
 import { useGlobal } from '@sources/ts/hooks/useGlobal';
-import { uploadUrl } from '@root/configs/backend.json';
 import apis from '@sources/ts/apis';
 import { DynamicSection } from '@sources/ts/components/Content/components/GridSection';
 import { showToast } from '@sources/ts/components/Toast';
@@ -116,7 +115,7 @@ const ProfileSection: FunctionComponent = function () {
                     transformedUser = {
                         ...rawUser,
                         avatarFileName: rawUser?.avatarFileName
-                            ? `${uploadUrl}/avatar/${rawUser.avatarFileName}`
+                            ? `${process.env.UPLOAD_URL}/avatar/${rawUser.avatarFileName}`
                             : staticUrls.avatarPlaceholder,
                         createdAt: new Date(rawUser.createdAt),
                     };

@@ -1,5 +1,0 @@
-{
-    "apiUrl": "https://api.mydomain.com",
-    "uploadUrl": "https://upload.mydomain.com",
-    "timeout": 5000
-}

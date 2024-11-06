@@ -16,10 +16,8 @@ import {
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { useAuth } from '@sources/ts/hooks/useAuth';
 import { useModal } from '@sources/ts/hooks/useModal';
 import { showToast } from '@sources/ts/components/Toast';
-import { uploadUrl } from '@root/configs/backend.json';
 import apis from '@sources/ts/apis';
 import Button from '@sources/ts/components/Button';
 import CustomSelect from '@sources/ts/components/CustomSelect';
@@ -141,7 +139,7 @@ const Products: FunctionComponent<{
                         const product: Product = {
                             ...uProduct,
                             imageFileName: uProduct.imageFileName
-                                ? `${uploadUrl}/product/${uProduct.imageFileName}`
+                                ? `${process.env.UPLOAD_URL}/product/${uProduct.imageFileName}`
                                 : staticUrls.imagePlaceholder,
                             priority: uProduct.priority,
                         };

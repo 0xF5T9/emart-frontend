@@ -17,8 +17,6 @@ import {
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { uploadUrl } from '@root/configs/backend.json';
-import { useAuth } from '@sources/ts/hooks/useAuth';
 import { useModal } from '@sources/ts/hooks/useModal';
 import { showToast } from '@sources/ts/components/Toast';
 import apis from '@sources/ts/apis';
@@ -357,7 +355,7 @@ const Orders: FunctionComponent<{
                     const product: Product = {
                         ...rawProduct,
                         imageFileName: rawProduct.imageFileName
-                            ? `${uploadUrl}/product/${rawProduct.imageFileName}`
+                            ? `${process.env.UPLOAD_URL}/product/${rawProduct.imageFileName}`
                             : staticUrls.imagePlaceholder,
                         priority: rawProduct.priority,
                     };
