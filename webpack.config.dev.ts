@@ -3,6 +3,11 @@
  * @description Webpack development configuration file.
  */
 
+import dotenv from 'dotenv';
+dotenv.config({
+    path: '.env',
+});
+
 import webpack from 'webpack';
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin'; // HtmlWebpackPlugin: Generate HTML files from template files.
@@ -11,6 +16,37 @@ import Dotenv from 'dotenv-webpack'; // Dotenv: Enable support for environment f
 const enableHighQualitySourceMap = true;
 
 console.log('Using Webpack development configuration ...');
+
+// Validate environment variables.
+const environmentVariables = {
+    NODE_ENV: process.env.NODE_ENV,
+    API_URL: process.env.API_URL,
+    UPLOAD_URL: process.env.UPLOAD_URL,
+    PORT: process.env.PORT,
+};
+let isConfigurationInvalid = false;
+for (const variable in environmentVariables) {
+    let value =
+        environmentVariables[variable as keyof typeof environmentVariables];
+    if (!value) {
+        console.error(` ENV Variable '${variable}' is undefined.`);
+        isConfigurationInvalid = true;
+    }
+    if (
+        variable === 'NODE_ENV' &&
+        value !== 'development' &&
+        value !== 'production'
+    ) {
+        console.error(
+            `NODE_ENV not set correctly. Expected 'development' or 'production'.`
+        );
+        isConfigurationInvalid = true;
+    }
+}
+if (isConfigurationInvalid)
+    throw new Error(
+        `Misconfiguration detected. Please check if the environment variables are set correctly.`
+    );
 
 export default {
     target: ['web', 'es5'],
