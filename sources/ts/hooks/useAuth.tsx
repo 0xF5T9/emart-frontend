@@ -46,17 +46,27 @@ const AuthProvider: FunctionComponent<{ children: ReactNode }> = function ({
     const login: SessionLogin = async (sessionData: SessionData) => {
         if (!sessionData) {
             console.error('Invalid session data.');
+            await apis.backend.deauthorize();
             navigate(routes.home);
             return;
         }
 
-        Object.values(sessionData)?.forEach((value) => {
-            if (!value) {
-                console.error('Invalid session data.');
-                navigate(routes.home);
+        let invalidSessionData = false;
+        Object.keys(sessionData)?.forEach((key) => {
+            if (key === 'avatarFileName') return;
+
+            if (!sessionData[key as keyof SessionData]) {
+                invalidSessionData = true;
                 return;
             }
         });
+        if (invalidSessionData) {
+            console.error('Invalid session data.');
+            setSessionData(null);
+            await apis.backend.deauthorize();
+            navigate(routes.home);
+            return;
+        }
 
         setSessionData(sessionData);
         navigate(routes.profile);
