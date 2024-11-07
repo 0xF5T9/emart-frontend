@@ -130,6 +130,7 @@ export default {
         }),
         // Enable support for environment files.
         new Dotenv({
+            systemvars: true // Pass system variables. Set to true so it will work in docker context.
             // path: './.env.development', // Use specific environment file.
         }),
         new webpack.ProvidePlugin({
