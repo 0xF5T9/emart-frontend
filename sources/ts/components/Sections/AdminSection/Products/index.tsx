@@ -68,11 +68,10 @@ const Products: FunctionComponent<{
 
     const indexOfLastItem = pagination * itemsPerPage,
         indexOfFirstItem = indexOfLastItem - itemsPerPage,
-        renderItems = filteredProducts
-            ?.slice(indexOfFirstItem, indexOfLastItem)
-            ?.sort((a, b) => {
-                return b?.priority - a?.priority;
-            });
+        renderItems = filteredProducts?.slice(
+            indexOfFirstItem,
+            indexOfLastItem
+        );
 
     const totalPagination = [];
     if (filteredProducts)
@@ -267,21 +266,25 @@ const Products: FunctionComponent<{
     }, []);
 
     useEffect(() => {
-        const newFilteredProducts = products?.filter((item) => {
-            if (
-                currentCategory &&
-                !item.category?.includes(currentCategory?.toLowerCase())
-            )
-                return false;
-            if (
-                searchInput.current?.value &&
-                !item.name
-                    .toLowerCase()
-                    .includes(searchInput.current?.value?.toLowerCase())
-            )
-                return false;
-            return true;
-        });
+        const newFilteredProducts = products
+            ?.filter((item) => {
+                if (
+                    currentCategory &&
+                    !item.category?.includes(currentCategory?.toLowerCase())
+                )
+                    return false;
+                if (
+                    searchInput.current?.value &&
+                    !item.name
+                        .toLowerCase()
+                        .includes(searchInput.current?.value?.toLowerCase())
+                )
+                    return false;
+                return true;
+            })
+            .sort((a, b) => {
+                return b?.priority - a?.priority;
+            });
 
         // setPagination(1);
         setFilteredProducts(newFilteredProducts);

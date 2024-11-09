@@ -64,12 +64,10 @@ const Categories: FunctionComponent<{
 
     const indexOfLastItem = pagination * itemsPerPage,
         indexOfFirstItem = indexOfLastItem - itemsPerPage,
-        renderItems = filteredCategories
-            ?.slice(indexOfFirstItem, indexOfLastItem)
-            ?.sort((a, b) => {
-                return b?.priority - a?.priority;
-            });
-
+        renderItems = filteredCategories?.slice(
+            indexOfFirstItem,
+            indexOfLastItem
+        );
     const totalPagination = [];
     if (filteredCategories)
         for (
@@ -238,16 +236,20 @@ const Categories: FunctionComponent<{
     }, []);
 
     useEffect(() => {
-        const newFilteredProducts = categories?.filter((item) => {
-            if (
-                searchInput.current?.value &&
-                !item.name
-                    .toLowerCase()
-                    .includes(searchInput.current?.value?.toLowerCase())
-            )
-                return false;
-            return true;
-        });
+        const newFilteredProducts = categories
+            ?.filter((item) => {
+                if (
+                    searchInput.current?.value &&
+                    !item.name
+                        .toLowerCase()
+                        .includes(searchInput.current?.value?.toLowerCase())
+                )
+                    return false;
+                return true;
+            })
+            ?.sort((a, b) => {
+                return b?.priority - a?.priority;
+            });
 
         // setPagination(1);
         setFilteredCategories(newFilteredProducts);

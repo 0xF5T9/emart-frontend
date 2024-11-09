@@ -48,11 +48,7 @@ const ProductsView: FunctionComponent<{
 
     const indexOfLastItem = pagination * itemsPerPage,
         indexOfFirstItem = indexOfLastItem - itemsPerPage,
-        renderItems = filteredItems
-            ?.slice(indexOfFirstItem, indexOfLastItem)
-            ?.sort((a, b) => {
-                return b?.priority - a?.priority;
-            });
+        renderItems = filteredItems?.slice(indexOfFirstItem, indexOfLastItem);
 
     const totalPagination = [];
     if (filteredItems)
@@ -79,7 +75,11 @@ const ProductsView: FunctionComponent<{
     }
 
     useEffect(() => {
-        setFilteredItems(productItems);
+        setFilteredItems(
+            productItems?.sort((a, b) => {
+                return b?.priority - a?.priority;
+            })
+        );
         setPagination(1);
         setProductFilter(null);
     }, [productItems]);
