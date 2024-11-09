@@ -168,6 +168,8 @@ const PaymentWindow: FunctionComponent<{
                         );
                     const newCartItems = parsedCartItems
                         ?.map((cartItem) => {
+                            if (!mappedProducts[cartItem?.product?.slug])
+                                return null;
                             if (
                                 cartItem?.product?.price !==
                                 mappedProducts[cartItem?.product?.slug]?.price
@@ -176,9 +178,6 @@ const PaymentWindow: FunctionComponent<{
                                     mappedProducts[
                                         cartItem?.product?.slug
                                     ]?.price;
-                            if (!mappedProducts[cartItem?.product?.slug])
-                                return null;
-
                             return cartItem;
                         })
                         .filter((cartItem) => !!cartItem);
