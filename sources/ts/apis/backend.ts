@@ -872,6 +872,7 @@ async function getProducts(
  * @param categories Product categories.
  * @param desc Product description.
  * @param price Product price.
+ * @param quantity Product quantity.
  * @param priority Product priority.
  * @param image Product image.
  * @returns Returns the API response object.
@@ -881,13 +882,19 @@ async function createProduct(
     categories: string,
     desc: string,
     price: number,
+    quantity: number,
     priority: number,
     image: string | Blob
 ): Promise<APIResult<CreateProductResponseData>> {
     try {
-        if (!name || (!price && price !== 0) || (!priority && priority !== 0))
+        if (
+            !name ||
+            (!price && price !== 0) ||
+            (!quantity && quantity !== 0) ||
+            (!priority && priority !== 0)
+        )
             return new APIResult(
-                `Thông tin 'name', 'price', 'priority' bị thiếu.`,
+                `Thông tin 'name', 'price', 'quantity', 'priority' bị thiếu.`,
                 false,
                 null,
                 400
@@ -898,6 +905,7 @@ async function createProduct(
         form.append('categories', categories);
         form.append('desc', desc);
         form.append('price', `${price}`?.replace(/\D/g, ''));
+        form.append('quantity', `${quantity}`?.replace(/\D/g, ''));
         form.append('priority', `${priority}`?.replace(/\D/g, ''));
         form.append('image', image);
 
@@ -930,6 +938,7 @@ async function createProduct(
  * @param desc Product description.
  * @param price Product price.
  * @param priority Product priority.
+ * @param quantity Product quantity.
  * @returns Returns the API response object.
  */
 async function updateProduct(
@@ -938,7 +947,8 @@ async function updateProduct(
     categories: string,
     desc: string,
     price: number,
-    priority: number
+    priority: number,
+    quantity?: number
 ): Promise<APIResult<UpdateProductResponseData>> {
     try {
         if (
@@ -960,6 +970,7 @@ async function updateProduct(
             categories,
             desc,
             price,
+            quantity,
             priority,
         });
         const { message, data }: BackendResponse<UpdateProductResponseData> =

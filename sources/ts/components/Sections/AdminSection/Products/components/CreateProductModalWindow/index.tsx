@@ -36,6 +36,7 @@ const CreateProductModalWindow: FunctionComponent<{
     const modalWindow = useRef<HTMLDivElement>(null),
         productNameInput = useRef<HTMLInputElement>(null),
         productPriceInput = useRef<HTMLInputElement>(null),
+        productQuantityInput = useRef<HTMLInputElement>(null),
         productPriorityInput = useRef<HTMLInputElement>(null),
         productDescInput = useRef<HTMLTextAreaElement>(null),
         productUploadImageInput = useRef<HTMLInputElement>(null);
@@ -45,6 +46,9 @@ const CreateProductModalWindow: FunctionComponent<{
             Category['name'][]
         >([]),
         [productPriceInputValue, setProductPriceInputValue] = useState<
+            string | number
+        >(0),
+        [productQuantityInputValue, setProductQuantityInputValue] = useState<
             string | number
         >(0),
         [productPriorityInputValue, setProductPriorityInputValue] = useState<
@@ -91,6 +95,14 @@ const CreateProductModalWindow: FunctionComponent<{
                 isFormValid = false;
             }
 
+            if (!productQuantityInputValue && productQuantityInputValue !== 0) {
+                document.getElementById(
+                    'product-quantity-input-form-message'
+                ).innerHTML = texts.quantityInputFormMessageRequire;
+                if (!focusElement) focusElement = productQuantityInput.current;
+                isFormValid = false;
+            }
+
             if (!productPriorityInputValue && productPriorityInputValue !== 0) {
                 document.getElementById(
                     'product-priority-input-form-message'
@@ -114,6 +126,7 @@ const CreateProductModalWindow: FunctionComponent<{
                 productSelectedCategories?.join(','),
                 productDescInputValue,
                 parseInt(productPriceInputValue as string),
+                parseInt(productQuantityInputValue as string),
                 productPriorityInputValue as number,
                 productUploadImageInput.current?.files?.length
                     ? productUploadImageInput.current?.files[0]
@@ -387,6 +400,60 @@ const CreateProductModalWindow: FunctionComponent<{
                     <div className={styles['form-group']}>
                         <label
                             className={styles['label']}
+                            htmlFor="product-quantity-input"
+                        >
+                            {texts.quantityInputLabel}
+                        </label>
+                        <Input
+                            inputRef={productQuantityInput}
+                            type="number"
+                            id="product-quantity-input"
+                            className={styles['input']}
+                            height={40}
+                            icon={{
+                                position: 'left',
+                                icon: 'fal fa-box',
+                            }}
+                            placeholder={texts.quantityInputPlaceholder}
+                            disabled={isPending}
+                            autoCapitalize="off"
+                            value={
+                                Number.isNaN(productQuantityInputValue)
+                                    ? ''
+                                    : productQuantityInputValue
+                            }
+                            onChange={(event) => {
+                                setProductQuantityInputValue(
+                                    parseInt(event.currentTarget.value)
+                                );
+                                const formMessage = document.getElementById(
+                                    'product-quantity-input-form-message'
+                                );
+                                if (formMessage) formMessage.innerHTML = '';
+                            }}
+                            onBlur={() => {
+                                const formMessage = document.getElementById(
+                                    'product-quantity-input-form-message'
+                                );
+                                if (formMessage) {
+                                    if (
+                                        !productQuantityInputValue &&
+                                        productQuantityInputValue !== 0
+                                    )
+                                        formMessage.innerHTML =
+                                            texts.quantityInputFormMessageRequire;
+                                    else formMessage.innerHTML = '';
+                                }
+                            }}
+                        />
+                        <span
+                            id="product-quantity-input-form-message"
+                            className={styles['form-message']}
+                        ></span>
+                    </div>
+                    <div className={styles['form-group']}>
+                        <label
+                            className={styles['label']}
                             htmlFor="product-priority-input"
                         >
                             {texts.priorityInputLabel}
@@ -399,7 +466,7 @@ const CreateProductModalWindow: FunctionComponent<{
                             height={40}
                             icon={{
                                 position: 'left',
-                                icon: 'fal fa-tag',
+                                icon: 'fal fa-arrow-up-square-triangle',
                             }}
                             placeholder={texts.priorityInputPlaceholder}
                             disabled={isPending}

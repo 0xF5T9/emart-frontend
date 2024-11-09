@@ -16,6 +16,7 @@ export type Product = {
     desc: string;
     price: number;
     imageFileName: string;
+    quantity: number;
     priority: number;
 };
 

@@ -68,6 +68,7 @@ const ProductsView: FunctionComponent<{
     }
 
     function handleOpenProductDetail(productItem: Product) {
+        if (productItem.quantity === 0) return;
         setModal({
             type: 'custom',
             content: <ProductDetailModalWindow productItem={productItem} />,
@@ -123,7 +124,12 @@ const ProductsView: FunctionComponent<{
                 {!isBackendUnavailable &&
                     !!renderItems?.length &&
                     renderItems?.map((item) => (
-                        <div key={item.name} className={styles['product-item']}>
+                        <div
+                            key={item.name}
+                            className={classNames(styles['product-item'], {
+                                [styles['unavailable']]: item.quantity === 0,
+                            })}
+                        >
                             <div
                                 className={styles['product-image-wrapper']}
                                 onClick={() => handleOpenProductDetail(item)}
@@ -162,9 +168,12 @@ const ProductsView: FunctionComponent<{
                                     onClick={() =>
                                         handleOpenProductDetail(item)
                                     }
+                                    disabled={item.quantity === 0}
                                 >
                                     <i className="far fa-cart-shopping-fast" />{' '}
-                                    {texts.orderButton}
+                                    {item.quantity !== 0
+                                        ? texts.orderButton
+                                        : texts.orderButtonOutOfStock}
                                 </button>
                             </div>
                         </div>

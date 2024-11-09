@@ -47,6 +47,7 @@ const staticTexts = {
         title: 'Khám phá thực đơn của chúng tôi',
         productImageAlt: 'Hình ảnh',
         orderButton: 'Đặt món',
+        orderButtonOutOfStock: 'Hết món',
         emptyCategory: 'Hiện chưa có món ăn nào ở danh mục này',
         emptySearch: 'Không tìm thấy món này trong thực đơn',
         suggestion1: 'Bạn có thể nhấn vào',
@@ -199,6 +200,7 @@ const staticTexts = {
             refreshButton: 'Làm mới',
             addButton: 'Thêm sản phẩm',
             itemUnitText: 'Sản phẩm',
+            quantityText: 'Số lượng',
             loadingText: 'Đang tải dữ liệu ...',
             emptyText: 'Không có sản phẩm nào',
             errorText: 'Không kết nối được đến hệ thống',
@@ -221,6 +223,10 @@ const staticTexts = {
                 priceInputPlaceholder: 'Nhập giá sản phẩm',
                 priceInputFormMessageRequire:
                     'Vui lòng nhập giá sản phẩm (VNĐ)',
+                quantityInputLabel: 'Số lượng',
+                quantityInputPlaceholder: 'Nhập số lượng sản phẩm',
+                quantityInputFormMessageRequire:
+                    'Vui lòng nhập số lượng sản phẩm',
                 priorityInputLabel: 'Độ ưu tiên',
                 priorityInputPlaceholder: 'Nhập độ ưu tiên của sản phẩm',
                 priorityInputFormMessageRequire:
@@ -241,6 +247,10 @@ const staticTexts = {
                 priceInputPlaceholder: 'Nhập giá sản phẩm',
                 priceInputFormMessageRequire:
                     'Vui lòng nhập giá sản phẩm (VNĐ)',
+                quantityInputLabel: 'Số lượng',
+                quantityInputPlaceholder: 'Nhập số lượng sản phẩm',
+                quantityInputFormMessageRequire:
+                    'Vui lòng nhập số lượng sản phẩm',
                 priorityInputLabel: 'Độ ưu tiên',
                 priorityInputPlaceholder: 'Nhập độ ưu tiên của sản phẩm',
                 priorityInputFormMessageRequire:

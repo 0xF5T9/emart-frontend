@@ -76,6 +76,7 @@ export type RawProduct = {
     desc: string;
     price: number;
     imageFileName: string;
+    quantity: number;
     priority: number;
 };
 

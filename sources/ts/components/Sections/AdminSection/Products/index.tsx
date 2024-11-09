@@ -487,6 +487,13 @@ const Products: FunctionComponent<{
                                             product?.price
                                         )}
                                     </span>
+                                    <span
+                                        className={
+                                            styles['product-item-quantity']
+                                        }
+                                    >
+                                        {`${texts.quantityText}: ${product?.quantity}`}
+                                    </span>
                                     <div
                                         className={
                                             styles['product-item-buttons']
