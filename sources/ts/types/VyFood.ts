@@ -37,7 +37,13 @@ export type Order = {
     customerName: string;
     customerPhoneNumber: string;
     items: CartItem[];
-    status: 'processing' | 'completed' | 'aborted';
+    status:
+        | 'processing'
+        | 'shipping'
+        | 'completed'
+        | 'refunding'
+        | 'aborted'
+        | 'refunded';
     createdAt: Date;
 };
 

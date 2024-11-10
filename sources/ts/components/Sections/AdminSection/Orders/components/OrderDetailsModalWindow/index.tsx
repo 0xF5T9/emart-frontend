@@ -11,7 +11,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PopupWindow from '@sources/ts/components/PopupWindow';
-import { useAuth } from '@sources/ts/hooks/useAuth';
 import { useModal } from '@sources/ts/hooks/useModal';
 import apis from '@sources/ts/apis';
 import { showToast } from '@sources/ts/components/Toast';
@@ -405,12 +404,24 @@ const OrderDetailsModalWindow: FunctionComponent<{
                                         orderItem?.status === 'processing',
                                 },
                                 {
+                                    [styles['shipping']]:
+                                        orderItem?.status === 'shipping',
+                                },
+                                {
                                     [styles['completed']]:
                                         orderItem?.status === 'completed',
                                 },
                                 {
+                                    [styles['refunding']]:
+                                        orderItem?.status === 'refunding',
+                                },
+                                {
                                     [styles['aborted']]:
                                         orderItem?.status === 'aborted',
+                                },
+                                {
+                                    [styles['refunded']]:
+                                        orderItem?.status === 'refunded',
                                 }
                             )}
                             dropdownProps={{
@@ -421,12 +432,24 @@ const OrderDetailsModalWindow: FunctionComponent<{
                                             orderItem?.status === 'processing',
                                     },
                                     {
+                                        [styles['shipping']]:
+                                            orderItem?.status === 'shipping',
+                                    },
+                                    {
                                         [styles['completed']]:
                                             orderItem?.status === 'completed',
                                     },
                                     {
+                                        [styles['refunding']]:
+                                            orderItem?.status === 'refunding',
+                                    },
+                                    {
                                         [styles['aborted']]:
                                             orderItem?.status === 'aborted',
+                                    },
+                                    {
+                                        [styles['refunded']]:
+                                            orderItem?.status === 'refunded',
                                     }
                                 ),
                             }}
@@ -438,14 +461,29 @@ const OrderDetailsModalWindow: FunctionComponent<{
                                     text: texts.processingStatusOption,
                                 },
                                 {
+                                    id: 'shipping',
+                                    value: 'shipping',
+                                    text: texts.shippingStatusOption,
+                                },
+                                {
                                     id: 'completed',
                                     value: 'completed',
                                     text: texts.completedStatusOption,
                                 },
                                 {
+                                    id: 'refunding',
+                                    value: 'refunding',
+                                    text: texts.refundingStatusOption,
+                                },
+                                {
                                     id: 'aborted',
                                     value: 'aborted',
                                     text: texts.abortedStatusOption,
+                                },
+                                {
+                                    id: 'refunded',
+                                    value: 'refunded',
+                                    text: texts.refundedStatusOption,
                                 },
                             ]}
                             disabled={isPending}

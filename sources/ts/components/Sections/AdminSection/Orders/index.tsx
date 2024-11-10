@@ -180,10 +180,19 @@ const OrderItem: FunctionComponent<
                     [styles['processing']]: renderItem?.status === 'processing',
                 },
                 {
+                    [styles['shipping']]: renderItem?.status === 'shipping',
+                },
+                {
                     [styles['completed']]: renderItem?.status === 'completed',
                 },
                 {
+                    [styles['refunding']]: renderItem?.status === 'refunding',
+                },
+                {
                     [styles['aborted']]: renderItem?.status === 'aborted',
+                },
+                {
+                    [styles['refunded']]: renderItem?.status === 'refunded',
                 }
             )}
             key={renderItem?.orderId}
@@ -206,12 +215,24 @@ const OrderItem: FunctionComponent<
                                 renderItem?.status === 'processing',
                         },
                         {
+                            [styles['shipping']]:
+                                renderItem?.status === 'shipping',
+                        },
+                        {
                             [styles['completed']]:
                                 renderItem?.status === 'completed',
                         },
                         {
+                            [styles['refunding']]:
+                                renderItem?.status === 'refunding',
+                        },
+                        {
                             [styles['aborted']]:
                                 renderItem?.status === 'aborted',
+                        },
+                        {
+                            [styles['refunded']]:
+                                renderItem?.status === 'refunded',
                         }
                     )}
                     dropdownProps={{
@@ -222,12 +243,24 @@ const OrderItem: FunctionComponent<
                                     renderItem?.status === 'processing',
                             },
                             {
+                                [styles['shipping']]:
+                                    renderItem?.status === 'shipping',
+                            },
+                            {
                                 [styles['completed']]:
                                     renderItem?.status === 'completed',
                             },
                             {
+                                [styles['refunding']]:
+                                    renderItem?.status === 'refunding',
+                            },
+                            {
                                 [styles['aborted']]:
                                     renderItem?.status === 'aborted',
+                            },
+                            {
+                                [styles['refunded']]:
+                                    renderItem?.status === 'refunded',
                             }
                         ),
                     }}
@@ -240,16 +273,34 @@ const OrderItem: FunctionComponent<
                             selected: renderItem?.status === 'processing',
                         },
                         {
+                            id: 'shipping',
+                            value: 'shipping',
+                            text: texts.shippingStatusOption,
+                            selected: renderItem?.status === 'shipping',
+                        },
+                        {
                             id: 'completed',
                             value: 'completed',
                             text: texts.completedStatusOption,
                             selected: renderItem?.status === 'completed',
                         },
                         {
+                            id: 'refunding',
+                            value: 'refunding',
+                            text: texts.refundingStatusOption,
+                            selected: renderItem?.status === 'refunding',
+                        },
+                        {
                             id: 'aborted',
                             value: 'aborted',
                             text: texts.abortedStatusOption,
                             selected: renderItem?.status === 'aborted',
+                        },
+                        {
+                            id: 'refunded',
+                            value: 'refunded',
+                            text: texts.refundedStatusOption,
+                            selected: renderItem?.status === 'refunded',
                         },
                     ]}
                     disabled={isPending}
@@ -520,14 +571,29 @@ const Orders: FunctionComponent<{
                                 text: texts.processingStatusOption,
                             },
                             {
+                                id: 'shipping',
+                                value: 'shipping',
+                                text: texts.shippingStatusOption,
+                            },
+                            {
                                 id: 'completed',
                                 value: 'completed',
                                 text: texts.completedStatusOption,
                             },
                             {
+                                id: 'refunding',
+                                value: 'refunding',
+                                text: texts.refundingStatusOption,
+                            },
+                            {
                                 id: 'aborted',
                                 value: 'aborted',
                                 text: texts.abortedStatusOption,
+                            },
+                            {
+                                id: 'refunded',
+                                value: 'refunded',
+                                text: texts.refundedStatusOption,
                             },
                         ]}
                         onOptionChange={async (newOption) => {
