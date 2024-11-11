@@ -193,23 +193,22 @@ const PaymentWindow: FunctionComponent<{
     }, [cartItems]);
 
     useEffect(() => {
-        if (parsedCartItems && parsedCartItems.length) {
-            const tSubtotal = parsedCartItems?.reduce(
-                (totalCost, cartItem) =>
-                    totalCost + cartItem.product.price * cartItem.totalItems,
-                0
-            );
-            if (tSubtotal) {
-                setSubtotal(tSubtotal);
-                setTotal(
-                    deliveryMethod === 'shipping'
-                        ? tSubtotal + 30000
-                        : tSubtotal
-                );
-            }
-        } else {
+        if (!parsedCartItems?.length) {
             setSubtotal(0);
             setTotal(0);
+            goBackButton?.current?.click();
+        }
+
+        const tSubtotal = parsedCartItems?.reduce(
+            (totalCost, cartItem) =>
+                totalCost + cartItem.product.price * cartItem.totalItems,
+            0
+        );
+        if (tSubtotal) {
+            setSubtotal(tSubtotal);
+            setTotal(
+                deliveryMethod === 'shipping' ? tSubtotal + 30000 : tSubtotal
+            );
         }
     }, [parsedCartItems, deliveryMethod]);
 
