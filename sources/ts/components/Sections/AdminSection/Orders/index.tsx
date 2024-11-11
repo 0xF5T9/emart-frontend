@@ -368,11 +368,7 @@ const Orders: FunctionComponent<{
 
     const indexOfLastItem = pagination * itemsPerPage,
         indexOfFirstItem = indexOfLastItem - itemsPerPage,
-        renderItems = filteredOrders
-            ?.slice(indexOfFirstItem, indexOfLastItem)
-            ?.sort((a, b) => {
-                return b?.orderId - a?.orderId;
-            });
+        renderItems = filteredOrders?.slice(indexOfFirstItem, indexOfLastItem);
 
     const totalPagination = [];
     if (filteredOrders)
@@ -485,49 +481,57 @@ const Orders: FunctionComponent<{
     };
 
     useEffect(() => {
-        const newFilteredOrders = orders?.filter((item) => {
-            if (
-                currentOrderStatus &&
-                currentOrderStatus?.toLowerCase() !== item?.status
-            )
-                return false;
+        const newFilteredOrders = orders
+            ?.filter((item) => {
+                if (
+                    currentOrderStatus &&
+                    currentOrderStatus?.toLowerCase() !== item?.status
+                )
+                    return false;
 
-            let searchByMode: 'ORDER_ID' | 'NAME' | 'PHONE_NUMBER' =
-                searchInput.current?.value[0] === '#'
-                    ? 'ORDER_ID'
-                    : isNaN(parseInt(searchInput.current?.value[0]))
-                      ? 'NAME'
-                      : 'PHONE_NUMBER';
-            switch (searchByMode) {
-                case 'ORDER_ID': {
-                    if (searchInput.current?.value !== `#${item?.orderId}`)
-                        return false;
-                    break;
+                let searchByMode: 'ORDER_ID' | 'NAME' | 'PHONE_NUMBER' =
+                    searchInput.current?.value[0] === '#'
+                        ? 'ORDER_ID'
+                        : isNaN(parseInt(searchInput.current?.value[0]))
+                          ? 'NAME'
+                          : 'PHONE_NUMBER';
+                switch (searchByMode) {
+                    case 'ORDER_ID': {
+                        if (searchInput.current?.value !== `#${item?.orderId}`)
+                            return false;
+                        break;
+                    }
+                    case 'NAME': {
+                        if (
+                            searchInput.current?.value &&
+                            !item.customerName
+                                .toLowerCase()
+                                .includes(
+                                    searchInput.current?.value?.toLowerCase()
+                                )
+                        )
+                            return false;
+                        break;
+                    }
+                    case 'PHONE_NUMBER': {
+                        if (
+                            searchInput.current?.value &&
+                            !item.customerPhoneNumber
+                                .toLowerCase()
+                                .includes(
+                                    searchInput.current?.value?.toLowerCase()
+                                )
+                        )
+                            return false;
+                        break;
+                    }
                 }
-                case 'NAME': {
-                    if (
-                        searchInput.current?.value &&
-                        !item.customerName
-                            .toLowerCase()
-                            .includes(searchInput.current?.value?.toLowerCase())
-                    )
-                        return false;
-                    break;
-                }
-                case 'PHONE_NUMBER': {
-                    if (
-                        searchInput.current?.value &&
-                        !item.customerPhoneNumber
-                            .toLowerCase()
-                            .includes(searchInput.current?.value?.toLowerCase())
-                    )
-                        return false;
-                    break;
-                }
-            }
 
-            return true;
-        });
+                return true;
+            })
+            ?.sort((a, b) => {
+                return b?.orderId - a?.orderId;
+            });
 
         // setPagination(1);
         setFilteredOrders(newFilteredOrders);
