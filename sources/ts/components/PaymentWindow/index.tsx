@@ -152,42 +152,7 @@ const PaymentWindow: FunctionComponent<{
                 );
             if (!success) {
                 if (statusCode === 409) {
-                    showToast({
-                        variant: 'primary',
-                        title: texts.cartItemsUpdatedToast.title,
-                        message: texts.cartItemsUpdatedToast.message,
-                        duration: 10000,
-                    });
-                    const newProducts = await handleRefreshProduct(),
-                        mappedProducts: any = newProducts?.reduce(
-                            (acc: any, product) => {
-                                acc[product?.slug] = product;
-                                return acc;
-                            },
-                            {}
-                        );
-                    const newCartItems = parsedCartItems
-                        ?.map((cartItem) => {
-                            if (!mappedProducts[cartItem?.product?.slug])
-                                return null;
-                            if (
-                                cartItem?.product?.price !==
-                                mappedProducts[cartItem?.product?.slug]?.price
-                            )
-                                cartItem.product.price =
-                                    mappedProducts[
-                                        cartItem?.product?.slug
-                                    ]?.price;
-                            return cartItem;
-                        })
-                        .filter((cartItem) => !!cartItem);
-                    if (!newCartItems?.length) {
-                        setCartItems(JSON.stringify([]));
-                        goBackButton?.current?.click();
-                        setIsPending(false);
-                        return;
-                    }
-                    setCartItems(JSON.stringify(newCartItems));
+                    await handleRefreshProduct(true);
                     setTimeout(() => setIsPending(false), 300);
                     return;
                 }
@@ -207,6 +172,7 @@ const PaymentWindow: FunctionComponent<{
             setIsPending(false);
             setModalVisibility(false);
             goBackButton?.current?.click();
+            await handleRefreshProduct(false);
             setTimeout(() => {
                 setModal({
                     type: 'alert',

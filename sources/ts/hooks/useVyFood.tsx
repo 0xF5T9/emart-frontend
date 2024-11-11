@@ -5,7 +5,7 @@
 
 'use strict';
 
-import type { Product } from '@sources/ts/types/VyFood';
+import type { Product, CartItem } from '@sources/ts/types/VyFood';
 import {
     FunctionComponent,
     ReactNode,
@@ -16,13 +16,15 @@ import {
 import PropTypes from 'prop-types';
 
 import { useLocalStorage } from '@sources/ts/hooks/useLocalStorage';
+import { showToast } from '@sources/ts/components/Toast';
 import apis from '@sources/ts/apis';
 import staticUrls from '@sources/ts/render/static-urls';
+import staticTexts from '@sources/ts/render/static-texts';
 
 type VyFoodHook = {
     productItems: Product[];
     setProductItems: React.Dispatch<React.SetStateAction<Product[]>>;
-    handleRefreshProduct: () => Promise<Product[]>;
+    handleRefreshProduct: (refreshCart: boolean) => Promise<void>;
     productFilter:
         | {
               type: 'name';
@@ -84,13 +86,13 @@ const VyFoodProvider: FunctionComponent<{ children: ReactNode }> = function ({
         setCartItems: (stringifiedCartItems: string) => void,
     ];
 
-    const handleRefreshProduct = async () => {
+    const handleRefreshProduct = async (refreshCart = false) => {
         const { message, success, data } = await apis.backend.getProducts();
         if (!success) {
             console.error(message);
             setProductItems(null);
             setIsBackendUnavailable(true);
-            return null;
+            return;
         }
 
         const rawProducts = data?.products,
@@ -105,7 +107,72 @@ const VyFoodProvider: FunctionComponent<{ children: ReactNode }> = function ({
                 return product;
             });
         setProductItems(products);
-        return products;
+
+        if (!refreshCart) return;
+
+        const mappedProducts: any = products?.reduce((acc: any, product) => {
+            acc[product?.slug] = { ...product };
+            return acc;
+        }, {});
+
+        const newCartMessages: string[] = [],
+            parsedCartItems: CartItem[] = JSON.parse(cartItems) || [],
+            newCartItems = parsedCartItems
+                ?.map((cartItem) => {
+                    if (!mappedProducts[cartItem?.product?.slug]) {
+                        newCartMessages.push(
+                            `${cartItem.totalItems} sản phẩm <b style="color: var(--color-primary, blue)">${cartItem.product.name}</b> không còn tồn tại nữa.<br/>(Sản phẩm đã bị xoá khỏi giỏ hàng của bạn)`
+                        );
+                        return null;
+                    }
+                    if (
+                        cartItem?.product?.price !==
+                        mappedProducts[cartItem?.product?.slug]?.price
+                    ) {
+                        newCartMessages.push(
+                            `Giá của sản phẩm <b style="color: var(--color-primary, blue)">${cartItem.product.name}</b> đã được thay đổi từ <b style="color: var(--color-primary, blue)">${window.myHelper.convertVNDNumberToString(cartItem?.product?.price)}</b> thành <b style="color: var(--color-primary, blue)">${window.myHelper.convertVNDNumberToString(mappedProducts[cartItem?.product?.slug]?.price)}</b>.<br/>(Giỏ hàng của bạn đã được cập nhật)`
+                        );
+                        cartItem.product.price =
+                            mappedProducts[cartItem?.product?.slug]?.price;
+                    }
+
+                    if (
+                        mappedProducts[cartItem?.product?.slug].quantity === 0
+                    ) {
+                        newCartMessages.push(
+                            `Sản phẩm <b style="color: var(--color-primary, blue)">${cartItem.product.name}</b> đã hết hàng.<br/>(Giỏ hàng của bạn đã được cập nhật)`
+                        );
+                        return null;
+                    }
+                    const newQuantity =
+                        mappedProducts[cartItem?.product?.slug].quantity -
+                        cartItem.totalItems;
+                    if (newQuantity < 0) {
+                        newCartMessages.push(
+                            `Cửa hàng chỉ còn ${mappedProducts[cartItem?.product?.slug].quantity} sản phẩm <b style="color: var(--color-primary, blue)">${cartItem.product.name}</b>.<br/>(Giỏ hàng của bạn đã được cập nhật)`
+                        );
+                        cartItem.totalItems =
+                            mappedProducts[cartItem?.product?.slug].quantity;
+                        return cartItem;
+                    }
+                    mappedProducts[cartItem?.product?.slug].quantity =
+                        newQuantity;
+                    return cartItem;
+                })
+                .filter((cartItem) => !!cartItem);
+        if (!newCartItems?.length) setCartItems(JSON.stringify([]));
+        else setCartItems(JSON.stringify(newCartItems));
+        if (newCartMessages?.length)
+            newCartMessages.forEach((message) =>
+                showToast({
+                    variant: 'primary',
+                    title: staticTexts.paymentWindow.cartItemsUpdatedToast
+                        .title,
+                    message: message,
+                    duration: 10000,
+                })
+            );
+        return;
     };
 
     const value: VyFoodHook = {

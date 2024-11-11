@@ -112,7 +112,7 @@ const ProductsView: FunctionComponent<{
     }, [productFilter]);
 
     useEffect(() => {
-        handleRefreshProduct();
+        handleRefreshProduct(true);
     }, []);
 
     return (

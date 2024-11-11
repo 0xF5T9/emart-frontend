@@ -63,6 +63,12 @@ const CartItem: FunctionComponent<{
             setTotal(cartItem?.product?.price * amount);
     }, [amount]);
 
+    useEffect(() => {
+        setAmount(cartItems[index].totalItems);
+        if (cartItem?.product?.price)
+            setTotal(cartItem?.product?.price * amount);
+    }, [cartItems]);
+
     return (
         <li className={styles['cart-item']}>
             <div className={styles['cart-item-product-description']}>
@@ -195,7 +201,7 @@ CartItem.propTypes = {
  * @returns Returns the component.
  */
 const CartModalWindow: FunctionComponent = () => {
-    const { cartItems } = useVyFood();
+    const { cartItems, handleRefreshProduct } = useVyFood();
 
     const { setModalVisibility } = useModal();
 
@@ -229,6 +235,12 @@ const CartModalWindow: FunctionComponent = () => {
             setTotal(totalNumber);
         }
     }, [parsedCartItems]);
+
+    useEffect(() => {
+        (async () => {
+            await handleRefreshProduct(true);
+        })();
+    }, []);
 
     return (
         <div ref={modalWindow} className={styles['modal-window']}>
