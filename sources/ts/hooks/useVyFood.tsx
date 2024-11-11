@@ -121,7 +121,7 @@ const VyFoodProvider: FunctionComponent<{ children: ReactNode }> = function ({
                 ?.map((cartItem) => {
                     if (!mappedProducts[cartItem?.product?.slug]) {
                         newCartMessages.push(
-                            `${cartItem.totalItems} sản phẩm <b style="color: var(--color-primary, blue)">${cartItem.product.name}</b> không còn tồn tại nữa.<br/>(Sản phẩm đã bị xoá khỏi giỏ hàng của bạn)`
+                            `Sản phẩm <b style="color: var(--color-primary, blue)">${cartItem.product.name}</b> không còn tồn tại nữa.<br/>(Sản phẩm đã bị xoá khỏi giỏ hàng của bạn)`
                         );
                         return null;
                     }
