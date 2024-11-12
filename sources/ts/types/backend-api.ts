@@ -165,3 +165,4 @@ export type GetOrdersResponseData = {
 export type CreateOrderResponseData = null;
 export type UpdateOrderResponseData = null;
 export type DeleteOrderResponseData = null;
+export type RestoreProductQuantityResponseData = null;

@@ -5,8 +5,15 @@
 
 'use strict';
 
+import type { Order } from '@sources/ts/types/VyFood';
 import type { TOrder } from '../..';
-import { FunctionComponent, useState, useRef, useCallback } from 'react';
+import {
+    FunctionComponent,
+    CSSProperties,
+    useState,
+    useRef,
+    useCallback,
+} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -15,6 +22,7 @@ import { useModal } from '@sources/ts/hooks/useModal';
 import apis from '@sources/ts/apis';
 import { showToast } from '@sources/ts/components/Toast';
 import CustomSelect from '@sources/ts/components/CustomSelect';
+import Button from '@sources/ts/components/Button';
 import * as styles from './OrderDetailsModalWindow.module.css';
 import staticTexts from '@sources/ts/render/static-texts';
 import staticUrls from '@sources/ts/render/static-urls';
@@ -31,7 +39,7 @@ const OrderDetailsModalWindow: FunctionComponent<{
     orderItem: TOrder;
     refreshCallback?: (silentFetch?: boolean) => void;
 }> = ({ orderItem, refreshCallback }) => {
-    const { setModalVisibility } = useModal();
+    const { setModal, setModalVisibility } = useModal();
 
     const modalWindow = useRef<HTMLDivElement>(null);
 
@@ -62,10 +70,91 @@ const OrderDetailsModalWindow: FunctionComponent<{
             }
             if (refreshCallback) refreshCallback(true);
             setIsPending(false);
+            if (newStatus === 'aborted' || newStatus === 'refunded') {
+                setModalVisibility(false);
+                setTimeout(
+                    () => handleRestoreProductQuantityConfirmation(orderItem),
+                    300
+                );
+            }
             return true;
         },
         [orderItem]
     );
+
+    const handleRestoreProductQuantity = (order: Order) => {
+        if (isPending) return;
+        setIsPending(true);
+
+        (async () => {
+            const { message, success } =
+                await apis.backend.restoreOrderProductQuantity(order?.orderId);
+            if (!success) {
+                console.error(message);
+                setTimeout(
+                    () =>
+                        showToast({
+                            variant: 'danger',
+                            title: staticTexts.toast.errorDefaultTitle,
+                            message,
+                            duration: 5000,
+                        }),
+                    100
+                );
+                setIsPending(false);
+                if (refreshCallback) refreshCallback(true);
+                return;
+            }
+
+            setIsPending(false);
+            if (refreshCallback) refreshCallback(true);
+        })();
+    };
+
+    const handleRestoreProductQuantityConfirmation = (order: Order) => {
+        setModal({
+            type: 'alert',
+            title: staticTexts.adminSection.orders
+                .restoreProductQuantityConfirmationWindow.title,
+            message:
+                staticTexts.adminSection.orders
+                    .restoreProductQuantityConfirmationWindow.message,
+            removeDefaultCloseButton: true,
+
+            customButton: (
+                <>
+                    <Button
+                        className="default"
+                        color="gray"
+                        style={
+                            {
+                                '--button-background-color-default': '#999999',
+                            } as CSSProperties
+                        }
+                        onClick={() => setModalVisibility(false)}
+                    >
+                        {
+                            staticTexts.adminSection.orders
+                                .restoreProductQuantityConfirmationWindow
+                                .cancelButton
+                        }
+                    </Button>
+                    <Button
+                        onClick={() => {
+                            handleRestoreProductQuantity(order);
+                            setModalVisibility(false);
+                        }}
+                    >
+                        {
+                            staticTexts.adminSection.orders
+                                .restoreProductQuantityConfirmationWindow
+                                .confirmButton
+                        }
+                    </Button>
+                </>
+            ),
+        });
+    };
 
     let oldTotal =
             orderItem?.items?.reduce(

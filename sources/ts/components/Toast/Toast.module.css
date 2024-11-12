@@ -91,6 +91,10 @@
         rgba(89, 235, 136, 1) 100%
     );
     --toast-border-width: 0px;
+    --toast-icon-color: #fff;
+    --toast-title-color: #fff;
+    --toast-desc-color: #fff;
+    --toast-close-icon-color: #fff;
 }
 
 .toast.toast-danger {
@@ -100,6 +104,10 @@
         rgba(255, 71, 117, 1) 100%
     );
     --toast-border-width: 0px;
+    --toast-icon-color: #fff;
+    --toast-title-color: #fff;
+    --toast-desc-color: #fff;
+    --toast-close-icon-color: #fff;
 }
 
 .toast.toast-warn {
@@ -109,6 +117,10 @@
         rgba(252, 178, 105, 1) 100%
     );
     --toast-border-width: 0px;
+    --toast-icon-color: #fff;
+    --toast-title-color: #fff;
+    --toast-desc-color: #fff;
+    --toast-close-icon-color: #fff;
 }
 
 .toast.toast-info {
@@ -118,6 +130,10 @@
         rgba(71, 208, 255, 1) 100%
     );
     --toast-border-width: 0px;
+    --toast-icon-color: #fff;
+    --toast-title-color: #fff;
+    --toast-desc-color: #fff;
+    --toast-close-icon-color: #fff;
 }
 
 .toast.toast-message {
@@ -127,4 +143,8 @@
         rgba(71, 208, 255, 1) 100%
     );
     --toast-border-width: 0px;
+    --toast-icon-color: #fff;
+    --toast-title-color: #fff;
+    --toast-desc-color: #fff;
+    --toast-close-icon-color: #fff;
 }

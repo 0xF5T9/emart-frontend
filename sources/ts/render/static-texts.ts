@@ -366,6 +366,12 @@ const staticTexts = {
                 cancelButton: 'Huỷ',
                 confirmButton: 'Xác nhận',
             },
+            restoreProductQuantityConfirmationWindow: {
+                title: 'Xác nhận',
+                message: 'Bạn có muốn nhập lại số hàng vào kho?',
+                cancelButton: 'Huỷ',
+                confirmButton: 'Xác nhận',
+            },
         },
         users: {
             title: 'Quản lý người dùng',

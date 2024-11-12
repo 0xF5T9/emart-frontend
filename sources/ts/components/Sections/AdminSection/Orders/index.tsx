@@ -84,6 +84,7 @@ const OrderItem: FunctionComponent<
                     100
                 );
                 setIsPending(false);
+                if (refreshCallback) refreshCallback(true);
                 return;
             }
 
@@ -126,6 +127,75 @@ const OrderItem: FunctionComponent<
         });
     };
 
+    const handleRestoreProductQuantity = (order: Order) => {
+        if (isPending) return;
+        setIsPending(true);
+
+        (async () => {
+            const { message, success } =
+                await apis.backend.restoreOrderProductQuantity(order?.orderId);
+            if (!success) {
+                console.error(message);
+                setTimeout(
+                    () =>
+                        showToast({
+                            variant: 'danger',
+                            title: staticTexts.toast.errorDefaultTitle,
+                            message,
+                            duration: 5000,
+                        }),
+                    100
+                );
+                setIsPending(false);
+                if (refreshCallback) refreshCallback(true);
+                return;
+            }
+
+            setIsPending(false);
+            if (refreshCallback) refreshCallback(true);
+        })();
+    };
+
+    const handleRestoreProductQuantityConfirmation = (order: Order) => {
+        setModal({
+            type: 'alert',
+            title: texts.restoreProductQuantityConfirmationWindow.title,
+            message: texts.restoreProductQuantityConfirmationWindow.message,
+            removeDefaultCloseButton: true,
+
+            customButton: (
+                <>
+                    <Button
+                        className="default"
+                        color="gray"
+                        style={
+                            {
+                                '--button-background-color-default': '#999999',
+                            } as CSSProperties
+                        }
+                        onClick={() => setModalVisibility(false)}
+                    >
+                        {
+                            texts.restoreProductQuantityConfirmationWindow
+                                .cancelButton
+                        }
+                    </Button>
+                    <Button
+                        onClick={() => {
+                            handleRestoreProductQuantity(order);
+                            setModalVisibility(false);
+                        }}
+                    >
+                        {
+                            texts.restoreProductQuantityConfirmationWindow
+                                .confirmButton
+                        }
+                    </Button>
+                </>
+            ),
+        });
+    };
+
     const handleUpdateStatus = useCallback(
         async (newStatus: string) => {
             if (isPending) return false;
@@ -150,6 +220,8 @@ const OrderItem: FunctionComponent<
             }
             if (refreshCallback) refreshCallback(true);
             setIsPending(false);
+            if (newStatus === 'aborted' || newStatus === 'refunded')
+                handleRestoreProductQuantityConfirmation(renderItem);
             return true;
         },
         [item]

@@ -39,6 +39,7 @@ import type {
     CreateOrderResponseData,
     UpdateOrderResponseData,
     DeleteOrderResponseData,
+    RestoreProductQuantityResponseData,
 } from '@sources/ts/types/backend-api';
 import axios from 'axios';
 
@@ -1552,6 +1553,48 @@ async function deleteOrder(
     }
 }
 
+/**
+ * Restore order product quantity.
+ * @param orderId Order id.
+ * @returns Returns the API response object.
+ */
+async function restoreOrderProductQuantity(
+    orderId: number
+): Promise<APIResult<RestoreProductQuantityResponseData>> {
+    try {
+        if (!orderId)
+            return new APIResult(
+                `Thông tin 'orderId' bị thiếu.`,
+                false,
+                null,
+                400
+            );
+
+        const result = await backend.post('order/restore-product-quantity', {
+            orderId,
+        });
+
+        const {
+            message,
+            data,
+        }: BackendResponse<RestoreProductQuantityResponseData> = result.data;
+
+        return new APIResult(message, true, data, result.status);
+    } catch (error) {
+        if (error.response) {
+            return new APIResult(
+                error.response.data.message,
+                false,
+                error,
+                error.response.status
+            );
+        } else {
+            console.error(error);
+            return new APIResult(texts.unknownError, false, error, null);
+        }
+    }
+}
+
 export {
     register,
     authorize,
@@ -1586,4 +1629,5 @@ export {
     createOrder,
     updateOrder,
     deleteOrder,
+    restoreOrderProductQuantity,
 };
