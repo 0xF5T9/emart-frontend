@@ -27,38 +27,20 @@ npm install
 
 Proxy that expose front-end server.
 
-`nginx.conf`
-
-```plain
-worker_processes  1;
-
-events {
-    worker_connections  1024;
-}
-
-http {
-    include       mime.types;
-    default_type  application/octet-stream;
-    sendfile        on;
-    keepalive_timeout  65;
-    client_max_body_size 100M;
-
-    include       mydomain.com.conf;
-}
-```
-
 `mydomain.com.conf`
 
 ```plain
 server {
     listen 80;
     server_name mydomain.com;
+    client_max_body_size 100M;
     return 301 https://mydomain.com$request_uri;
 }
 
 server {
     listen 443 ssl;
     server_name mydomain.com;
+    client_max_body_size 100M;
     root path/to/frontend/project/public;
     ssl_certificate path/to/ssl/cert.pem;
     ssl_certificate_key path/to/ssl/cert-key.pem;
@@ -79,7 +61,7 @@ server {
     }
 }
 
-# Other backend proxies ...
+# Other backend configurations ...
 ```
 
 ### 3. Set environment variables
@@ -92,5 +74,14 @@ PORT=8317
 ```
 
 ## Usage
+
+```bash
+# Start server in development mode
+npm run start-webpack
+
+# Or start server in production mode
+npm run build-prod # Build production
+npm start # Start production server
+```
 
 Check `package.json`, `.vscode` folder for scripts and tasks.
