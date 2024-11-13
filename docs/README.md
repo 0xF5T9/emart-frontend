@@ -60,8 +60,6 @@ server {
         # add_header Expires "0";
     }
 }
-
-# Other backend configurations ...
 ```
 
 ### 3. Set environment variables
