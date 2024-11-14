@@ -149,7 +149,13 @@
 }
 
 .order-item-row {
-    position: relative;
+    /* 
+     * Problem: Position property not being applied to <tr> element on safari.
+     * Fix: https://mtsknn.fi/blog/relative-tr-in-safari/#problem
+     * position: relative; 
+     */
+    transform: translate(0);
+    clip-path: inset(0);
 }
 
 .order-item-row.processing::after {
