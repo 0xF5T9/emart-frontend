@@ -1,0 +1,55 @@
+.hero-container {
+    display: flex;
+    width: 100%;
+    max-width: var(--content-max-width);
+}
+
+.hero-slider {
+    height: 100%;
+}
+
+.hero-slider-item {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 12px;
+}
+
+.hero-slider-item-image {
+    object-fit: contain;
+    width: 100%;
+    border-radius: 5px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.hero-dot-list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 24px;
+}
+
+.hero-dot-list :global(.react-multi-carousel-dot button) {
+    background-color: #fff !important;
+    border-color: var(--color-primary, blue) !important;
+    transition: none !important;
+}
+
+.hero-dot-list :global(.react-multi-carousel-dot--active button) {
+    background-color: var(--color-primary, blue) !important;
+    border-color: #fff !important;
+    transition: none !important;
+}
+
+.hero-dot-list :global(.react-multi-carousel-dot button:active) {
+    background-color: var(--color-primary, blue) !important;
+    border-color: #fff !important;
+    transition: none !important;
+}
+
+.hero-container :global(.react-multiple-carousel__arrow) {
+    -webkit-tap-highlight-color: transparent;
+}

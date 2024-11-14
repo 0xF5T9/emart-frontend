@@ -5,11 +5,12 @@
 
 'use strict';
 import { FunctionComponent } from 'react';
-import { DynamicSection } from '@sources/ts/components/Content/components/GridSection';
 
-import HeroBanner from './components/HeroBanner';
+import { DynamicSection } from '@sources/ts/components/Content/components/GridSection';
+import HeroSlider from './components/HeroSlider';
 import BusinessServices from './components/BusinessServices';
 import ProductsView from './components/ProductsView';
+import staticUrls from '@sources/ts/render/static-urls';
 import './IndexSection.module.css';
 
 /**
@@ -31,7 +32,22 @@ const IndexSection: FunctionComponent = function () {
                     },
                 }}
             >
-                <HeroBanner />
+                <HeroSlider
+                    images={[
+                        {
+                            url: staticUrls.heroSliderImage1,
+                        },
+                        {
+                            url: staticUrls.heroSliderImage2,
+                        },
+                        {
+                            url: staticUrls.heroSliderImage3,
+                        },
+                        {
+                            url: staticUrls.heroSliderImage4,
+                        },
+                    ]}
+                />
             </DynamicSection>
             <DynamicSection
                 noGutters

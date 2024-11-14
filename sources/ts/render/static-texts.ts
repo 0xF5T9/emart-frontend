@@ -10,7 +10,6 @@ const staticTexts = {
     announcementText: 'Giảm 15% cho đơn hàng từ 400.000₫ trở lên.',
     announcementCloseText: 'Nhấn vào để đóng thông báo',
     brandLogoAlt: 'Logo Vy Food.',
-    heroBannerAlt: 'Hero banner.',
     backToHomePage404: 'Trờ về trang chủ',
     footer: {
         brandLogoAlt: 'Hình ảnh logo VyFood',
