@@ -20,6 +20,7 @@
     background-color: var(--select-background-color-default, blue);
     transition: all 0.15s ease;
     z-index: 99;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .select.small,
