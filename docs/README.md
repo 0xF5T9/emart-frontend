@@ -83,3 +83,7 @@ npm start # Start production server
 ```
 
 Check `package.json`, `.vscode` folder for scripts and tasks.
+
+## TODO
+
+- Update webpack development configuration to use HTTPS.
