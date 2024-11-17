@@ -49,7 +49,7 @@ const texts = staticTexts.api.backend;
 
 const backend = axios.create({
     baseURL: process.env.API_URL,
-    timeout: 5000,
+    timeout: 60000,
     withCredentials: true,
     fetchOptions: {
         credentials: 'same-origin',
