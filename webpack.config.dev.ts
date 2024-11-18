@@ -23,6 +23,8 @@ const environmentVariables = {
     API_URL: process.env.API_URL,
     UPLOAD_URL: process.env.UPLOAD_URL,
     PORT: process.env.PORT,
+    WEBPACK_PATH_TO_CERT: process.env.WEBPACK_PATH_TO_CERT,
+    WEBPACK_PATH_TO_CERT_KEY: process.env.WEBPACK_PATH_TO_CERT_KEY,
 };
 let isConfigurationInvalid = false;
 for (const variable in environmentVariables) {
@@ -120,6 +122,27 @@ export default {
         },
         watchFiles: ['sources/**/*'], // Rebuild on source file changes.
         historyApiFallback: true, // Enable 'historyApiFallback' or react router won't work.
+        host: '0.0.0.0',
+        allowedHosts: 'all',
+        server: {
+            type: 'https',
+            options: {
+                key: process.env.WEBPACK_PATH_TO_CERT_KEY,
+                cert: process.env.WEBPACK_PATH_TO_CERT,
+                passphrase: 'webpack-dev-server',
+                requestCert: false,
+            },
+        },
+        client: {
+            webSocketURL: {
+                hostname: '0.0.0.0',
+                pathname: '/ws',
+                password: 'dev-server',
+                port: 443,
+                protocol: 'wss',
+                username: 'webpack',
+            },
+        },
     },
     plugins: [
         // Generate 'index.html' file.
@@ -130,7 +153,7 @@ export default {
         }),
         // Enable support for environment files.
         new Dotenv({
-            systemvars: true // Pass system variables. Set to true so it will work in docker context.
+            systemvars: true, // Pass system variables. Set to true so it will work in docker context.
             // path: './.env.development', // Use specific environment file.
         }),
         new webpack.ProvidePlugin({
