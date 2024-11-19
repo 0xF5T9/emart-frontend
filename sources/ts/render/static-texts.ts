@@ -63,6 +63,7 @@ const staticTexts = {
             noteInputPlaceholder: 'Nhập ghi chú...',
             totalLabel: 'Thành tiền',
             orderNowButton: 'Đặt hàng ngay',
+            addToCartButton: 'Thêm vào giỏ hàng',
         },
     },
     cartWindow: {

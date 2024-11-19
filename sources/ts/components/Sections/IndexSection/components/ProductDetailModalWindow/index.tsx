@@ -192,6 +192,7 @@ const ProductDetailModalWindow: FunctionComponent<{ productItem: Product }> = ({
                         onClick={() => handleAddToCart()}
                     >
                         <i className={classNames('fal fa-basket-shopping')} />
+                        {texts.addToCartButton && <span className={styles['add-to-cart-button-text']}>{texts.addToCartButton}</span>}
                     </button>
                 </div>
             </div>
