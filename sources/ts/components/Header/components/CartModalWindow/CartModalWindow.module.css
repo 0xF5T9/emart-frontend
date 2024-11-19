@@ -153,6 +153,7 @@
 
 .cart-item-product-name,
 .cart-item-product-price {
+    text-align: left;
     font-size: 15px;
     color: var(--text-high-contrast-color, blue);
 }
