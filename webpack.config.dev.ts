@@ -160,4 +160,10 @@ export default {
             process: 'process/browser',
         }),
     ],
+    // If we're going to use multiple entry points on a single HTML page,
+    // optimization.runtimeChunk: 'single' is needed.
+    // https://webpack.js.org/guides/code-splitting/
+    optimization: {
+        runtimeChunk: 'single',
+    },
 };
