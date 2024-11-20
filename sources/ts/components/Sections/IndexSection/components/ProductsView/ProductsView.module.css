@@ -316,6 +316,7 @@
     .product-image-wrapper {
         display: flex;
         flex-basis: content;
+        flex-shrink: 0;
     }
     .product-image {
         width: 140px;
@@ -338,6 +339,7 @@
     }
     .product-image-wrapper {
         display: flex;
+        flex-shrink: 0;
         flex-basis: content;
     }
     .product-image {
