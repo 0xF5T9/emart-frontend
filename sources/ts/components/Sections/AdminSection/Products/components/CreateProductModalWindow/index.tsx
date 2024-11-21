@@ -250,312 +250,322 @@ const CreateProductModalWindow: FunctionComponent<{
                     className={styles['product-update-form']}
                     onSubmit={(event) => event.preventDefault()}
                 >
-                    <div className={styles['form-group']}>
-                        <label
-                            className={styles['label']}
-                            htmlFor="product-name-input"
-                        >
-                            {texts.nameInputLabel}
-                        </label>
-                        <Input
-                            inputRef={productNameInput}
-                            type="text"
-                            id="product-name-input"
-                            className={styles['input']}
-                            height={40}
-                            icon={{
-                                position: 'left',
-                                icon: 'fal fa-input-text',
-                            }}
-                            placeholder={texts.nameInputPlaceholder}
-                            disabled={isPending}
-                            autoCapitalize="off"
-                            spellCheck={false}
-                            value={productNameInputValue}
-                            onChange={(event) => {
-                                if (event.currentTarget?.value.length <= 255)
-                                    setProductNameInputValue(
+                    <div className={styles['form-content']}>
+                        <div className={styles['form-group']}>
+                            <label
+                                className={styles['label']}
+                                htmlFor="product-name-input"
+                            >
+                                {texts.nameInputLabel}
+                            </label>
+                            <Input
+                                inputRef={productNameInput}
+                                type="text"
+                                id="product-name-input"
+                                className={styles['input']}
+                                height={40}
+                                icon={{
+                                    position: 'left',
+                                    icon: 'fal fa-input-text',
+                                }}
+                                placeholder={texts.nameInputPlaceholder}
+                                disabled={isPending}
+                                autoCapitalize="off"
+                                spellCheck={false}
+                                value={productNameInputValue}
+                                onChange={(event) => {
+                                    if (
+                                        event.currentTarget?.value.length <= 255
+                                    )
+                                        setProductNameInputValue(
+                                            event.currentTarget.value
+                                        );
+                                    const formMessage = document.getElementById(
+                                        'product-name-input-form-message'
+                                    );
+                                    if (formMessage) formMessage.innerHTML = '';
+                                }}
+                                onBlur={() => {
+                                    const formMessage = document.getElementById(
+                                        'product-name-input-form-message'
+                                    );
+                                    if (formMessage) {
+                                        if (!productNameInputValue)
+                                            formMessage.innerHTML =
+                                                texts.nameInputFormMessageRequire;
+                                        else formMessage.innerHTML = '';
+                                    }
+                                }}
+                            />
+                            <span
+                                id="product-name-input-form-message"
+                                className={styles['form-message']}
+                            ></span>
+                        </div>
+                        <div className={styles['form-group']}>
+                            <span
+                                className={styles['label']}
+                                style={{ width: 'fit-content' }}
+                                onClick={() =>
+                                    document
+                                        .getElementById(
+                                            'admin-update-product-category-select'
+                                        )
+                                        ?.click()
+                                }
+                            >
+                                {texts.categoryInputLabel}
+                            </span>
+                            {categories?.length ? (
+                                <MultipleSelect
+                                    key={categories?.length}
+                                    id="admin-update-product-category-select"
+                                    disabled={isPending}
+                                    initialOptions={categories?.map(
+                                        (category) => ({
+                                            id: category.slug,
+                                            text: category.name,
+                                            value: category.slug,
+                                            selected: false,
+                                        })
+                                    )}
+                                    onOptionsChange={(newOptions) =>
+                                        setProductSelectedCategories(
+                                            newOptions?.map(
+                                                (option) => option.value
+                                            )
+                                        )
+                                    }
+                                />
+                            ) : (
+                                <MultipleSelect
+                                    key={categories?.length}
+                                    initialOptions={[]}
+                                />
+                            )}
+                            <span
+                                id="product-category-form-message"
+                                className={styles['form-message']}
+                            ></span>
+                        </div>
+                        <div className={styles['form-group']}>
+                            <label
+                                className={styles['label']}
+                                htmlFor="product-price-input"
+                            >
+                                {texts.priceInputLabel}
+                            </label>
+                            <Input
+                                inputRef={productPriceInput}
+                                type="number"
+                                id="product-price-input"
+                                className={styles['input']}
+                                height={40}
+                                icon={{
+                                    position: 'left',
+                                    icon: 'fal fa-tag',
+                                }}
+                                placeholder={texts.priceInputPlaceholder}
+                                disabled={isPending}
+                                autoCapitalize="off"
+                                value={
+                                    Number.isNaN(productPriceInputValue)
+                                        ? ''
+                                        : productPriceInputValue
+                                }
+                                onChange={(event) => {
+                                    setProductPriceInputValue(
+                                        parseInt(event.currentTarget.value)
+                                    );
+                                    const formMessage = document.getElementById(
+                                        'product-price-input-form-message'
+                                    );
+                                    if (formMessage) formMessage.innerHTML = '';
+                                }}
+                                onBlur={() => {
+                                    const formMessage = document.getElementById(
+                                        'product-price-input-form-message'
+                                    );
+                                    if (formMessage) {
+                                        if (
+                                            !productPriceInputValue &&
+                                            productPriceInputValue !== 0
+                                        )
+                                            formMessage.innerHTML =
+                                                texts.priceInputFormMessageRequire;
+                                        else formMessage.innerHTML = '';
+                                    }
+                                }}
+                            />
+                            <span
+                                id="product-price-input-form-message"
+                                className={styles['form-message']}
+                            ></span>
+                        </div>
+                        <div className={styles['form-group']}>
+                            <label
+                                className={styles['label']}
+                                htmlFor="product-quantity-input"
+                            >
+                                {texts.quantityInputLabel}
+                            </label>
+                            <Input
+                                inputRef={productQuantityInput}
+                                type="number"
+                                id="product-quantity-input"
+                                className={styles['input']}
+                                height={40}
+                                icon={{
+                                    position: 'left',
+                                    icon: 'fal fa-box',
+                                }}
+                                placeholder={texts.quantityInputPlaceholder}
+                                disabled={isPending}
+                                autoCapitalize="off"
+                                value={
+                                    Number.isNaN(productQuantityInputValue)
+                                        ? ''
+                                        : productQuantityInputValue
+                                }
+                                onChange={(event) => {
+                                    setProductQuantityInputValue(
+                                        parseInt(event.currentTarget.value)
+                                    );
+                                    const formMessage = document.getElementById(
+                                        'product-quantity-input-form-message'
+                                    );
+                                    if (formMessage) formMessage.innerHTML = '';
+                                }}
+                                onBlur={() => {
+                                    const formMessage = document.getElementById(
+                                        'product-quantity-input-form-message'
+                                    );
+                                    if (formMessage) {
+                                        if (
+                                            !productQuantityInputValue &&
+                                            productQuantityInputValue !== 0
+                                        )
+                                            formMessage.innerHTML =
+                                                texts.quantityInputFormMessageRequire;
+                                        else formMessage.innerHTML = '';
+                                    }
+                                }}
+                            />
+                            <span
+                                id="product-quantity-input-form-message"
+                                className={styles['form-message']}
+                            ></span>
+                        </div>
+                        <div className={styles['form-group']}>
+                            <label
+                                className={styles['label']}
+                                htmlFor="product-priority-input"
+                            >
+                                {texts.priorityInputLabel}
+                            </label>
+                            <Input
+                                inputRef={productPriorityInput}
+                                type="number"
+                                id="product-priority-input"
+                                className={styles['input']}
+                                height={40}
+                                icon={{
+                                    position: 'left',
+                                    icon: 'fal fa-arrow-up-square-triangle',
+                                }}
+                                placeholder={texts.priorityInputPlaceholder}
+                                disabled={isPending}
+                                autoCapitalize="off"
+                                value={
+                                    Number.isNaN(productPriorityInputValue)
+                                        ? ''
+                                        : productPriorityInputValue
+                                }
+                                onChange={(event) => {
+                                    setProductPriorityInputValue(
+                                        Math.max(
+                                            0,
+                                            Math.min(
+                                                parseInt(
+                                                    event.currentTarget.value
+                                                ),
+                                                999999
+                                            )
+                                        )
+                                    );
+                                    const formMessage = document.getElementById(
+                                        'product-priority-input-form-message'
+                                    );
+                                    if (formMessage) formMessage.innerHTML = '';
+                                }}
+                                onBlur={() => {
+                                    const formMessage = document.getElementById(
+                                        'product-priority-input-form-message'
+                                    );
+                                    if (formMessage) {
+                                        if (
+                                            !productPriorityInputValue &&
+                                            productPriorityInputValue !== 0
+                                        )
+                                            formMessage.innerHTML =
+                                                texts.priorityInputFormMessageRequire;
+                                        else formMessage.innerHTML = '';
+                                    }
+                                }}
+                            />
+                            <span
+                                id="product-priority-input-form-message"
+                                className={styles['form-message']}
+                            ></span>
+                        </div>
+                        <div className={styles['form-group']}>
+                            <label
+                                className={styles['label']}
+                                htmlFor="product-desc-input"
+                            >
+                                {texts.descInputLabel}
+                            </label>
+                            <textarea
+                                ref={productDescInput}
+                                id="product-desc-input"
+                                className={styles['text-area']}
+                                placeholder={texts.descInputPlaceholder}
+                                value={productDescInputValue}
+                                spellCheck={false}
+                                disabled={isPending}
+                                onChange={(event) => {
+                                    setProductDescInputValue(
                                         event.currentTarget.value
                                     );
-                                const formMessage = document.getElementById(
-                                    'product-name-input-form-message'
-                                );
-                                if (formMessage) formMessage.innerHTML = '';
-                            }}
-                            onBlur={() => {
-                                const formMessage = document.getElementById(
-                                    'product-name-input-form-message'
-                                );
-                                if (formMessage) {
-                                    if (!productNameInputValue)
-                                        formMessage.innerHTML =
-                                            texts.nameInputFormMessageRequire;
-                                    else formMessage.innerHTML = '';
-                                }
-                            }}
-                        />
-                        <span
-                            id="product-name-input-form-message"
-                            className={styles['form-message']}
-                        ></span>
-                    </div>
-                    <div className={styles['form-group']}>
-                        <span
-                            className={styles['label']}
-                            style={{ width: 'fit-content' }}
-                            onClick={() =>
-                                document
-                                    .getElementById(
-                                        'admin-update-product-category-select'
-                                    )
-                                    ?.click()
-                            }
-                        >
-                            {texts.categoryInputLabel}
-                        </span>
-                        {categories?.length ? (
-                            <MultipleSelect
-                                key={categories?.length}
-                                id="admin-update-product-category-select"
-                                disabled={isPending}
-                                initialOptions={categories?.map((category) => ({
-                                    id: category.slug,
-                                    text: category.name,
-                                    value: category.slug,
-                                    selected: false,
-                                }))}
-                                onOptionsChange={(newOptions) =>
-                                    setProductSelectedCategories(
-                                        newOptions?.map(
-                                            (option) => option.value
-                                        )
-                                    )
-                                }
+                                    const formMessage = document.getElementById(
+                                        'product-desc-input-form-message'
+                                    );
+                                    if (formMessage) formMessage.innerHTML = '';
+                                }}
+                                // onBlur={() => {
+                                //     const formMessage = document.getElementById(
+                                //         'product-desc-input-form-message'
+                                //     );
+                                // }}
                             />
-                        ) : (
-                            <MultipleSelect
-                                key={categories?.length}
-                                initialOptions={[]}
-                            />
-                        )}
-                        <span
-                            id="product-category-form-message"
-                            className={styles['form-message']}
-                        ></span>
+                            <span
+                                id="product-desc-input-form-message"
+                                className={styles['form-message']}
+                            ></span>
+                        </div>
                     </div>
-                    <div className={styles['form-group']}>
-                        <label
-                            className={styles['label']}
-                            htmlFor="product-price-input"
-                        >
-                            {texts.priceInputLabel}
-                        </label>
-                        <Input
-                            inputRef={productPriceInput}
-                            type="number"
-                            id="product-price-input"
-                            className={styles['input']}
+                    <div className={styles['form-action']}>
+                        <Button
+                            className={styles['submit']}
                             height={40}
-                            icon={{
-                                position: 'left',
-                                icon: 'fal fa-tag',
-                            }}
-                            placeholder={texts.priceInputPlaceholder}
                             disabled={isPending}
-                            autoCapitalize="off"
-                            value={
-                                Number.isNaN(productPriceInputValue)
-                                    ? ''
-                                    : productPriceInputValue
-                            }
-                            onChange={(event) => {
-                                setProductPriceInputValue(
-                                    parseInt(event.currentTarget.value)
-                                );
-                                const formMessage = document.getElementById(
-                                    'product-price-input-form-message'
-                                );
-                                if (formMessage) formMessage.innerHTML = '';
-                            }}
-                            onBlur={() => {
-                                const formMessage = document.getElementById(
-                                    'product-price-input-form-message'
-                                );
-                                if (formMessage) {
-                                    if (
-                                        !productPriceInputValue &&
-                                        productPriceInputValue !== 0
-                                    )
-                                        formMessage.innerHTML =
-                                            texts.priceInputFormMessageRequire;
-                                    else formMessage.innerHTML = '';
-                                }
-                            }}
-                        />
-                        <span
-                            id="product-price-input-form-message"
-                            className={styles['form-message']}
-                        ></span>
-                    </div>
-                    <div className={styles['form-group']}>
-                        <label
-                            className={styles['label']}
-                            htmlFor="product-quantity-input"
+                            loading={buttonLoadingStates.create}
+                            onClick={() => handleCreateProduct()}
                         >
-                            {texts.quantityInputLabel}
-                        </label>
-                        <Input
-                            inputRef={productQuantityInput}
-                            type="number"
-                            id="product-quantity-input"
-                            className={styles['input']}
-                            height={40}
-                            icon={{
-                                position: 'left',
-                                icon: 'fal fa-box',
-                            }}
-                            placeholder={texts.quantityInputPlaceholder}
-                            disabled={isPending}
-                            autoCapitalize="off"
-                            value={
-                                Number.isNaN(productQuantityInputValue)
-                                    ? ''
-                                    : productQuantityInputValue
-                            }
-                            onChange={(event) => {
-                                setProductQuantityInputValue(
-                                    parseInt(event.currentTarget.value)
-                                );
-                                const formMessage = document.getElementById(
-                                    'product-quantity-input-form-message'
-                                );
-                                if (formMessage) formMessage.innerHTML = '';
-                            }}
-                            onBlur={() => {
-                                const formMessage = document.getElementById(
-                                    'product-quantity-input-form-message'
-                                );
-                                if (formMessage) {
-                                    if (
-                                        !productQuantityInputValue &&
-                                        productQuantityInputValue !== 0
-                                    )
-                                        formMessage.innerHTML =
-                                            texts.quantityInputFormMessageRequire;
-                                    else formMessage.innerHTML = '';
-                                }
-                            }}
-                        />
-                        <span
-                            id="product-quantity-input-form-message"
-                            className={styles['form-message']}
-                        ></span>
+                            <i className={classNames('fal fa-plus')} />
+                            {texts.createButton}
+                        </Button>
                     </div>
-                    <div className={styles['form-group']}>
-                        <label
-                            className={styles['label']}
-                            htmlFor="product-priority-input"
-                        >
-                            {texts.priorityInputLabel}
-                        </label>
-                        <Input
-                            inputRef={productPriorityInput}
-                            type="number"
-                            id="product-priority-input"
-                            className={styles['input']}
-                            height={40}
-                            icon={{
-                                position: 'left',
-                                icon: 'fal fa-arrow-up-square-triangle',
-                            }}
-                            placeholder={texts.priorityInputPlaceholder}
-                            disabled={isPending}
-                            autoCapitalize="off"
-                            value={
-                                Number.isNaN(productPriorityInputValue)
-                                    ? ''
-                                    : productPriorityInputValue
-                            }
-                            onChange={(event) => {
-                                setProductPriorityInputValue(
-                                    Math.max(
-                                        0,
-                                        Math.min(
-                                            parseInt(event.currentTarget.value),
-                                            999999
-                                        )
-                                    )
-                                );
-                                const formMessage = document.getElementById(
-                                    'product-priority-input-form-message'
-                                );
-                                if (formMessage) formMessage.innerHTML = '';
-                            }}
-                            onBlur={() => {
-                                const formMessage = document.getElementById(
-                                    'product-priority-input-form-message'
-                                );
-                                if (formMessage) {
-                                    if (
-                                        !productPriorityInputValue &&
-                                        productPriorityInputValue !== 0
-                                    )
-                                        formMessage.innerHTML =
-                                            texts.priorityInputFormMessageRequire;
-                                    else formMessage.innerHTML = '';
-                                }
-                            }}
-                        />
-                        <span
-                            id="product-priority-input-form-message"
-                            className={styles['form-message']}
-                        ></span>
-                    </div>
-                    <div className={styles['form-group']}>
-                        <label
-                            className={styles['label']}
-                            htmlFor="product-desc-input"
-                        >
-                            {texts.descInputLabel}
-                        </label>
-                        <textarea
-                            ref={productDescInput}
-                            id="product-desc-input"
-                            className={styles['text-area']}
-                            placeholder={texts.descInputPlaceholder}
-                            value={productDescInputValue}
-                            spellCheck={false}
-                            disabled={isPending}
-                            onChange={(event) => {
-                                setProductDescInputValue(
-                                    event.currentTarget.value
-                                );
-                                const formMessage = document.getElementById(
-                                    'product-desc-input-form-message'
-                                );
-                                if (formMessage) formMessage.innerHTML = '';
-                            }}
-                            // onBlur={() => {
-                            //     const formMessage = document.getElementById(
-                            //         'product-desc-input-form-message'
-                            //     );
-                            // }}
-                        />
-                        <span
-                            id="product-desc-input-form-message"
-                            className={styles['form-message']}
-                        ></span>
-                    </div>
-                    <Button
-                        className={styles['submit']}
-                        height={40}
-                        disabled={isPending}
-                        loading={buttonLoadingStates.create}
-                        onClick={() => handleCreateProduct()}
-                    >
-                        <i className={classNames('fal fa-plus')} />
-                        {texts.createButton}
-                    </Button>
                 </form>
             </div>
         </div>

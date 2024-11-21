@@ -290,226 +290,238 @@ const UpdateUserModalWindow: FunctionComponent<{
                     className={styles['user-update-form']}
                     onSubmit={(event) => event.preventDefault()}
                 >
-                    <div className={styles['form-group']}>
-                        <label
-                            className={styles['label']}
-                            htmlFor="email-input"
-                        >
-                            {texts.emailInputLabel}
-                        </label>
-                        <Input
-                            inputRef={emailInput}
-                            type="text"
-                            id="email-input"
-                            className={styles['input']}
-                            height={40}
-                            icon={{
-                                position: 'left',
-                                icon: 'fal fa-envelope',
-                            }}
-                            placeholder={texts.emailInputPlaceholder}
-                            disabled={isPending}
-                            autoCapitalize="off"
-                            spellCheck={false}
-                            value={emailInputValue}
-                            onChange={(event) => {
-                                setEmailInputValue(event.currentTarget.value);
-                                const formMessage = document.getElementById(
-                                    'email-input-form-message'
-                                );
-                                if (formMessage) formMessage.innerHTML = '';
-                            }}
-                            onBlur={() => {
-                                const formMessage = document.getElementById(
-                                    'email-input-form-message'
-                                );
-                                if (formMessage) {
-                                    if (!emailInputValue)
-                                        formMessage.innerHTML =
-                                            texts.emailInputFormMessageRequire;
-                                    else if (
-                                        !/^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$/.test(
-                                            emailInputValue
+                    <div className={styles['form-content']}>
+                        <div className={styles['form-group']}>
+                            <label
+                                className={styles['label']}
+                                htmlFor="email-input"
+                            >
+                                {texts.emailInputLabel}
+                            </label>
+                            <Input
+                                inputRef={emailInput}
+                                type="text"
+                                id="email-input"
+                                className={styles['input']}
+                                height={40}
+                                icon={{
+                                    position: 'left',
+                                    icon: 'fal fa-envelope',
+                                }}
+                                placeholder={texts.emailInputPlaceholder}
+                                disabled={isPending}
+                                autoCapitalize="off"
+                                spellCheck={false}
+                                value={emailInputValue}
+                                onChange={(event) => {
+                                    setEmailInputValue(
+                                        event.currentTarget.value
+                                    );
+                                    const formMessage = document.getElementById(
+                                        'email-input-form-message'
+                                    );
+                                    if (formMessage) formMessage.innerHTML = '';
+                                }}
+                                onBlur={() => {
+                                    const formMessage = document.getElementById(
+                                        'email-input-form-message'
+                                    );
+                                    if (formMessage) {
+                                        if (!emailInputValue)
+                                            formMessage.innerHTML =
+                                                texts.emailInputFormMessageRequire;
+                                        else if (
+                                            !/^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$/.test(
+                                                emailInputValue
+                                            )
                                         )
-                                    )
-                                        formMessage.innerHTML =
-                                            texts.emailInputFormMessageInvalidEmail;
-                                    else formMessage.innerHTML = '';
-                                }
-                            }}
-                        />
-                        <span
-                            id="email-input-form-message"
-                            className={styles['form-message']}
-                        ></span>
-                    </div>
-                    <div className={styles['form-group']}>
-                        <label
-                            className={styles['label']}
-                            htmlFor="username-input"
-                        >
-                            {texts.usernameInputLabel}
-                        </label>
-                        <Input
-                            inputRef={usernameInput}
-                            type="text"
-                            id="username-input"
-                            className={styles['input']}
-                            height={40}
-                            icon={{
-                                position: 'left',
-                                icon: 'fal fa-user',
-                            }}
-                            placeholder={texts.usernameInputPlaceholder}
-                            disabled={isPending}
-                            autoCapitalize="off"
-                            spellCheck={false}
-                            value={usernameInputValue}
-                            onChange={(event) => {
-                                setUsernameInputValue(
-                                    event.currentTarget.value
-                                );
-                                const formMessage = document.getElementById(
-                                    'username-input-form-message'
-                                );
-                                if (formMessage) formMessage.innerHTML = '';
-                            }}
-                            onBlur={() => {
-                                const formMessage = document.getElementById(
-                                    'username-input-form-message'
-                                );
-                                if (formMessage) {
-                                    if (!usernameInputValue)
-                                        formMessage.innerHTML =
-                                            texts.usernameInputFormMessageRequire;
-                                    else if (
-                                        !/^[a-zA-Z0-9]+$/.test(
-                                            usernameInputValue
+                                            formMessage.innerHTML =
+                                                texts.emailInputFormMessageInvalidEmail;
+                                        else formMessage.innerHTML = '';
+                                    }
+                                }}
+                            />
+                            <span
+                                id="email-input-form-message"
+                                className={styles['form-message']}
+                            ></span>
+                        </div>
+                        <div className={styles['form-group']}>
+                            <label
+                                className={styles['label']}
+                                htmlFor="username-input"
+                            >
+                                {texts.usernameInputLabel}
+                            </label>
+                            <Input
+                                inputRef={usernameInput}
+                                type="text"
+                                id="username-input"
+                                className={styles['input']}
+                                height={40}
+                                icon={{
+                                    position: 'left',
+                                    icon: 'fal fa-user',
+                                }}
+                                placeholder={texts.usernameInputPlaceholder}
+                                disabled={isPending}
+                                autoCapitalize="off"
+                                spellCheck={false}
+                                value={usernameInputValue}
+                                onChange={(event) => {
+                                    setUsernameInputValue(
+                                        event.currentTarget.value
+                                    );
+                                    const formMessage = document.getElementById(
+                                        'username-input-form-message'
+                                    );
+                                    if (formMessage) formMessage.innerHTML = '';
+                                }}
+                                onBlur={() => {
+                                    const formMessage = document.getElementById(
+                                        'username-input-form-message'
+                                    );
+                                    if (formMessage) {
+                                        if (!usernameInputValue)
+                                            formMessage.innerHTML =
+                                                texts.usernameInputFormMessageRequire;
+                                        else if (
+                                            !/^[a-zA-Z0-9]+$/.test(
+                                                usernameInputValue
+                                            )
                                         )
-                                    )
-                                        formMessage.innerHTML =
-                                            texts.usernameInputFormMessageInvalidUsernameCharacters;
-                                    else if (
-                                        usernameInputValue.length < 6 ||
-                                        usernameInputValue.length > 16
-                                    )
-                                        formMessage.innerHTML =
-                                            texts.usernameInputFormMessageInvalidUsernameLength;
-                                    else formMessage.innerHTML = '';
-                                }
-                            }}
-                        />
-                        <span
-                            id="username-input-form-message"
-                            className={styles['form-message']}
-                        ></span>
+                                            formMessage.innerHTML =
+                                                texts.usernameInputFormMessageInvalidUsernameCharacters;
+                                        else if (
+                                            usernameInputValue.length < 6 ||
+                                            usernameInputValue.length > 16
+                                        )
+                                            formMessage.innerHTML =
+                                                texts.usernameInputFormMessageInvalidUsernameLength;
+                                        else formMessage.innerHTML = '';
+                                    }
+                                }}
+                            />
+                            <span
+                                id="username-input-form-message"
+                                className={styles['form-message']}
+                            ></span>
+                        </div>
+                        <div className={styles['form-group']}>
+                            <label
+                                className={styles['label']}
+                                htmlFor="password-input"
+                            >
+                                {texts.passwordInputLabel}
+                            </label>
+                            <Input
+                                inputRef={passwordInput}
+                                type="password"
+                                id="password-input"
+                                className={styles['input']}
+                                height={40}
+                                icon={{
+                                    position: 'left',
+                                    icon: 'fal fa-lock',
+                                }}
+                                placeholder={texts.passwordInputPlaceholder}
+                                disabled={isPending}
+                                autoCapitalize="off"
+                                spellCheck={false}
+                                value={passwordInputValue}
+                                onChange={(event) => {
+                                    setPasswordInputValue(
+                                        event.currentTarget.value
+                                    );
+                                    const formMessage = document.getElementById(
+                                        'password-input-form-message'
+                                    );
+                                    if (formMessage) formMessage.innerHTML = '';
+                                }}
+                                onBlur={() => {
+                                    const formMessage = document.getElementById(
+                                        'password-input-form-message'
+                                    );
+                                    if (formMessage) {
+                                        if (
+                                            (passwordInputValue &&
+                                                passwordInputValue.length <
+                                                    8) ||
+                                            (passwordInputValue &&
+                                                passwordInputValue.length > 32)
+                                        )
+                                            formMessage.innerHTML =
+                                                texts.passwordInputFormMessageInvalidPasswordLength;
+                                        else formMessage.innerHTML = '';
+                                    }
+                                }}
+                            />
+                            <span
+                                id="password-input-form-message"
+                                className={styles['form-message']}
+                            ></span>
+                        </div>
+                        <div className={styles['form-group']}>
+                            <label
+                                className={styles['label']}
+                                htmlFor="role-input"
+                            >
+                                {texts.roleInputLabel}
+                            </label>
+                            <Input
+                                inputRef={roleInput}
+                                type="text"
+                                id="role-input"
+                                className={styles['input']}
+                                height={40}
+                                icon={{
+                                    position: 'left',
+                                    icon: 'fal fa-user',
+                                }}
+                                placeholder={texts.roleInputPlaceholder}
+                                disabled={isPending}
+                                autoCapitalize="off"
+                                spellCheck={false}
+                                value={roleInputValue}
+                                onChange={(event) => {
+                                    setRoleInputValue(
+                                        event.currentTarget.value
+                                    );
+                                    const formMessage = document.getElementById(
+                                        'role-input-form-message'
+                                    );
+                                    if (formMessage) formMessage.innerHTML = '';
+                                }}
+                                onBlur={() => {
+                                    const formMessage = document.getElementById(
+                                        'role-input-form-message'
+                                    );
+                                    if (formMessage) {
+                                        if (!roleInputValue)
+                                            formMessage.innerHTML =
+                                                texts.roleInputFormMessageRequire;
+                                        else formMessage.innerHTML = '';
+                                    }
+                                }}
+                            />
+                            <span
+                                id="role-input-form-message"
+                                className={styles['form-message']}
+                            ></span>
+                        </div>
                     </div>
-                    <div className={styles['form-group']}>
-                        <label
-                            className={styles['label']}
-                            htmlFor="password-input"
+                    <div className={styles['form-action']}>
+                        <Button
+                            className={styles['submit']}
+                            height={40}
+                            disabled={isPending}
+                            loading={buttonLoadingStates.update}
+                            onClick={() => handleUpdateUser()}
                         >
-                            {texts.passwordInputLabel}
-                        </label>
-                        <Input
-                            inputRef={passwordInput}
-                            type="password"
-                            id="password-input"
-                            className={styles['input']}
-                            height={40}
-                            icon={{
-                                position: 'left',
-                                icon: 'fal fa-lock',
-                            }}
-                            placeholder={texts.passwordInputPlaceholder}
-                            disabled={isPending}
-                            autoCapitalize="off"
-                            spellCheck={false}
-                            value={passwordInputValue}
-                            onChange={(event) => {
-                                setPasswordInputValue(
-                                    event.currentTarget.value
-                                );
-                                const formMessage = document.getElementById(
-                                    'password-input-form-message'
-                                );
-                                if (formMessage) formMessage.innerHTML = '';
-                            }}
-                            onBlur={() => {
-                                const formMessage = document.getElementById(
-                                    'password-input-form-message'
-                                );
-                                if (formMessage) {
-                                    if (
-                                        (passwordInputValue &&
-                                            passwordInputValue.length < 8) ||
-                                        (passwordInputValue &&
-                                            passwordInputValue.length > 32)
-                                    )
-                                        formMessage.innerHTML =
-                                            texts.passwordInputFormMessageInvalidPasswordLength;
-                                    else formMessage.innerHTML = '';
-                                }
-                            }}
-                        />
-                        <span
-                            id="password-input-form-message"
-                            className={styles['form-message']}
-                        ></span>
+                            <i className={classNames('fas fa-save')} />
+                            {texts.updateButton}
+                        </Button>
                     </div>
-                    <div className={styles['form-group']}>
-                        <label className={styles['label']} htmlFor="role-input">
-                            {texts.roleInputLabel}
-                        </label>
-                        <Input
-                            inputRef={roleInput}
-                            type="text"
-                            id="role-input"
-                            className={styles['input']}
-                            height={40}
-                            icon={{
-                                position: 'left',
-                                icon: 'fal fa-user',
-                            }}
-                            placeholder={texts.roleInputPlaceholder}
-                            disabled={isPending}
-                            autoCapitalize="off"
-                            spellCheck={false}
-                            value={roleInputValue}
-                            onChange={(event) => {
-                                setRoleInputValue(event.currentTarget.value);
-                                const formMessage = document.getElementById(
-                                    'role-input-form-message'
-                                );
-                                if (formMessage) formMessage.innerHTML = '';
-                            }}
-                            onBlur={() => {
-                                const formMessage = document.getElementById(
-                                    'role-input-form-message'
-                                );
-                                if (formMessage) {
-                                    if (!roleInputValue)
-                                        formMessage.innerHTML =
-                                            texts.roleInputFormMessageRequire;
-                                    else formMessage.innerHTML = '';
-                                }
-                            }}
-                        />
-                        <span
-                            id="role-input-form-message"
-                            className={styles['form-message']}
-                        ></span>
-                    </div>
-                    <Button
-                        className={styles['submit']}
-                        height={40}
-                        disabled={isPending}
-                        loading={buttonLoadingStates.update}
-                        onClick={() => handleUpdateUser()}
-                    >
-                        <i className={classNames('fas fa-save')} />
-                        {texts.updateButton}
-                    </Button>
                 </form>
             </div>
         </div>

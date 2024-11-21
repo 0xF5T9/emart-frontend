@@ -202,160 +202,168 @@ const CreateCategoryModalWindow: FunctionComponent<{
                     className={styles['category-update-form']}
                     onSubmit={(event) => event.preventDefault()}
                 >
-                    <div className={styles['form-group']}>
-                        <label
-                            className={styles['label']}
-                            htmlFor="category-name-input"
-                        >
-                            {texts.nameInputLabel}
-                        </label>
-                        <Input
-                            inputRef={categoryNameInput}
-                            type="text"
-                            id="category-name-input"
-                            className={styles['input']}
-                            height={40}
-                            icon={{
-                                position: 'left',
-                                icon: 'fal fa-input-text',
-                            }}
-                            placeholder={texts.nameInputPlaceholder}
-                            disabled={isPending}
-                            autoCapitalize="off"
-                            spellCheck={false}
-                            value={categoryNameInputValue}
-                            onChange={(event) => {
-                                if (event.currentTarget?.value.length <= 255)
-                                    setCategoryNameInputValue(
+                    <div className={styles['form-content']}>
+                        <div className={styles['form-group']}>
+                            <label
+                                className={styles['label']}
+                                htmlFor="category-name-input"
+                            >
+                                {texts.nameInputLabel}
+                            </label>
+                            <Input
+                                inputRef={categoryNameInput}
+                                type="text"
+                                id="category-name-input"
+                                className={styles['input']}
+                                height={40}
+                                icon={{
+                                    position: 'left',
+                                    icon: 'fal fa-input-text',
+                                }}
+                                placeholder={texts.nameInputPlaceholder}
+                                disabled={isPending}
+                                autoCapitalize="off"
+                                spellCheck={false}
+                                value={categoryNameInputValue}
+                                onChange={(event) => {
+                                    if (
+                                        event.currentTarget?.value.length <= 255
+                                    )
+                                        setCategoryNameInputValue(
+                                            event.currentTarget.value
+                                        );
+                                    const formMessage = document.getElementById(
+                                        'category-name-input-form-message'
+                                    );
+                                    if (formMessage) formMessage.innerHTML = '';
+                                }}
+                                onBlur={() => {
+                                    const formMessage = document.getElementById(
+                                        'category-name-input-form-message'
+                                    );
+                                    if (formMessage) {
+                                        if (!categoryNameInputValue)
+                                            formMessage.innerHTML =
+                                                texts.nameInputFormMessageRequire;
+                                        else formMessage.innerHTML = '';
+                                    }
+                                }}
+                            />
+                            <span
+                                id="category-name-input-form-message"
+                                className={styles['form-message']}
+                            ></span>
+                        </div>
+                        <div className={styles['form-group']}>
+                            <label
+                                className={styles['label']}
+                                htmlFor="category-priority-input"
+                            >
+                                {texts.priorityInputLabel}
+                            </label>
+                            <Input
+                                inputRef={categoryPriorityInput}
+                                type="number"
+                                id="category-priority-input"
+                                className={styles['input']}
+                                height={40}
+                                icon={{
+                                    position: 'left',
+                                    icon: 'fal fa-tag',
+                                }}
+                                placeholder={texts.priorityInputPlaceholder}
+                                disabled={isPending}
+                                autoCapitalize="off"
+                                value={
+                                    Number.isNaN(categoryPriorityInputValue)
+                                        ? ''
+                                        : categoryPriorityInputValue
+                                }
+                                onChange={(event) => {
+                                    setCategoryPriorityInputValue(
+                                        Math.max(
+                                            0,
+                                            Math.min(
+                                                parseInt(
+                                                    event.currentTarget.value
+                                                ),
+                                                999999
+                                            )
+                                        )
+                                    );
+                                    const formMessage = document.getElementById(
+                                        'category-priority-input-form-message'
+                                    );
+                                    if (formMessage) formMessage.innerHTML = '';
+                                }}
+                                onBlur={() => {
+                                    const formMessage = document.getElementById(
+                                        'category-priority-input-form-message'
+                                    );
+                                    if (formMessage) {
+                                        if (
+                                            !categoryPriorityInputValue &&
+                                            categoryPriorityInputValue !== 0
+                                        )
+                                            formMessage.innerHTML =
+                                                texts.priorityInputFormMessageRequire;
+                                        else formMessage.innerHTML = '';
+                                    }
+                                }}
+                            />
+                            <span
+                                id="category-priority-input-form-message"
+                                className={styles['form-message']}
+                            ></span>
+                        </div>
+                        <div className={styles['form-group']}>
+                            <label
+                                className={styles['label']}
+                                htmlFor="category-desc-input"
+                            >
+                                {texts.descInputLabel}
+                            </label>
+                            <textarea
+                                ref={categoryDescInput}
+                                id="category-desc-input"
+                                className={styles['text-area']}
+                                placeholder={texts.descInputPlaceholder}
+                                value={categoryDescInputValue}
+                                spellCheck={false}
+                                disabled={isPending}
+                                onChange={(event) => {
+                                    setCategoryDescInputValue(
                                         event.currentTarget.value
                                     );
-                                const formMessage = document.getElementById(
-                                    'category-name-input-form-message'
-                                );
-                                if (formMessage) formMessage.innerHTML = '';
-                            }}
-                            onBlur={() => {
-                                const formMessage = document.getElementById(
-                                    'category-name-input-form-message'
-                                );
-                                if (formMessage) {
-                                    if (!categoryNameInputValue)
-                                        formMessage.innerHTML =
-                                            texts.nameInputFormMessageRequire;
-                                    else formMessage.innerHTML = '';
-                                }
-                            }}
-                        />
-                        <span
-                            id="category-name-input-form-message"
-                            className={styles['form-message']}
-                        ></span>
+                                    const formMessage = document.getElementById(
+                                        'category-desc-input-form-message'
+                                    );
+                                    if (formMessage) formMessage.innerHTML = '';
+                                }}
+                                // onBlur={() => {
+                                //     const formMessage = document.getElementById(
+                                //         'category-desc-input-form-message'
+                                //     );
+                                // }}
+                            />
+                            <span
+                                id="category-desc-input-form-message"
+                                className={styles['form-message']}
+                            ></span>
+                        </div>
                     </div>
-                    <div className={styles['form-group']}>
-                        <label
-                            className={styles['label']}
-                            htmlFor="category-priority-input"
-                        >
-                            {texts.priorityInputLabel}
-                        </label>
-                        <Input
-                            inputRef={categoryPriorityInput}
-                            type="number"
-                            id="category-priority-input"
-                            className={styles['input']}
+                    <div className={styles['form-action']}>
+                        <Button
+                            className={styles['submit']}
                             height={40}
-                            icon={{
-                                position: 'left',
-                                icon: 'fal fa-tag',
-                            }}
-                            placeholder={texts.priorityInputPlaceholder}
                             disabled={isPending}
-                            autoCapitalize="off"
-                            value={
-                                Number.isNaN(categoryPriorityInputValue)
-                                    ? ''
-                                    : categoryPriorityInputValue
-                            }
-                            onChange={(event) => {
-                                setCategoryPriorityInputValue(
-                                    Math.max(
-                                        0,
-                                        Math.min(
-                                            parseInt(event.currentTarget.value),
-                                            999999
-                                        )
-                                    )
-                                );
-                                const formMessage = document.getElementById(
-                                    'category-priority-input-form-message'
-                                );
-                                if (formMessage) formMessage.innerHTML = '';
-                            }}
-                            onBlur={() => {
-                                const formMessage = document.getElementById(
-                                    'category-priority-input-form-message'
-                                );
-                                if (formMessage) {
-                                    if (
-                                        !categoryPriorityInputValue &&
-                                        categoryPriorityInputValue !== 0
-                                    )
-                                        formMessage.innerHTML =
-                                            texts.priorityInputFormMessageRequire;
-                                    else formMessage.innerHTML = '';
-                                }
-                            }}
-                        />
-                        <span
-                            id="category-priority-input-form-message"
-                            className={styles['form-message']}
-                        ></span>
-                    </div>
-                    <div className={styles['form-group']}>
-                        <label
-                            className={styles['label']}
-                            htmlFor="category-desc-input"
+                            loading={buttonLoadingStates.create}
+                            onClick={() => handleCreateCategory()}
                         >
-                            {texts.descInputLabel}
-                        </label>
-                        <textarea
-                            ref={categoryDescInput}
-                            id="category-desc-input"
-                            className={styles['text-area']}
-                            placeholder={texts.descInputPlaceholder}
-                            value={categoryDescInputValue}
-                            spellCheck={false}
-                            disabled={isPending}
-                            onChange={(event) => {
-                                setCategoryDescInputValue(
-                                    event.currentTarget.value
-                                );
-                                const formMessage = document.getElementById(
-                                    'category-desc-input-form-message'
-                                );
-                                if (formMessage) formMessage.innerHTML = '';
-                            }}
-                            // onBlur={() => {
-                            //     const formMessage = document.getElementById(
-                            //         'category-desc-input-form-message'
-                            //     );
-                            // }}
-                        />
-                        <span
-                            id="category-desc-input-form-message"
-                            className={styles['form-message']}
-                        ></span>
+                            <i className={classNames('fal fa-plus')} />
+                            {texts.createButton}
+                        </Button>
                     </div>
-                    <Button
-                        className={styles['submit']}
-                        height={40}
-                        disabled={isPending}
-                        loading={buttonLoadingStates.create}
-                        onClick={() => handleCreateCategory()}
-                    >
-                        <i className={classNames('fal fa-plus')} />
-                        {texts.createButton}
-                    </Button>
                 </form>
             </div>
         </div>

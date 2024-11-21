@@ -30,6 +30,7 @@
 .content-wrapper {
     display: flex;
     flex-flow: row nowrap;
+    overflow: hidden;
 }
 
 .close-button {
@@ -101,12 +102,30 @@
     flex-grow: 1;
     display: flex;
     flex-flow: column nowrap;
+    justify-content: space-between;
     row-gap: 12px;
     width: 300px;
     border-left: 1px solid #e5e5e5;
     padding-left: 16px;
     margin-left: 16px;
     white-space: nowrap;
+}
+
+.form-content {
+    flex-shrink: 1;
+    flex-grow: 1;
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 12px;
+    width: 100%;
+    overflow: auto;
+}
+
+.form-action {
+    flex-shrink: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: end;
 }
 
 .form-group {
@@ -162,7 +181,6 @@
     align-items: center;
     column-gap: 8px;
     min-width: 120px;
-    margin-top: 12px;
 }
 
 @media only screen and (width < 580px) {
@@ -179,6 +197,7 @@
     .content-wrapper {
         flex-flow: column nowrap;
         row-gap: 24px;
+        overflow: auto;
     }
 
     .category-image {
@@ -213,6 +232,7 @@
     .content-wrapper {
         flex-flow: column nowrap;
         row-gap: 24px;
+        overflow: auto;
     }
 
     .category-image {
@@ -247,6 +267,7 @@
     .content-wrapper {
         flex-flow: column nowrap;
         row-gap: 24px;
+        overflow: auto;
     }
 
     .category-image {
@@ -281,6 +302,7 @@
     .content-wrapper {
         flex-flow: column nowrap;
         row-gap: 24px;
+        overflow: auto;
     }
 
     .category-image {
