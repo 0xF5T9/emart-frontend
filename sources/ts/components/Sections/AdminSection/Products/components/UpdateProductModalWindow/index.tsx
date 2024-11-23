@@ -10,9 +10,9 @@ import { FunctionComponent, useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { useAuth } from '@sources/ts/hooks/useAuth';
 import { useModal } from '@sources/ts/hooks/useModal';
 import { showToast } from '@sources/ts/components/Toast';
+import RichTextEditor from '@sources/ts/components/RichTextEditor';
 import apis from '@sources/ts/apis';
 import Input from '@sources/ts/components/Input';
 import Button from '@sources/ts/components/Button';
@@ -558,40 +558,22 @@ const UpdateProductModalWindow: FunctionComponent<{
                                 className={styles['form-message']}
                             ></span>
                         </div>
-                        <div className={styles['form-group']}>
+                        <div
+                            className={styles['form-group']}
+                            style={{ rowGap: '17px' }}
+                        >
                             <label
                                 className={styles['label']}
                                 htmlFor="product-desc-input"
                             >
                                 {texts.descInputLabel}
                             </label>
-                            <textarea
-                                ref={productDescInput}
-                                id="product-desc-input"
-                                className={styles['text-area']}
-                                placeholder={texts.descInputPlaceholder}
-                                value={productDescInputValue}
-                                spellCheck={false}
-                                disabled={isPending}
-                                onChange={(event) => {
-                                    setProductDescInputValue(
-                                        event.currentTarget.value
-                                    );
-                                    const formMessage = document.getElementById(
-                                        'product-desc-input-form-message'
-                                    );
-                                    if (formMessage) formMessage.innerHTML = '';
+                            <RichTextEditor
+                                initialValue={productDescInputValue}
+                                onValueChange={(value) => {
+                                    setProductDescInputValue(value);
                                 }}
-                                // onBlur={() => {
-                                //     const formMessage = document.getElementById(
-                                //         'product-desc-input-form-message'
-                                //     );
-                                // }}
                             />
-                            <span
-                                id="product-desc-input-form-message"
-                                className={styles['form-message']}
-                            ></span>
                         </div>
                     </div>
                     <div className={styles['form-action']}>

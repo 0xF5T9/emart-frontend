@@ -14,6 +14,7 @@ import { useModal } from '@sources/ts/hooks/useModal';
 import CartModalWindow, {
     cartModalWindowStyles,
 } from '@sources/ts/components/Header/components/CartModalWindow';
+import RichTextEditor from '@sources/ts/components/RichTextEditor';
 import * as styles from './ProductDetailModalWindow.module.css';
 import staticUrls from '@sources/ts/render/static-urls';
 import staticTexts from '@sources/ts/render/static-texts';
@@ -149,9 +150,13 @@ const ProductDetailModalWindow: FunctionComponent<{ productItem: Product }> = ({
                             </button>
                         </div>
                     </div>
-                    <span className={styles['product-description']}>
-                        {productItem.desc}
-                    </span>
+                    {productItem?.desc && (
+                        <RichTextEditor
+                            className={styles['product-description']}
+                            value={productItem.desc}
+                            readonlyMode
+                        />
+                    )}
                     <div className={styles['notebox']}>
                         <label
                             className={styles['notebox-label']}
@@ -192,7 +197,11 @@ const ProductDetailModalWindow: FunctionComponent<{ productItem: Product }> = ({
                         onClick={() => handleAddToCart()}
                     >
                         <i className={classNames('fal fa-basket-shopping')} />
-                        {texts.addToCartButton && <span className={styles['add-to-cart-button-text']}>{texts.addToCartButton}</span>}
+                        {texts.addToCartButton && (
+                            <span className={styles['add-to-cart-button-text']}>
+                                {texts.addToCartButton}
+                            </span>
+                        )}
                     </button>
                 </div>
             </div>

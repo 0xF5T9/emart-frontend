@@ -22,6 +22,7 @@ import apis from '@sources/ts/apis';
 import Button from '@sources/ts/components/Button';
 import CustomSelect from '@sources/ts/components/CustomSelect';
 import Input from '@sources/ts/components/Input';
+import RichTextEditor from '@sources/ts/components/RichTextEditor';
 import { CircleLoading } from '@sources/ts/components/Icons/CircleLoading';
 import CreateProductModalWindow from './components/CreateProductModalWindow';
 import UpdateProductModalWindow from './components/UpdateProductModalWindow';
@@ -435,13 +436,14 @@ const Products: FunctionComponent<{
                                             {product?.name}
                                         </span>
                                         {product?.desc && (
-                                            <span
+                                            <RichTextEditor
                                                 className={
                                                     styles['product-item-desc']
                                                 }
-                                            >
-                                                {product?.desc}
-                                            </span>
+                                                value={product?.desc}
+                                                readonlyMode
+                                                plaintextMode
+                                            />
                                         )}
                                         <div
                                             className={

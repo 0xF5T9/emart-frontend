@@ -1,0 +1,58 @@
+.editor {
+    width: 100%;
+    padding-bottom: 20px;
+    padding-left: 0px;
+    padding-right: 0px;
+    overflow-x: hidden;
+}
+
+.editor.readonly-mode {
+    padding-bottom: unset;
+}
+
+.editor.readonly-mode .editable {
+    background-color: unset;
+    padding: unset;
+    border-radius: unset;
+}
+
+.editor.plaintext-mode .editable,
+.editor.plaintext-mode .toolbar {
+    display: none !important;
+}
+
+.toolbar {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    row-gap: 8px;
+    align-items: center;
+    justify-content: center;
+}
+
+.editable {
+    padding: 15px;
+    border-radius: 6px;
+    outline: 0;
+    background-color: #f7f7f7;
+}
+
+.editable-placeholder-wrapper {
+    display: block;
+}
+
+.editable-placeholder {
+    display: block;
+    margin-top: 15px;
+    color: var(--text-dim-color, blue);
+    text-align: left;
+    font-weight: 400;
+    font-style: normal;
+    user-select: none;
+    pointer-events: none;
+}
+
+.anchor {
+    color: var(--color-primary, blue);
+    text-decoration: inherit;
+}
