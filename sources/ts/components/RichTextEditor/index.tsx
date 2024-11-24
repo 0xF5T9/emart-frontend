@@ -198,7 +198,7 @@ const Element = ({
     children: any;
     element: any;
 }) => {
-    const style = { textAlign: element.align || 'left' };
+    const style = { textAlign: element.align || 'left', lineHeight: '1.3' };
 
     switch (element.type) {
         case 'block-quote':
@@ -209,7 +209,7 @@ const Element = ({
             );
         case 'bulleted-list':
             return (
-                <ul style={style} {...attributes}>
+                <ul style={{ ...style, paddingLeft: '20px' }} {...attributes}>
                     {children}
                 </ul>
             );
@@ -233,7 +233,7 @@ const Element = ({
             );
         case 'numbered-list':
             return (
-                <ol style={style} {...attributes}>
+                <ol style={{ ...style, paddingLeft: '20px' }} {...attributes}>
                     {children}
                 </ol>
             );
