@@ -27,6 +27,7 @@ import {
 import { Slate, Editable, withReact, useSlate, ReactEditor } from 'slate-react';
 import { withHistory } from 'slate-history';
 
+import { useGlobal } from '@sources/ts/hooks/useGlobal';
 import { EditorButton, EditorIcon, EditorToolbar } from './components';
 import * as styles from './RichTextEditor.module.css';
 
@@ -354,7 +355,7 @@ const ImageButton = ({ icon }: { icon: string }) => {
                     },
                 ] as any[];
 
-                ReactEditor.focus(editor);
+                // ReactEditor.focus(editor);
 
                 if (!!selection) {
                     const [parentNode, parentPath]: any = Editor.parent(
@@ -447,6 +448,8 @@ const RichTextEditor: FunctionComponent<
     readonlyMode = false,
     plaintextMode = false,
 }) => {
+    const { deviceInfo } = useGlobal();
+
     const editor = useMemo(() => withHistory(withReact(createEditor())), []),
         editorInitialValue = useMemo(() => {
             return initialValue || value
@@ -614,17 +617,26 @@ const RichTextEditor: FunctionComponent<
                             }
                         }
                     }}
-                    scrollSelectionIntoView={(editor, domRange) => {
-                        const leafEl = domRange.startContainer.parentElement!;
+                    // This fix jumpy behavior when typing into the editor on mobile devices.
+                    // However we don't want this auto selection scroll on desktop.
+                    scrollSelectionIntoView={
+                        deviceInfo.type !== 'desktop'
+                            ? (editor, domRange) => {
+                                  const leafEl =
+                                      domRange.startContainer.parentElement!;
                         leafEl.getBoundingClientRect =
-                            domRange.getBoundingClientRect.bind(domRange);
+                                      domRange.getBoundingClientRect.bind(
+                                          domRange
+                                      );
                         leafEl.scrollIntoView({
                             behavior: 'instant',
                             block: 'start',
                             inline: 'center',
                         });
                         delete leafEl.getBoundingClientRect;
-                    }}
+                              }
+                            : undefined
+                    }
                 />
             </Slate>
         </div>
