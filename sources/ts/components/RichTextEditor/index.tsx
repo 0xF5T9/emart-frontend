@@ -624,16 +624,16 @@ const RichTextEditor: FunctionComponent<
                             ? (editor, domRange) => {
                                   const leafEl =
                                       domRange.startContainer.parentElement!;
-                        leafEl.getBoundingClientRect =
+                                  leafEl.getBoundingClientRect =
                                       domRange.getBoundingClientRect.bind(
                                           domRange
                                       );
-                        leafEl.scrollIntoView({
-                            behavior: 'instant',
-                            block: 'start',
-                            inline: 'center',
-                        });
-                        delete leafEl.getBoundingClientRect;
+                                  leafEl.scrollIntoView({
+                                      behavior: 'instant',
+                                      block: 'start',
+                                      inline: 'center',
+                                  });
+                                  delete leafEl.getBoundingClientRect;
                               }
                             : undefined
                     }
