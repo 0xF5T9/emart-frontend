@@ -159,7 +159,7 @@ NavbarItem.propTypes = {
         url: PropTypes.string.isRequired,
         alt: PropTypes.string,
         width: PropTypes.string,
-        heigh: PropTypes.string,
+        height: PropTypes.string,
     }),
     to: PropTypes.string,
     items: PropTypes.array,
