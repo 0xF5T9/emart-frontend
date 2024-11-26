@@ -103,8 +103,8 @@ server {
 - `API_URL` - API URL.
 - `UPLOAD_URL` - Upload URL.
 - `PORT` - Production server port.
-- `WEBPACK_PATH_TO_CERT` - Path to certificate file. (Required for dev mode only)
-- `WEBPACK_PATH_TO_CERT_KEY` - Path to certificate key file. (Required for dev mode only)
+- `WEBPACK_PATH_TO_CERT` - Path to certificate file. (Dev mode only)
+- `WEBPACK_PATH_TO_CERT_KEY` - Path to certificate key file. (Dev mode only)
 
 ```bash
 NODE_ENV=development
