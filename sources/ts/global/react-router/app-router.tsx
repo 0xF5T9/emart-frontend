@@ -4,7 +4,7 @@
  */
 
 'use strict';
-import { RouteObject } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
 import routes from './routes';
 import { AuthProvider } from '@sources/ts/hooks/useAuth';
 import { GlobalProvider } from '@sources/ts/hooks/useGlobal';
