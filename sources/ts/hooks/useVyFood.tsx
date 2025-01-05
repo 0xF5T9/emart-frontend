@@ -12,6 +12,7 @@ import {
     createContext,
     useState,
     useContext,
+    useEffect
 } from 'react';
 import PropTypes from 'prop-types';
 
@@ -187,6 +188,13 @@ const VyFoodProvider: FunctionComponent<{ children: ReactNode }> = function ({
         cartItems,
         setCartItems,
     };
+
+    useEffect(() => {
+        document.addEventListener("visibilitychange", () => {
+            const cartItemsInLocalStorage = JSON.parse(window.localStorage.getItem('cartItems'));
+            setCartItems(cartItemsInLocalStorage);
+        });
+    }, [])
 
     return (
         <vyFoodContext.Provider value={value}>
