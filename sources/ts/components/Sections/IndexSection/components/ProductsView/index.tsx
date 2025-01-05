@@ -82,7 +82,29 @@ const ProductsView: FunctionComponent<{
             })
         );
         setPagination(1);
-        setProductFilter(null);
+        if (productFilter) {
+            if (productFilter.type === 'category') {
+                setProductSearchValue('');
+
+                setFilteredItems(
+                    productItems.filter((item) =>
+                        item.category.includes(productFilter.value)
+                    )
+                );
+            } else if (productFilter.type === 'name') {
+                setFilteredItems(
+                    productItems.filter((item) =>
+                        item.name
+                            .toLowerCase()
+                            .includes(productFilter.value.toLowerCase())
+                    )
+                );
+            }
+            setPagination(1);
+        } else {
+            setProductSearchValue('');
+            // setFilteredItems(productItems);
+        }
     }, [productItems]);
 
     useEffect(() => {
