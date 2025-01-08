@@ -166,3 +166,6 @@ export type CreateOrderResponseData = null;
 export type UpdateOrderResponseData = null;
 export type DeleteOrderResponseData = null;
 export type RestoreProductQuantityResponseData = null;
+
+export type SubscribeNewsletterResponseData = null;
+export type SubscribeNewsletterConfirmationResponseData = null;

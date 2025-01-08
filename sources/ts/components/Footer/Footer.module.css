@@ -83,6 +83,7 @@
 }
 
 .subscribe-section-form-submit {
+    --button-border-radius: 99px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
@@ -110,6 +111,10 @@
 
 .subscribe-section-form-submit:active {
     filter: brightness(0.8);
+}
+
+.subscribe-newsletter-success-modal {
+    width: auto !important;
 }
 
 .widget-section-wrapper {

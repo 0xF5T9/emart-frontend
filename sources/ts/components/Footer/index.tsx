@@ -4,14 +4,18 @@
  */
 
 'use strict';
-import { FunctionComponent, useLayoutEffect, useRef } from 'react';
+import { FunctionComponent, useState, useLayoutEffect, useRef } from 'react';
 
+import { showToast } from '@sources/ts/components/Toast';
+import { useModal } from '@sources/ts/hooks/useModal';
 import { Github } from '@sources/ts/components/Icons/Github';
 import { Discord } from '@sources/ts/components/Icons/Discord';
+import Button from '@sources/ts/components/Button';
 import staticTexts from '@sources/ts/render/static-texts';
 import staticUrls from '@sources/ts/render/static-urls';
 import * as styles from './Footer.module.css';
 import classNames from 'classnames';
+import apis from '@sources/ts/apis';
 const texts = staticTexts.footer,
     { brandLogoUrl } = staticUrls;
 
@@ -20,8 +24,78 @@ const texts = staticTexts.footer,
  * @returns Returns the component.
  */
 const Footer: FunctionComponent = function () {
-    const footer = useRef<HTMLElement>(),
+    const { setModal } = useModal(),
+        footer = useRef<HTMLElement>(),
+        emailInput = useRef<HTMLInputElement>(),
         timeoutId = useRef<NodeJS.Timeout>(null);
+
+    const [isPending, setIsPending] = useState<boolean>(false);
+
+    const handleSubscribeNewsletter: React.DetailedHTMLProps<
+        React.FormHTMLAttributes<HTMLFormElement>,
+        HTMLFormElement
+    >['onSubmit'] = (event) => {
+        event.preventDefault();
+        if (isPending) return;
+        (async () => {
+            if (!emailInput?.current?.value) {
+                emailInput?.current?.focus();
+                showToast({
+                    variant: 'danger',
+                    title: staticTexts.toast.errorDefaultTitle,
+                    message: 'Vui lòng nhập địa chỉ email hợp lệ.',
+                    duration: 5000,
+                });
+                return;
+            }
+            if (
+                !/^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$/.test(
+                    emailInput?.current?.value
+                )
+            ) {
+                emailInput?.current?.focus();
+                showToast({
+                    variant: 'danger',
+                    title: staticTexts.toast.errorDefaultTitle,
+                    message: 'Địa chỉ email không hợp lệ (Chỉ hỗ trợ Gmail)',
+                    duration: 5000,
+                });
+                return;
+            }
+
+            setIsPending(true);
+
+            const { success, message } = await apis.backend.subscribeNewsletter(
+                emailInput?.current?.value
+            );
+            if (!success) {
+                console.error(message);
+                showToast({
+                    variant: 'danger',
+                    title: staticTexts.toast.errorDefaultTitle,
+                    message: message,
+                    duration: 5000,
+                });
+                setIsPending(false);
+                return;
+            }
+
+            setModal({
+                type: 'alert',
+                variant: 'success',
+                title: 'Thành công',
+                message,
+                closeButtonText: 'Đóng',
+                closeButtonVariant: 'primary',
+                iconColor: 'var(--color-primary, blue)',
+                className: styles['subscribe-newsletter-success-modal'],
+            });
+
+            emailInput.current.value = '';
+
+            setIsPending(false);
+        })();
+    };
 
     useLayoutEffect(() => {
         function handleFooterResize() {
@@ -94,27 +168,24 @@ const Footer: FunctionComponent = function () {
                     </div>
                     <form
                         className={styles['subscribe-section-form']}
-                        onSubmit={(event) => event.preventDefault()}
+                        onSubmit={handleSubscribeNewsletter}
                     >
                         <input
+                            ref={emailInput}
                             className={styles['subscribe-section-form-input']}
                             type="email"
                             placeholder={texts.subscribeInputPlaceholder}
+                            disabled={isPending}
+                            required
                         />
-                        <button
+                        <Button
                             className={styles['subscribe-section-form-submit']}
-                            onClick={(event) => {
-                                const input =
-                                    event?.currentTarget?.parentElement?.querySelector(
-                                        'input'
-                                    );
-                                console.log(input.value);
-                                input.value = '';
-                            }}
+                            loading={isPending}
+                            disabled={isPending}
                         >
                             {texts.subscribeButton}{' '}
                             <i className="fas fa-arrow-right" />
-                        </button>
+                        </Button>
                     </form>
                 </div>
             </div>

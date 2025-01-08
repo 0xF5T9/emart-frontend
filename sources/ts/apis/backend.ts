@@ -40,6 +40,8 @@ import type {
     UpdateOrderResponseData,
     DeleteOrderResponseData,
     RestoreProductQuantityResponseData,
+    SubscribeNewsletterResponseData,
+    SubscribeNewsletterConfirmationResponseData,
 } from '@sources/ts/types/backend-api';
 import axios from 'axios';
 
@@ -1595,6 +1597,91 @@ async function restoreOrderProductQuantity(
     }
 }
 
+/**
+ * Send a subscrible newsletter confirmation mail.
+ * @param email The email.
+ * @returns Returns the API response object.
+ */
+async function subscribeNewsletter(
+    email: string
+): Promise<APIResult<SubscribeNewsletterResponseData>> {
+    try {
+        if (!email)
+            return new APIResult(
+                `Thông tin 'email' bị thiếu.`,
+                false,
+                null,
+                400
+            );
+
+        const result = await backend.post('newsletter/subscribe', {
+            email,
+        });
+
+        const {
+            message,
+            data,
+        }: BackendResponse<SubscribeNewsletterResponseData> = result.data;
+
+        return new APIResult(message, true, data, result.status);
+    } catch (error) {
+        if (error.response) {
+            return new APIResult(
+                error.response.data.message,
+                false,
+                error,
+                error.response.status
+            );
+        } else {
+            console.error(error);
+            return new APIResult(texts.unknownError, false, error, null);
+        }
+    }
+}
+
+/**
+ * Confirm a newsletter subscribe request.
+ * @param newsletterToken The subscribe newsletter token.
+ * @returns Returns the API response object.
+ */
+async function subscribeNewsletterConfirmation(
+    newsletterToken: string
+): Promise<APIResult<SubscribeNewsletterConfirmationResponseData>> {
+    try {
+        if (!newsletterToken)
+            return new APIResult(
+                `Thông tin 'newsletterToken' bị thiếu.`,
+                false,
+                null,
+                400
+            );
+
+        const result = await backend.post('newsletter/confirm', {
+            newsletterToken,
+        });
+
+        const {
+            message,
+            data,
+        }: BackendResponse<SubscribeNewsletterConfirmationResponseData> =
+            result.data;
+
+        return new APIResult(message, true, data, result.status);
+    } catch (error) {
+        if (error.response) {
+            return new APIResult(
+                error.response.data.message,
+                false,
+                error,
+                error.response.status
+            );
+        } else {
+            console.error(error);
+            return new APIResult(texts.unknownError, false, error, null);
+        }
+    }
+}
+
 export {
     register,
     authorize,
@@ -1630,4 +1717,6 @@ export {
     updateOrder,
     deleteOrder,
     restoreOrderProductQuantity,
+    subscribeNewsletter,
+    subscribeNewsletterConfirmation,
 };

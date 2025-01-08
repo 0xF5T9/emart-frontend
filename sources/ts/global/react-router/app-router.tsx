@@ -76,6 +76,14 @@ const appRouter: RouteObject[] = [
                         ),
                     },
                     {
+                        path: routes.newsletterSubscribeConfirmation,
+                        element: (
+                            <BlankLayout>
+                                <Sections.ConfirmNewsletterSubscribeSection />
+                            </BlankLayout>
+                        ),
+                    },
+                    {
                         path: routes.profile,
                         element: (
                             <DefaultLayout>

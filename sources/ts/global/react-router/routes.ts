@@ -9,6 +9,7 @@ const routes = {
     admin: '/admin',
     resetPassword: '/reset-password',
     updateEmail: '/update-email',
+    newsletterSubscribeConfirmation: '/newsletter-subscribe',
 } as const;
 
 export default routes;
