@@ -151,6 +151,10 @@
     align-items: center;
 }
 
+.cart-item-product-name {
+    padding-right: 20px;
+}
+
 .cart-item-product-name,
 .cart-item-product-price {
     text-align: left;
