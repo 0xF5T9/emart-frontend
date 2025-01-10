@@ -23,6 +23,7 @@ const environmentVariables = {
     API_URL: process.env.API_URL,
     UPLOAD_URL: process.env.UPLOAD_URL,
     PORT: process.env.PORT,
+    WEBPACK_DEV_SERVER_OPEN_URL: process.env.WEBPACK_DEV_SERVER_OPEN_URL,
     WEBPACK_PATH_TO_CERT: process.env.WEBPACK_PATH_TO_CERT,
     WEBPACK_PATH_TO_CERT_KEY: process.env.WEBPACK_PATH_TO_CERT_KEY,
 };
@@ -116,7 +117,9 @@ export default {
         },
         port: 8080,
         hot: true,
-        open: true,
+        open: {
+            target: [process.env.WEBPACK_DEV_SERVER_OPEN_URL],
+        },
         devMiddleware: {
             writeToDisk: false,
         },

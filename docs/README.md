@@ -103,6 +103,7 @@ server {
 - `API_URL` - API URL.
 - `UPLOAD_URL` - Upload URL.
 - `PORT` - Production server port.
+- `WEBPACK_DEV_SERVER_OPEN_URL` - Webpack dev server will automatically open this url in the default browser.
 - `WEBPACK_PATH_TO_CERT` - Path to certificate file. (Dev mode only)
 - `WEBPACK_PATH_TO_CERT_KEY` - Path to certificate key file. (Dev mode only)
 
@@ -111,6 +112,7 @@ NODE_ENV=development
 API_URL=https://api.mydomain.com
 UPLOAD_URL=https://upload.mydomain.com
 PORT=8317
+WEBPACK_DEV_SERVER_OPEN_URL=https://mydomain.com
 WEBPACK_PATH_TO_CERT=path/to/ssl/cert.pem
 WEBPACK_PATH_TO_CERT_KEY=path/to/ssl/cert-key.pem
 ```
