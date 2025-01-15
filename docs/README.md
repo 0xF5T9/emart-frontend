@@ -4,8 +4,6 @@
 
 ## Preview
 
-[View more](PREVIEW.md)
-
 ![full-page](https://github.com/user-attachments/assets/08c5fa92-8897-434e-b68a-c46ef988d886)
 
 ## Prerequisites
