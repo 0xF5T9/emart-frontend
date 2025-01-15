@@ -5,6 +5,8 @@
 ## Preview
 
 ![preview](https://github.com/user-attachments/assets/490d3993-f4df-4e6f-a676-e60b1aa6f3ea)
+![preview-mobile](https://github.com/user-attachments/assets/3cec3808-fc9f-4621-b257-8e282e433534)
+
 
 ## Prerequisites
 
