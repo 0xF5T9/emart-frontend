@@ -4,7 +4,7 @@
 
 ## Preview
 
-![full-page](https://github.com/user-attachments/assets/08c5fa92-8897-434e-b68a-c46ef988d886)
+![preview](https://github.com/user-attachments/assets/490d3993-f4df-4e6f-a676-e60b1aa6f3ea)
 
 ## Prerequisites
 
