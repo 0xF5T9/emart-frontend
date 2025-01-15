@@ -13,7 +13,7 @@
 - nginx >= 1.26.2
 - Domain with SSL
 - Port forwarding: 80, 443 (Alternatively Cloudflare Tunnel)
-- [E-Mart Backend](https://github.com/0xF5T9/E-Mart-backend)
+- [E-Mart Backend](https://github.com/0xF5T9/emart-backend)
 
 ## Install
 
