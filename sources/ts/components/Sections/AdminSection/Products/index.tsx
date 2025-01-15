@@ -4,7 +4,7 @@
  */
 
 'use strict';
-import type { Product } from '@sources/ts/types/VyFood';
+import type { Product } from '@sources/ts/apis/emart/types';
 import type { SelectOption } from '@sources/ts/components/CustomSelect';
 import {
     FunctionComponent,
@@ -89,7 +89,7 @@ const Products: FunctionComponent<{
         setIsPending(true);
         if (!silentFetch) setStatus('loading');
         (async () => {
-            const getCategoriesResult = await apis.backend.getCategories(
+            const getCategoriesResult = await apis.emart.getCategories(
                 1,
                 99999
             );
@@ -119,7 +119,7 @@ const Products: FunctionComponent<{
                 setCurrentCategory('');
             setCategoryOptions(newCategoryOptions);
 
-            const getProductResult = await apis.backend.getProducts(1, 99999);
+            const getProductResult = await apis.emart.getProducts(1, 99999);
             if (!getProductResult.success) {
                 console.error(getProductResult.message);
                 showToast({
@@ -230,7 +230,7 @@ const Products: FunctionComponent<{
         setIsPending(true);
 
         (async () => {
-            const { message, success } = await apis.backend.deleteProduct(
+            const { message, success } = await apis.emart.deleteProduct(
                 product.slug
             );
             if (!success) {
@@ -485,7 +485,7 @@ const Products: FunctionComponent<{
                                     <span
                                         className={styles['product-item-price']}
                                     >
-                                        {window.myHelper.convertVNDNumberToString(
+                                        {window.myHelper.convertUSDNumberToString(
                                             product?.price
                                         )}
                                     </span>

@@ -9,7 +9,7 @@ import routes from './routes';
 import { AuthProvider } from '@sources/ts/hooks/useAuth';
 import { GlobalProvider } from '@sources/ts/hooks/useGlobal';
 import { ModalProvider } from '@sources/ts/hooks/useModal';
-import { VyFoodProvider } from '@sources/ts/hooks/useVyFood';
+import { APIProvider } from '@sources/ts/hooks/useAPI';
 import App from '@sources/ts/components/App';
 import ProtectedRoute from '@sources/ts/components/ProtectedRoute';
 import { DefaultLayout, BlankLayout } from '@sources/ts/components/Layouts';
@@ -26,9 +26,9 @@ const appRouter: RouteObject[] = [
             <GlobalProvider>
                 <AuthProvider>
                     <ModalProvider>
-                        <VyFoodProvider>
+                        <APIProvider>
                             <App />
-                        </VyFoodProvider>
+                        </APIProvider>
                     </ModalProvider>
                 </AuthProvider>
             </GlobalProvider>
@@ -37,13 +37,13 @@ const appRouter: RouteObject[] = [
             <GlobalProvider>
                 <AuthProvider>
                     <ModalProvider>
-                        <VyFoodProvider>
+                        <APIProvider>
                             <div id="app">
                                 <BlankLayout>
                                     <Sections.ErrorSection />
                                 </BlankLayout>
                             </div>
-                        </VyFoodProvider>
+                        </APIProvider>
                     </ModalProvider>
                 </AuthProvider>
             </GlobalProvider>

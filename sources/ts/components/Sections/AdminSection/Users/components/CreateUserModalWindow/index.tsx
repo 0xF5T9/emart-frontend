@@ -139,7 +139,7 @@ const CreateUserModalWindow: FunctionComponent<{
                 return;
             }
 
-            const { message, success } = await apis.backend.createUserAsAdmin(
+            const { message, success } = await apis.emart.createUserAsAdmin(
                 usernameInputValue,
                 passwordInputValue,
                 emailInputValue,

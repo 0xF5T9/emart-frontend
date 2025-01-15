@@ -43,9 +43,6 @@ const IndexSection: FunctionComponent = function () {
                         {
                             url: staticUrls.heroSliderImage3,
                         },
-                        {
-                            url: staticUrls.heroSliderImage4,
-                        },
                     ]}
                 />
             </DynamicSection>

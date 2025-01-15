@@ -8,22 +8,22 @@ import type { AdminAsideItem } from '@sources/ts/types/admin-section-aside-item'
 
 const adminSectionTopAsideItems: AdminAsideItem[] = [
     {
-        text: 'Sản phẩm',
+        text: 'Product',
         icon: 'fal fa-pot-food',
         to: 'products',
     },
     {
-        text: 'Danh mục',
+        text: 'Category',
         icon: 'fal fa-list',
         to: 'categories',
     },
     {
-        text: 'Đơn hàng',
+        text: 'Order',
         icon: 'fal fa-basket-shopping',
         to: 'orders',
     },
     {
-        text: 'Người dùng',
+        text: 'User',
         icon: 'fal fa-users',
         to: 'users',
     },

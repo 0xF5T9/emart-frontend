@@ -5,7 +5,7 @@
 
 'use strict';
 
-import type { Order } from '@sources/ts/types/VyFood';
+import type { Order } from '@sources/ts/apis/emart/types';
 import type { TOrder } from '../..';
 import {
     FunctionComponent,
@@ -52,7 +52,7 @@ const OrderDetailsModalWindow: FunctionComponent<{
             if (isPending) return false;
             setIsPending(true);
 
-            const { message, success } = await apis.backend.updateOrder(
+            const { message, success } = await apis.emart.updateOrder(
                 orderItem?.orderId,
                 newStatus as any
             );
@@ -88,7 +88,7 @@ const OrderDetailsModalWindow: FunctionComponent<{
 
         (async () => {
             const { message, success } =
-                await apis.backend.restoreOrderProductQuantity(order?.orderId);
+                await apis.emart.restoreOrderProductQuantity(order?.orderId);
             if (!success) {
                 console.error(message);
                 setTimeout(
@@ -161,13 +161,13 @@ const OrderDetailsModalWindow: FunctionComponent<{
                 (acc, current) =>
                     acc + current.totalItems * current.product.oldPrice,
                 0
-            ) + (orderItem?.deliveryMethod === 'shipping' ? 30000 : 0),
+            ) + (orderItem?.deliveryMethod === 'shipping' ? 1 : 0),
         newTotal =
             orderItem?.items?.reduce(
                 (acc, current) =>
                     acc + current.totalItems * current.product.price,
                 0
-            ) + (orderItem?.deliveryMethod === 'shipping' ? 30000 : 0);
+            ) + (orderItem?.deliveryMethod === 'shipping' ? 1 : 0);
 
     return (
         <div ref={modalWindow} className={styles['modal-window']}>
@@ -276,7 +276,7 @@ const OrderDetailsModalWindow: FunctionComponent<{
                                                 styles['product-item-price']
                                             }
                                         >
-                                            {window.myHelper.convertVNDNumberToString(
+                                            {window.myHelper.convertUSDNumberToString(
                                                 item?.product?.price
                                             )}
                                         </span>
@@ -296,7 +296,7 @@ const OrderDetailsModalWindow: FunctionComponent<{
                                                     ]
                                                 }
                                             >
-                                                {window.myHelper.convertVNDNumberToString(
+                                                {window.myHelper.convertUSDNumberToString(
                                                     item?.product?.oldPrice
                                                 )}
                                             </span>
@@ -443,14 +443,11 @@ const OrderDetailsModalWindow: FunctionComponent<{
                                     content={texts.newTotalTooltip}
                                     disabled={oldTotal === newTotal}
                                 >
-                                    <span
-                                        className={styles['total']}
-                                    >{`${newTotal
-                                        ?.toString()
-                                        .replace(
-                                            /\B(?=(\d{3})+(?!\d))/g,
-                                            '.'
-                                        )} ₫`}</span>
+                                    <span className={styles['total']}>
+                                        {window.myHelper.convertUSDNumberToString(
+                                            newTotal
+                                        )}
+                                    </span>
                                 </PopupWindow>
 
                                 {oldTotal !== newTotal && (
@@ -459,12 +456,11 @@ const OrderDetailsModalWindow: FunctionComponent<{
                                     >
                                         <span
                                             className={styles['original-total']}
-                                        >{`${oldTotal
-                                            ?.toString()
-                                            .replace(
-                                                /\B(?=(\d{3})+(?!\d))/g,
-                                                '.'
-                                            )} ₫`}</span>
+                                        >
+                                            {window.myHelper.convertUSDNumberToString(
+                                                oldTotal
+                                            )}
+                                        </span>
                                     </PopupWindow>
                                 )}
                                 {orderItem?.deliveryMethod === 'shipping' && (

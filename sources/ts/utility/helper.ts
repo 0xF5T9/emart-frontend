@@ -12,6 +12,8 @@ declare global {
             parseJSON: (jsonString: string) => object | boolean;
             convertVNDStringToNumber: (string: string) => number;
             convertVNDNumberToString: (number: number) => string;
+            convertUSDStringToNumber: (string: string) => number;
+            convertUSDNumberToString: (number: number) => string;
         };
     }
 }
@@ -46,6 +48,22 @@ declare global {
          */
         convertVNDNumberToString(number: number): string {
             return `${number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')} ₫`;
+        },
+        /**
+         * Converts a string representation of US Dollars (USD) to a number. ($1,234.56 = 1234.56)
+         * @param string The string.
+         * @returns Returns the numeric value of the amount in USD.
+         */
+        convertUSDStringToNumber(string: string): number {
+            return parseFloat(string.replace('$', '').replace(',', ''));
+        },
+        /**
+         * Converts a numeric value representing US Dollars (USD) to a formatted string.
+         * @param number The number.
+         * @returns Returns the formatted string representation of the amount in USD.
+         */
+        convertUSDNumberToString(number: number): string {
+            return `$${number.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
         },
     };
 })();

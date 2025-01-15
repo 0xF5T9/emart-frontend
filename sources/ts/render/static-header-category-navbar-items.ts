@@ -5,10 +5,16 @@
 
 'use strict';
 import type { NavbarItem } from '@sources/ts/types/product-category-navigation-bar';
+import staticUrls from './static-urls';
 
 const staticNavbarItems: NavbarItem[] = [
     {
-        text: 'Tất cả món',
+        text: 'All products',
+        image: {
+            url: staticUrls.allCategory,
+            width: '30px',
+            height: '30px',
+        },
         clearFilter: true,
         onClick: () => {
             setTimeout(() => {

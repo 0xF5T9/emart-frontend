@@ -4,7 +4,7 @@
  */
 
 'use strict';
-import type { CartItem } from '@sources/ts/types/VyFood';
+import type { CartItem } from '@sources/ts/apis/emart/types';
 import {
     FunctionComponent,
     useState,
@@ -15,7 +15,7 @@ import {
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { useVyFood } from '@sources/ts/hooks/useVyFood';
+import { useAPI } from '@sources/ts/hooks/useAPI';
 import { useModal } from '@sources/ts/hooks/useModal';
 import PopupWindow, { PopupRender } from '@sources/ts/components/PopupWindow';
 import PaymentWindow from '@sources/ts/components/PaymentWindow';
@@ -35,7 +35,7 @@ const CartItem: FunctionComponent<{
     index: number;
     cartItems: CartItem[];
 }> = ({ index, cartItems }) => {
-    const { setCartItems } = useVyFood();
+    const { setCartItems } = useAPI();
 
     const cartItem = cartItems[index];
 
@@ -77,8 +77,8 @@ const CartItem: FunctionComponent<{
                 </span>
                 <span className={styles['cart-item-product-price']}>
                     {total
-                        ? window.myHelper.convertVNDNumberToString(total || 0)
-                        : window.myHelper.convertVNDNumberToString(0)}
+                        ? window.myHelper.convertUSDNumberToString(total || 0)
+                        : window.myHelper.convertUSDNumberToString(0)}
                 </span>
             </div>
 
@@ -201,7 +201,7 @@ CartItem.propTypes = {
  * @returns Returns the component.
  */
 const CartModalWindow: FunctionComponent = () => {
-    const { cartItems, handleRefreshProduct } = useVyFood();
+    const { cartItems, handleRefreshProduct } = useAPI();
 
     const { setModalVisibility } = useModal();
 
@@ -298,7 +298,7 @@ const CartModalWindow: FunctionComponent = () => {
                         {texts.totalLabel}
                     </span>
                     <span className={styles['cart-total-price']}>
-                        {window.myHelper.convertVNDNumberToString(total || 0)}
+                        {window.myHelper.convertUSDNumberToString(total || 0)}
                     </span>
                 </div>
                 <div className={styles['cart-buttons-wrapper']}>

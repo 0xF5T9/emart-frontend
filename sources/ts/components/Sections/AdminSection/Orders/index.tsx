@@ -5,7 +5,7 @@
  */
 
 'use strict';
-import type { Order, Product, CartItem } from '@sources/ts/types/VyFood';
+import type { Order, Product, CartItem } from '@sources/ts/apis/emart/types';
 import {
     FunctionComponent,
     CSSProperties,
@@ -68,7 +68,7 @@ const OrderItem: FunctionComponent<
         setIsPending(true);
 
         (async () => {
-            const { message, success } = await apis.backend.deleteOrder(
+            const { message, success } = await apis.emart.deleteOrder(
                 order?.orderId
             );
             if (!success) {
@@ -133,7 +133,7 @@ const OrderItem: FunctionComponent<
 
         (async () => {
             const { message, success } =
-                await apis.backend.restoreOrderProductQuantity(order?.orderId);
+                await apis.emart.restoreOrderProductQuantity(order?.orderId);
             if (!success) {
                 console.error(message);
                 setTimeout(
@@ -202,7 +202,7 @@ const OrderItem: FunctionComponent<
             setIsPending(true);
             setRenderItem({ ...item, status: newStatus as any });
 
-            const { message, success } = await apis.backend.updateOrder(
+            const { message, success } = await apis.emart.updateOrder(
                 item?.orderId,
                 newStatus as any
             );
@@ -457,7 +457,7 @@ const Orders: FunctionComponent<{
         setIsPending(true);
         if (!silentFetch) setStatus('loading');
         (async () => {
-            const getProductsResult = await apis.backend.getProducts();
+            const getProductsResult = await apis.emart.getProducts();
             if (!getProductsResult.success) {
                 console.error(getProductsResult.message);
                 showToast({
@@ -484,7 +484,7 @@ const Orders: FunctionComponent<{
                 {}
             );
 
-            const getOrdersResult = await apis.backend.getOrders();
+            const getOrdersResult = await apis.emart.getOrders();
             if (!getOrdersResult.success) {
                 console.error(getOrdersResult.message);
                 showToast({
@@ -515,7 +515,8 @@ const Orders: FunctionComponent<{
                                     ...cartItem,
                                     product: {
                                         ...products[cartItem.product.slug],
-                                        name: '(Sản phẩm đã bị xoá)',
+                                        name: texts.orderDetailsWindow
+                                            .productNoLongerExist,
                                         price: 0,
                                         desc: '0',
                                         oldPrice: cartItem.product.price,

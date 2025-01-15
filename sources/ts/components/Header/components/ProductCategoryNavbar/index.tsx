@@ -10,7 +10,7 @@ import { NavLink, NavLinkProps } from 'react-router-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-import { useVyFood } from '@sources/ts/hooks/useVyFood';
+import { useAPI } from '@sources/ts/hooks/useAPI';
 import apis from '@sources/ts/apis';
 import ContextMenu from '@sources/ts/components/ContextMenu';
 import * as styles from './ProductCategoryNavbar.module.css';
@@ -48,7 +48,7 @@ const NavbarItem: FunctionComponent<{
     categoryFilter,
     clearFilter = false,
 }) => {
-    const { productItems, productFilter, setProductFilter } = useVyFood();
+    const { productItems, productFilter, setProductFilter } = useAPI();
 
     const LinkComponent:
         | React.ForwardRefExoticComponent<
@@ -183,8 +183,7 @@ const ProductCategoryNavbar: FunctionComponent<{
 
     useEffect(() => {
         (async () => {
-            const { message, success, data } =
-                await apis.backend.getCategories();
+            const { message, success, data } = await apis.emart.getCategories();
             if (!success) {
                 console.error(message);
                 return;
@@ -198,6 +197,13 @@ const ProductCategoryNavbar: FunctionComponent<{
                         return {
                             text: category.name,
                             categoryFilter: category.slug,
+                            image: category?.imageFileName
+                                ? {
+                                      url: `${process.env.UPLOAD_URL}/category/${category?.imageFileName}`,
+                                      width: '30px',
+                                      height: '30px',
+                                  }
+                                : undefined,
                         };
                     }
                 );

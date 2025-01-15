@@ -36,7 +36,7 @@
     width: 250px;
     border-right: 1px solid var(--admin-aside-border-color, blue);
     background-color: var(--admin-aside-background-color, blue);
-    transition: width 0.15s ease;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .aside.is-collapsed {
@@ -53,7 +53,7 @@
 
 .aside.is-collapsed .aside-logo {
     width: 57px;
-    padding: 8px;
+    padding: 10px;
 }
 
 .aside.is-collapsed .aside-list-item-link {
@@ -85,7 +85,7 @@
     color: var(--admin-aside-toggle-button-color, blue);
     opacity: 0.5;
     cursor: pointer;
-    transition: opacity 0.15s ease;
+    transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -109,7 +109,8 @@
     row-gap: 12px;
     width: 100%;
     margin-top: 80px;
-    transition: row-gap 0.15s ease;
+    margin-bottom: 20px;
+    transition: row-gap 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .aside-main-wrapper {
@@ -122,12 +123,16 @@
 
 .aside-logo {
     width: 100px;
-    transition: width 0.15s ease;
+    transition:
+        width 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        padding 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .aside-logo-text {
-    width: 100px;
-    transition: width 0.15s ease;
+    width: 160px;
+    transition:
+        width 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        padding 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .aside-bottom {

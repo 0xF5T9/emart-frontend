@@ -40,7 +40,7 @@
 }
 
 .subscribe-section-logo {
-    width: 240px;
+    width: 200px;
 }
 
 .subscribe-section-titles-wrapper {
@@ -51,7 +51,7 @@
 
 .subscribe-section-title {
     color: var(--text-high-contrast-color, blue);
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 700;
     text-transform: uppercase;
 }
@@ -160,6 +160,7 @@
     width: 100px;
     height: 3px;
     border-top: none;
+    border-radius: 4px;
     font-weight: 700;
     background-image: linear-gradient(
         to right,
@@ -171,11 +172,12 @@
 .about-us-desc {
     font-size: 16px;
     line-height: 24px;
+    word-break: keep-all;
 }
 
 .about-us-brand-logo {
     display: none;
-    width: 210px;
+    width: 200px;
 }
 
 .about-us-socials {
@@ -249,6 +251,7 @@
     width: 100px;
     height: 3px;
     border-top: none;
+    border-radius: 4px;
     font-weight: 700;
     background-image: linear-gradient(
         to right,
@@ -324,6 +327,7 @@
     width: 100px;
     height: 3px;
     border-top: none;
+    border-radius: 4px;
     font-weight: 700;
     background-image: linear-gradient(
         to right,
@@ -440,6 +444,10 @@
         flex-flow: row wrap;
         row-gap: 24px;
     }
+    .subscribe-section-title {
+        font-size: 24px;
+        text-align: center;
+    }
     .subscribe-section-subtitle {
         display: none;
     }
@@ -462,6 +470,10 @@
     .subscribe-section {
         flex-flow: row wrap;
         row-gap: 24px;
+    }
+    .subscribe-section-title {
+        font-size: 24px;
+        text-align: center;
     }
     .subscribe-section-subtitle {
         display: none;

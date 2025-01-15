@@ -1,18 +1,18 @@
 /**
- * @file useVyFood.tsx
- * @description Vy Food hook.
+ * @file useAPI.tsx
+ * @description API hook.
  */
 
 'use strict';
 
-import type { Product, CartItem } from '@sources/ts/types/VyFood';
+import type { Product, CartItem } from '@sources/ts/apis/emart/types';
 import {
     FunctionComponent,
     ReactNode,
     createContext,
     useState,
     useContext,
-    useEffect
+    useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
 
@@ -22,7 +22,7 @@ import apis from '@sources/ts/apis';
 import staticUrls from '@sources/ts/render/static-urls';
 import staticTexts from '@sources/ts/render/static-texts';
 
-type VyFoodHook = {
+type APIHook = {
     productItems: Product[];
     setProductItems: React.Dispatch<React.SetStateAction<Product[]>>;
     handleRefreshProduct: (refreshCart: boolean) => Promise<void>;
@@ -54,16 +54,16 @@ type VyFoodHook = {
     setCartItems: (stringifiedCartItems: string) => void;
 };
 
-// Vy Food context.
-const vyFoodContext = createContext(null);
+// API context.
+const apiContext = createContext(null);
 
 /**
- * Vy Food context provider component.
+ * API context provider component.
  * @param props Component properties.
  * @param props.children Context children.
  * @returns Returns the component.
  */
-const VyFoodProvider: FunctionComponent<{ children: ReactNode }> = function ({
+const APIProvider: FunctionComponent<{ children: ReactNode }> = function ({
     children,
 }) {
     const [productItems, setProductItems] = useState<Product[] | null>(null);
@@ -88,7 +88,7 @@ const VyFoodProvider: FunctionComponent<{ children: ReactNode }> = function ({
     ];
 
     const handleRefreshProduct = async (refreshCart = false) => {
-        const { message, success, data } = await apis.backend.getProducts();
+        const { message, success, data } = await apis.emart.getProducts();
         if (!success) {
             console.error(message);
             setProductItems(null);
@@ -122,7 +122,7 @@ const VyFoodProvider: FunctionComponent<{ children: ReactNode }> = function ({
                 ?.map((cartItem) => {
                     if (!mappedProducts[cartItem?.product?.slug]) {
                         newCartMessages.push(
-                            `Sản phẩm <b style="color: var(--color-primary, blue)">${cartItem.product.name}</b> không còn tồn tại nữa.<br/>(Sản phẩm đã bị xoá khỏi giỏ hàng của bạn)`
+                            `${staticTexts.hooks.useAPI.productNoLongerExist1}<b style="color: var(--color-primary, blue)">${cartItem.product.name}</b>${staticTexts.hooks.useAPI.productNoLongerExist2}<br/>${staticTexts.hooks.useAPI.productNoLongerExist3}`
                         );
                         return null;
                     }
@@ -131,7 +131,7 @@ const VyFoodProvider: FunctionComponent<{ children: ReactNode }> = function ({
                         mappedProducts[cartItem?.product?.slug]?.price
                     ) {
                         newCartMessages.push(
-                            `Giá của sản phẩm <b style="color: var(--color-primary, blue)">${cartItem.product.name}</b> đã được thay đổi từ <b style="color: var(--color-primary, blue)">${window.myHelper.convertVNDNumberToString(cartItem?.product?.price)}</b> thành <b style="color: var(--color-primary, blue)">${window.myHelper.convertVNDNumberToString(mappedProducts[cartItem?.product?.slug]?.price)}</b>.<br/>(Giỏ hàng của bạn đã được cập nhật)`
+                            `${staticTexts.hooks.useAPI.productPriceChanged1}<b style="color: var(--color-primary, blue)">${cartItem.product.name}</b>${staticTexts.hooks.useAPI.productPriceChanged2}<b style="color: var(--color-primary, blue)">${window.myHelper.convertUSDNumberToString(cartItem?.product?.price)}</b>${staticTexts.hooks.useAPI.productPriceChanged3}<b style="color: var(--color-primary, blue)">${window.myHelper.convertUSDNumberToString(mappedProducts[cartItem?.product?.slug]?.price)}</b>${staticTexts.hooks.useAPI.productPriceChanged4}<br/>${staticTexts.hooks.useAPI.productPriceChanged5}`
                         );
                         cartItem.product.price =
                             mappedProducts[cartItem?.product?.slug]?.price;
@@ -141,7 +141,7 @@ const VyFoodProvider: FunctionComponent<{ children: ReactNode }> = function ({
                         mappedProducts[cartItem?.product?.slug].quantity === 0
                     ) {
                         newCartMessages.push(
-                            `Sản phẩm <b style="color: var(--color-primary, blue)">${cartItem.product.name}</b> đã hết hàng.<br/>(Giỏ hàng của bạn đã được cập nhật)`
+                            `${staticTexts.hooks.useAPI.productOutOfStock1}<b style="color: var(--color-primary, blue)">${cartItem.product.name}</b>${staticTexts.hooks.useAPI.productOutOfStock2}<br/>${staticTexts.hooks.useAPI.productOutOfStock3}`
                         );
                         return null;
                     }
@@ -150,7 +150,7 @@ const VyFoodProvider: FunctionComponent<{ children: ReactNode }> = function ({
                         cartItem.totalItems;
                     if (newQuantity < 0) {
                         newCartMessages.push(
-                            `Cửa hàng chỉ còn ${mappedProducts[cartItem?.product?.slug].quantity} sản phẩm <b style="color: var(--color-primary, blue)">${cartItem.product.name}</b>.<br/>(Giỏ hàng của bạn đã được cập nhật)`
+                            `${staticTexts.hooks.useAPI.productQuantityChanged1}<b style="color: var(--color-primary, blue)">${mappedProducts[cartItem?.product?.slug].quantity} ${cartItem.product.name}</b>${staticTexts.hooks.useAPI.productQuantityChanged2}<br/>${staticTexts.hooks.useAPI.productQuantityChanged3}`
                         );
                         cartItem.totalItems =
                             mappedProducts[cartItem?.product?.slug].quantity;
@@ -176,7 +176,7 @@ const VyFoodProvider: FunctionComponent<{ children: ReactNode }> = function ({
         return;
     };
 
-    const value: VyFoodHook = {
+    const value: APIHook = {
         productItems,
         setProductItems,
         handleRefreshProduct,
@@ -190,29 +190,27 @@ const VyFoodProvider: FunctionComponent<{ children: ReactNode }> = function ({
     };
 
     useEffect(() => {
-        document.addEventListener("visibilitychange", () => {
-            const cartItemsInLocalStorage = JSON.parse(window.localStorage.getItem('cartItems'));
+        document.addEventListener('visibilitychange', () => {
+            const cartItemsInLocalStorage = JSON.parse(
+                window.localStorage.getItem('cartItems')
+            );
             setCartItems(cartItemsInLocalStorage);
         });
-    }, [])
+    }, []);
 
-    return (
-        <vyFoodContext.Provider value={value}>
-            {children}
-        </vyFoodContext.Provider>
-    );
+    return <apiContext.Provider value={value}>{children}</apiContext.Provider>;
 };
 
-VyFoodProvider.propTypes = {
+APIProvider.propTypes = {
     children: PropTypes.node,
 };
 
 /**
- * Hook that access Vy Food global states.
+ * Hook that access API states.
  * @returns productItems, setProductItems, productFilter, setProductFilter, productSearchValue, setProductSearchValue
  */
-function useVyFood(): VyFoodHook {
-    return useContext(vyFoodContext);
+function useAPI(): APIHook {
+    return useContext(apiContext);
 }
 
-export { vyFoodContext, VyFoodProvider, useVyFood };
+export { apiContext, APIProvider, useAPI };

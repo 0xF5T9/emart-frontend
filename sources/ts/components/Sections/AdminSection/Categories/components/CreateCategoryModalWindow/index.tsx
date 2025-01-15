@@ -93,7 +93,7 @@ const CreateCategoryModalWindow: FunctionComponent<{
                 return;
             }
 
-            const { message, success } = await apis.backend.createCategory(
+            const { message, success } = await apis.emart.createCategory(
                 categoryNameInputValue,
                 categoryDescInputValue,
                 categoryPriorityInputValue as number,

@@ -4,10 +4,18 @@
  */
 
 'use strict';
-import { FunctionComponent, useState, useLayoutEffect, useRef } from 'react';
+import type { Category } from '@sources/ts/apis/emart/types';
+import {
+    FunctionComponent,
+    useState,
+    useLayoutEffect,
+    useRef,
+    useEffect,
+} from 'react';
 
 import { showToast } from '@sources/ts/components/Toast';
 import { useModal } from '@sources/ts/hooks/useModal';
+import { useAPI } from '@sources/ts/hooks/useAPI';
 import { Github } from '@sources/ts/components/Icons/Github';
 import { Discord } from '@sources/ts/components/Icons/Discord';
 import Button from '@sources/ts/components/Button';
@@ -24,12 +32,14 @@ const texts = staticTexts.footer,
  * @returns Returns the component.
  */
 const Footer: FunctionComponent = function () {
-    const { setModal } = useModal(),
+    const { setProductFilter } = useAPI(),
+        { setModal } = useModal(),
         footer = useRef<HTMLElement>(),
         emailInput = useRef<HTMLInputElement>(),
         timeoutId = useRef<NodeJS.Timeout>(null);
 
-    const [isPending, setIsPending] = useState<boolean>(false);
+    const [isPending, setIsPending] = useState<boolean>(false),
+        [categories, setCategories] = useState<Category[]>(null);
 
     const handleSubscribeNewsletter: React.DetailedHTMLProps<
         React.FormHTMLAttributes<HTMLFormElement>,
@@ -65,7 +75,7 @@ const Footer: FunctionComponent = function () {
 
             setIsPending(true);
 
-            const { success, message } = await apis.backend.subscribeNewsletter(
+            const { success, message } = await apis.emart.subscribeNewsletter(
                 emailInput?.current?.value
             );
             if (!success) {
@@ -83,9 +93,9 @@ const Footer: FunctionComponent = function () {
             setModal({
                 type: 'alert',
                 variant: 'success',
-                title: 'Thành công',
+                title: texts.subscribeSuccessfulModal.title,
                 message,
-                closeButtonText: 'Đóng',
+                closeButtonText: texts.subscribeSuccessfulModal.closeButton,
                 closeButtonVariant: 'primary',
                 iconColor: 'var(--color-primary, blue)',
                 className: styles['subscribe-newsletter-success-modal'],
@@ -95,6 +105,20 @@ const Footer: FunctionComponent = function () {
 
             setIsPending(false);
         })();
+    };
+
+    const handleUpdateCategoryView = (categorySlug: string) => {
+        setProductFilter({
+            type: 'category',
+            value: categorySlug,
+        });
+        setTimeout(() => {
+            document?.getElementById('products-section')?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+                inline: 'center',
+            });
+        }, 1);
     };
 
     useLayoutEffect(() => {
@@ -145,6 +169,23 @@ const Footer: FunctionComponent = function () {
                 `0px`
             );
         };
+    }, []);
+
+    useEffect(() => {
+        setIsPending(true);
+        (async () => {
+            const { message, success, data } = await apis.emart.getCategories(
+                1,
+                5
+            );
+            if (!success) {
+                console.error(message);
+                setIsPending(false);
+                return;
+            }
+            setCategories(data.categories);
+            setIsPending(false);
+        })();
     }, []);
 
     return (
@@ -268,124 +309,114 @@ const Footer: FunctionComponent = function () {
                         </span>
                         <ul className={styles['links-list']}>
                             <li className={styles['links-item']}>
-                                <a className={styles['links-anchor']}>
+                                <a
+                                    className={styles['links-anchor']}
+                                    href="https://www.popmart.com"
+                                    target="_blank"
+                                >
                                     <i
                                         className={classNames(
                                             styles['links-icon'],
                                             'far fa-arrow-right'
                                         )}
                                     />
-                                    <span>Về chúng tôi</span>
+                                    <span>Official POP MART</span>
                                 </a>
                             </li>
                             <li className={styles['links-item']}>
-                                <a className={styles['links-anchor']}>
+                                <a
+                                    className={styles['links-anchor']}
+                                    href="https://www.popmart.com/us/news"
+                                    target="_blank"
+                                >
                                     <i
                                         className={classNames(
                                             styles['links-icon'],
                                             'far fa-arrow-right'
                                         )}
                                     />
-                                    <span>Thực đơn</span>
+                                    <span>News</span>
                                 </a>
                             </li>
                             <li className={styles['links-item']}>
-                                <a className={styles['links-anchor']}>
+                                <a
+                                    className={styles['links-anchor']}
+                                    href="https://www.popmart.com/us/ip-artist-zone"
+                                    target="_blank"
+                                >
                                     <i
                                         className={classNames(
                                             styles['links-icon'],
                                             'far fa-arrow-right'
                                         )}
                                     />
-                                    <span>Điều khoản</span>
+                                    <span>Artists</span>
                                 </a>
                             </li>
                             <li className={styles['links-item']}>
-                                <a className={styles['links-anchor']}>
+                                <a
+                                    className={styles['links-anchor']}
+                                    href="https://www.popmart.com/us/blog"
+                                    target="_blank"
+                                >
                                     <i
                                         className={classNames(
                                             styles['links-icon'],
                                             'far fa-arrow-right'
                                         )}
                                     />
-                                    <span>Liên hệ</span>
+                                    <span>Blog</span>
                                 </a>
                             </li>
                             <li className={styles['links-item']}>
-                                <a className={styles['links-anchor']}>
+                                <a
+                                    className={styles['links-anchor']}
+                                    href="https://www.popmart.com/us/help/faqs"
+                                    target="_blank"
+                                >
                                     <i
                                         className={classNames(
                                             styles['links-icon'],
                                             'far fa-arrow-right'
                                         )}
                                     />
-                                    <span>Tin Tức</span>
+                                    <span>FAQ</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
-                    <div className={styles['widget-item-links']}>
-                        <span className={styles['links-title']}>
-                            {texts.menuLinkTitle}
-                        </span>
-                        <ul className={styles['links-list']}>
-                            <li className={styles['links-item']}>
-                                <a className={styles['links-anchor']}>
-                                    <i
-                                        className={classNames(
-                                            styles['links-icon'],
-                                            'far fa-arrow-right'
-                                        )}
-                                    />
-                                    <span>Điểm tâm</span>
-                                </a>
-                            </li>
-                            <li className={styles['links-item']}>
-                                <a className={styles['links-anchor']}>
-                                    <i
-                                        className={classNames(
-                                            styles['links-icon'],
-                                            'far fa-arrow-right'
-                                        )}
-                                    />
-                                    <span>Món nước</span>
-                                </a>
-                            </li>
-                            <li className={styles['links-item']}>
-                                <a className={styles['links-anchor']}>
-                                    <i
-                                        className={classNames(
-                                            styles['links-icon'],
-                                            'far fa-arrow-right'
-                                        )}
-                                    />
-                                    <span>Món khô</span>
-                                </a>
-                            </li>
-                            <li className={styles['links-item']}>
-                                <a className={styles['links-anchor']}>
-                                    <i
-                                        className={classNames(
-                                            styles['links-icon'],
-                                            'far fa-arrow-right'
-                                        )}
-                                    />
-                                    <span>Món khác</span>
-                                </a>
-                            </li>
-                            <li className={styles['links-item']}>
-                                <a className={styles['links-anchor']}>
-                                    <i
-                                        className={classNames(
-                                            styles['links-icon'],
-                                            'far fa-arrow-right'
-                                        )}
-                                    />
-                                    <span>Giải khát</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    {categories?.length && (
+                        <div className={styles['widget-item-links']}>
+                            <span className={styles['links-title']}>
+                                {texts.menuLinkTitle}
+                            </span>
+                            <ul className={styles['links-list']}>
+                                {categories?.map((category) => (
+                                    <li
+                                        key={category.slug}
+                                        className={styles['links-item']}
+                                    >
+                                        <a
+                                            className={styles['links-anchor']}
+                                            onClick={() =>
+                                                handleUpdateCategoryView(
+                                                    category.slug
+                                                )
+                                            }
+                                        >
+                                            <i
+                                                className={classNames(
+                                                    styles['links-icon'],
+                                                    'far fa-arrow-right'
+                                                )}
+                                            />
+                                            <span>{category.name}</span>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                     <div className={styles['widget-item-contact']}>
                         <span className={styles['contact-title']}>
                             {texts.contactLinkTitle}
@@ -406,8 +437,8 @@ const Footer: FunctionComponent = function () {
                                 </div>
                                 <div className={styles['contact-item-content']}>
                                     <span>
-                                        273 An Dương Vương, Phường 3, Quận 5, TP
-                                        Hồ Chí Minh
+                                        485 Maple Drive (later 211 Pine St.),
+                                        Mayfield, U.S.
                                     </span>
                                 </div>
                             </li>
@@ -443,8 +474,8 @@ const Footer: FunctionComponent = function () {
                                     />
                                 </div>
                                 <div className={styles['contact-item-content']}>
-                                    <span>abc@domain.com</span>
-                                    <span>infoabc@domain.com</span>
+                                    <span>support@e-mart.com</span>
+                                    <span>info@e-mart.com</span>
                                 </div>
                             </li>
                         </ul>

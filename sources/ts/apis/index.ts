@@ -4,10 +4,10 @@
  */
 
 'use strict';
-import * as backend from './backend';
+import * as emart from './emart';
 
 const apis = {
-    backend,
+    emart,
 } as const;
 
 export default apis;

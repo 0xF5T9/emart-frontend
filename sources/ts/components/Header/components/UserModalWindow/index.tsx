@@ -5,7 +5,6 @@
 
 'use strict';
 import { FunctionComponent, useState, useEffect, useRef } from 'react';
-import jwt from 'jsonwebtoken';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -16,6 +15,9 @@ import Input from '@sources/ts/components/Input';
 import Checkbox from '@sources/ts/components/Checkbox';
 import Button from '@sources/ts/components/Button';
 import * as styles from './UserModalWindow.module.css';
+import staticTexts from '@sources/ts/render/static-texts';
+import apiStaticTexts from '@sources/ts/apis/emart/static-texts';
+const texts = staticTexts.header.userModalWindow;
 
 /**
  * Login form.
@@ -49,19 +51,19 @@ const LoginForm: FunctionComponent = () => {
         if (!usernameInputValue) {
             usernameInput?.current?.focus();
             document.getElementById('username-input-form-message').innerHTML =
-                'Vui lòng nhập tên người dùng';
+                texts.loginForm.usernameInputFormMessageRequire;
             return;
         }
         if (!passwordInputValue) {
             passwordInput?.current?.focus();
             document.getElementById('password-input-form-message').innerHTML =
-                'Vui lòng nhập mật khẩu';
+                texts.loginForm.passwordInputFormMessageRequire;
             return;
         }
 
         setPending(true);
 
-        const { message, success, data } = await apis.backend.authorize(
+        const { message, success, data } = await apis.emart.authorize(
             usernameInputValue,
             passwordInputValue
         );
@@ -73,14 +75,13 @@ const LoginForm: FunctionComponent = () => {
                 passwordInput?.current?.focus();
             }, 100);
             serverMessage.current.innerHTML =
-                message === 'Có lỗi xảy ra.'
-                    ? 'Hệ thống đang bảo trì, vui lòng thử lại sau.'
+                message === apiStaticTexts.unknownError
+                    ? apiStaticTexts.maintenanceError
                     : message;
             return;
         }
 
-        serverMessage.current.innerHTML =
-            'Đăng nhập thành công, đang chuyển hướng...';
+        serverMessage.current.innerHTML = texts.loginForm.redirectMessage;
         setTimeout(async () => {
             await login(data);
             setModalVisibility(false);
@@ -96,7 +97,7 @@ const LoginForm: FunctionComponent = () => {
         >
             <div className={styles['form-group']}>
                 <label className={styles['label']} htmlFor="username-input">
-                    Tên người dùng
+                    {texts.loginForm.usernameInputLabel}
                 </label>
                 <Input
                     inputRef={usernameInput}
@@ -106,7 +107,7 @@ const LoginForm: FunctionComponent = () => {
                     className={styles['input']}
                     height={40}
                     icon={{ position: 'left', icon: 'fal fa-user' }}
-                    placeholder="Nhập tên người dùng"
+                    placeholder={texts.loginForm.usernameInputPlaceholder}
                     disabled={pending}
                     autoCapitalize="off"
                     value={usernameInputValue}
@@ -124,7 +125,7 @@ const LoginForm: FunctionComponent = () => {
                         if (formMessage) {
                             if (!usernameInputValue)
                                 formMessage.innerHTML =
-                                    'Vui lòng nhập tên người dùng';
+                                    texts.loginForm.usernameInputFormMessageRequire;
                             else formMessage.innerHTML = '';
                         }
                     }}
@@ -136,7 +137,7 @@ const LoginForm: FunctionComponent = () => {
             </div>
             <div className={styles['form-group']}>
                 <label className={styles['label']} htmlFor="password-input">
-                    Mật khẩu
+                    {texts.loginForm.passwordInputLabel}
                 </label>
                 <Input
                     inputRef={passwordInput}
@@ -145,7 +146,7 @@ const LoginForm: FunctionComponent = () => {
                     className={styles['input']}
                     height={40}
                     icon={{ position: 'left', icon: 'fal fa-lock' }}
-                    placeholder="Nhập mật khẩu"
+                    placeholder={texts.loginForm.passwordInputPlaceholder}
                     value={passwordInputValue}
                     disabled={pending}
                     autoComplete="on"
@@ -163,7 +164,7 @@ const LoginForm: FunctionComponent = () => {
                         if (formMessage) {
                             if (!passwordInputValue)
                                 formMessage.innerHTML =
-                                    'Vui lòng nhập mật khẩu';
+                                    texts.loginForm.passwordInputFormMessageRequire;
                             else formMessage.innerHTML = '';
                         }
                     }}
@@ -179,7 +180,7 @@ const LoginForm: FunctionComponent = () => {
                 disabled={pending}
                 loading={pending}
             >
-                Đăng nhập
+                {texts.loginForm.loginButton}
             </Button>
             <span
                 ref={serverMessage}
@@ -217,7 +218,7 @@ const ForgotPasswordForm: FunctionComponent = () => {
         if (!emailInputValue) {
             emailInput?.current?.focus();
             document.getElementById('email-input-form-message').innerHTML =
-                'Vui lòng nhập địa chỉ email';
+                texts.forgotPasswordForm.emailInputFormMessageRequire;
             return;
         }
         if (
@@ -227,20 +228,20 @@ const ForgotPasswordForm: FunctionComponent = () => {
         ) {
             emailInput?.current?.focus();
             document.getElementById('email-input-form-message').innerHTML =
-                'Địa chỉ email không hợp lệ (Chỉ hỗ trợ Gmail)';
+                texts.forgotPasswordForm.emailInputFormMessageInvalidEmail;
             return;
         }
 
         setPending(true);
 
         const { message, success } =
-            await apis.backend.forgotPassword(emailInputValue);
+            await apis.emart.forgotPassword(emailInputValue);
         if (!success) {
             console.warn(message);
             setPending(false);
             serverMessage.current.innerHTML =
-                message === 'Có lỗi xảy ra.'
-                    ? 'Hệ thống đang bảo trì, vui lòng thử lại sau.'
+                message === apiStaticTexts.unknownError
+                    ? apiStaticTexts.maintenanceError
                     : message;
             return;
         }
@@ -259,7 +260,7 @@ const ForgotPasswordForm: FunctionComponent = () => {
         >
             <div className={styles['form-group']}>
                 <label className={styles['label']} htmlFor="email-input">
-                    Email
+                    {texts.forgotPasswordForm.emailInputLabel}
                 </label>
                 <Input
                     inputRef={emailInput}
@@ -268,7 +269,7 @@ const ForgotPasswordForm: FunctionComponent = () => {
                     className={styles['input']}
                     height={40}
                     icon={{ position: 'left', icon: 'fal fa-envelope' }}
-                    placeholder="Nhập địa chỉ email"
+                    placeholder={texts.forgotPasswordForm.emailInputPlaceholder}
                     disabled={pending}
                     autoCapitalize="off"
                     value={emailInputValue}
@@ -286,7 +287,7 @@ const ForgotPasswordForm: FunctionComponent = () => {
                         if (formMessage) {
                             if (!emailInputValue)
                                 formMessage.innerHTML =
-                                    'Vui lòng nhập địa chỉ email';
+                                    texts.forgotPasswordForm.emailInputFormMessageRequire;
                             else formMessage.innerHTML = '';
                         }
                     }}
@@ -302,7 +303,7 @@ const ForgotPasswordForm: FunctionComponent = () => {
                 disabled={pending}
                 loading={pending}
             >
-                Quên mật khẩu
+                {texts.forgotPasswordForm.recoverButton}
             </Button>
             <span
                 ref={serverMessage}
@@ -352,7 +353,7 @@ const RegisterForm: FunctionComponent = () => {
         if (!emailInputValue) {
             emailInput?.current?.focus();
             document.getElementById('email-input-form-message').innerHTML =
-                'Vui lòng nhập địa chỉ email';
+                texts.registerForm.emailInputFormMessageRequire;
             return;
         }
         if (
@@ -362,64 +363,64 @@ const RegisterForm: FunctionComponent = () => {
         ) {
             emailInput?.current?.focus();
             document.getElementById('email-input-form-message').innerHTML =
-                'Địa chỉ email không hợp lệ (Chỉ hỗ trợ Gmail)';
+                texts.registerForm.emailInputFormMessageInvalidEmail;
             return;
         }
         if (!usernameInputValue) {
             usernameInput?.current?.focus();
             document.getElementById('username-input-form-message').innerHTML =
-                'Vui lòng nhập tên người dùng';
+                texts.registerForm.usernameInputFormMessageRequire;
             return;
         }
         if (!/^[a-zA-Z0-9]+$/.test(usernameInputValue)) {
             usernameInput?.current?.focus();
             document.getElementById('username-input-form-message').innerHTML =
-                'Tên tài khoản chứa ký tự không hợp lệ [a-zA-Z0-9]';
+                texts.registerForm.usernameInputFormMessageInvalidUsernameCharacters;
             return;
         }
         if (usernameInputValue.length < 6 || usernameInputValue.length > 16) {
             usernameInput?.current?.focus();
             document.getElementById('username-input-form-message').innerHTML =
-                'Tên tài khoản phải có tối thiểu 6 ký tự và tối đa 16 ký tự';
+                texts.registerForm.usernameInputFormMessageInvalidUsernameLength;
             return;
         }
         if (!passwordInputValue) {
             passwordInput?.current?.focus();
             document.getElementById('password-input-form-message').innerHTML =
-                'Vui lòng nhập mật khẩu';
+                texts.registerForm.passwordInputFormMessageRequire;
             return;
         }
         if (passwordInputValue.length < 8 || passwordInputValue.length > 32) {
             passwordInput?.current?.focus();
             document.getElementById('password-input-form-message').innerHTML =
-                'Mật khẩu phải có tối thiểu 8 ký tự và tối đa 32 ký tự';
+                texts.registerForm.passwordInputFormMessageInvalidPasswordLength;
             return;
         }
         if (!passwordConfirmInputValue) {
             passwordConfirmInput?.current?.focus();
             document.getElementById(
                 'password-confirm-input-form-message'
-            ).innerHTML = 'Vui lòng nhập mật khẩu';
+            ).innerHTML = texts.registerForm.passwordInputFormMessageRequire;
             return;
         }
         if (passwordConfirmInputValue !== passwordInputValue) {
             passwordConfirmInput?.current?.focus();
             document.getElementById(
                 'password-confirm-input-form-message'
-            ).innerHTML = 'Mật khẩu không trùng khớp';
+            ).innerHTML = texts.registerForm.passwordInputFormMessageNotMatch;
             return;
         }
         if (!agreementInputValue) {
             agreementInput?.current?.focus();
             document.getElementById('agreement-input-form-message').innerHTML =
-                'Bạn phải đồng ý điều khoản sử dụng để tiếp tục';
+                texts.registerForm.tosCheckboxFormMessageRequire;
             return;
         }
 
         setPending(true);
 
         const { message: registerMessage, success: isRegisterSuccess } =
-            await apis.backend.register(
+            await apis.emart.register(
                 emailInputValue,
                 usernameInputValue,
                 passwordInputValue
@@ -430,8 +431,8 @@ const RegisterForm: FunctionComponent = () => {
             setPasswordConfirmInputValue('');
             setPending(false);
             serverMessage.current.innerHTML =
-                registerMessage === 'Có lỗi xảy ra.'
-                    ? 'Hệ thống đang bảo trì, vui lòng thử lại sau.'
+                registerMessage === apiStaticTexts.unknownError
+                    ? apiStaticTexts.maintenanceError
                     : registerMessage;
             return;
         }
@@ -440,24 +441,20 @@ const RegisterForm: FunctionComponent = () => {
             message: loginMessage,
             success: isLoginSuccess,
             data,
-        } = await apis.backend.authorize(
-            usernameInputValue,
-            passwordInputValue
-        );
+        } = await apis.emart.authorize(usernameInputValue, passwordInputValue);
         if (!isLoginSuccess) {
             console.warn(loginMessage);
             setPasswordInputValue('');
             setPasswordConfirmInputValue('');
             setPending(false);
             serverMessage.current.innerHTML =
-                registerMessage === 'Có lỗi xảy ra.'
-                    ? 'Hệ thống đang bảo trì, vui lòng thử lại sau.'
+                registerMessage === apiStaticTexts.unknownError
+                    ? apiStaticTexts.maintenanceError
                     : registerMessage;
             return;
         }
 
-        serverMessage.current.innerHTML =
-            'Đăng ký thành công, đang chuyển hướng...';
+        serverMessage.current.innerHTML = texts.registerForm.redirectMessage;
         setTimeout(async () => {
             await login(data);
             setModalVisibility(false);
@@ -473,7 +470,7 @@ const RegisterForm: FunctionComponent = () => {
         >
             <div className={styles['form-group']}>
                 <label className={styles['label']} htmlFor="email-input">
-                    Email
+                    {texts.registerForm.emailInputLabel}
                 </label>
                 <Input
                     inputRef={emailInput}
@@ -482,7 +479,7 @@ const RegisterForm: FunctionComponent = () => {
                     className={styles['input']}
                     height={40}
                     icon={{ position: 'left', icon: 'fal fa-envelope' }}
-                    placeholder="Nhập địa chỉ email"
+                    placeholder={texts.registerForm.emailInputPlaceholder}
                     disabled={pending}
                     value={emailInputValue}
                     onChange={(event) => {
@@ -499,7 +496,7 @@ const RegisterForm: FunctionComponent = () => {
                         if (formMessage) {
                             if (!emailInputValue)
                                 formMessage.innerHTML =
-                                    'Vui lòng nhập địa chỉ email';
+                                    texts.registerForm.emailInputFormMessageRequire;
                             else formMessage.innerHTML = '';
                         }
                     }}
@@ -511,7 +508,7 @@ const RegisterForm: FunctionComponent = () => {
             </div>
             <div className={styles['form-group']}>
                 <label className={styles['label']} htmlFor="username-input">
-                    Tên người dùng
+                    {texts.registerForm.usernameInputLabel}
                 </label>
                 <Input
                     inputRef={usernameInput}
@@ -520,7 +517,7 @@ const RegisterForm: FunctionComponent = () => {
                     className={styles['input']}
                     height={40}
                     icon={{ position: 'left', icon: 'fal fa-user' }}
-                    placeholder="Nhập tên người dùng"
+                    placeholder={texts.registerForm.usernameInputPlaceholder}
                     disabled={pending}
                     autoCapitalize="off"
                     value={usernameInputValue}
@@ -538,7 +535,7 @@ const RegisterForm: FunctionComponent = () => {
                         if (formMessage) {
                             if (!usernameInputValue)
                                 formMessage.innerHTML =
-                                    'Vui lòng nhập tên người dùng';
+                                    texts.registerForm.usernameInputFormMessageRequire;
                             else formMessage.innerHTML = '';
                         }
                     }}
@@ -550,7 +547,7 @@ const RegisterForm: FunctionComponent = () => {
             </div>
             <div className={styles['form-group']}>
                 <label className={styles['label']} htmlFor="password-input">
-                    Mật khẩu
+                    {texts.registerForm.passwordInputLabel}
                 </label>
                 <Input
                     inputRef={passwordInput}
@@ -559,7 +556,7 @@ const RegisterForm: FunctionComponent = () => {
                     className={styles['input']}
                     height={40}
                     icon={{ position: 'left', icon: 'fal fa-lock' }}
-                    placeholder="Nhập mật khẩu"
+                    placeholder={texts.registerForm.passwordInputPlaceholder}
                     value={passwordInputValue}
                     disabled={pending}
                     autoComplete="on"
@@ -577,7 +574,7 @@ const RegisterForm: FunctionComponent = () => {
                         if (formMessage) {
                             if (!passwordInputValue)
                                 formMessage.innerHTML =
-                                    'Vui lòng nhập mật khẩu';
+                                    texts.registerForm.passwordInputFormMessageRequire;
                             else formMessage.innerHTML = '';
                         }
                     }}
@@ -592,7 +589,7 @@ const RegisterForm: FunctionComponent = () => {
                     className={styles['label']}
                     htmlFor="password-confirm-input"
                 >
-                    Nhập lại mật khẩu
+                    {texts.registerForm.confirmPasswordInputLabel}
                 </label>
                 <Input
                     inputRef={passwordConfirmInput}
@@ -601,7 +598,9 @@ const RegisterForm: FunctionComponent = () => {
                     className={styles['input']}
                     height={40}
                     icon={{ position: 'left', icon: 'fal fa-lock' }}
-                    placeholder="Nhập lại mật khẩu"
+                    placeholder={
+                        texts.registerForm.confirmPasswordInputPlaceholder
+                    }
                     value={passwordConfirmInputValue}
                     disabled={pending}
                     autoComplete="on"
@@ -619,7 +618,7 @@ const RegisterForm: FunctionComponent = () => {
                         if (formMessage) {
                             if (!passwordConfirmInputValue)
                                 formMessage.innerHTML =
-                                    'Vui lòng nhập mật khẩu';
+                                    texts.registerForm.passwordInputFormMessageRequire;
                             else formMessage.innerHTML = '';
                         }
                     }}
@@ -641,19 +640,19 @@ const RegisterForm: FunctionComponent = () => {
                         if (formMessage) {
                             if (!event.currentTarget.checked)
                                 formMessage.innerHTML =
-                                    'Bạn phải đồng ý điều khoản sử dụng để tiếp tục';
+                                    texts.registerForm.tosCheckboxFormMessageRequire;
                             else formMessage.innerHTML = '';
                         }
                     }}
                     labelHTML={
                         <span className={styles['agreement-text']}>
-                            Tôi đồng ý với{' '}
+                            {texts.registerForm.argreementText}{' '}
                             <a
                                 className={styles['term-of-service-link']}
                                 href="#"
                                 tabIndex={-1}
                             >
-                                chính sách trang web
+                                {texts.registerForm.argreementTextLink}
                             </a>
                         </span>
                     }
@@ -669,13 +668,22 @@ const RegisterForm: FunctionComponent = () => {
                 disabled={pending}
                 loading={pending}
             >
-                Đăng ký
+                {texts.registerForm.registerButton}
             </Button>
             <span
                 ref={serverMessage}
                 className={styles['server-message']}
             ></span>
         </form>
+    );
+};
+
+const Separator: FunctionComponent<{ text: string }> = ({ text }) => {
+    return (
+        <>
+            <style>{`.${styles['hr']}::after { content: '${text}' !important; }`}</style>
+            <div className={styles['hr']} />
+        </>
     );
 };
 
@@ -738,17 +746,17 @@ const UserModalWindow: FunctionComponent<{
         <div ref={modalWindow} className={styles['modal-window']}>
             <span className={styles['title']}>
                 {form === 'login'
-                    ? 'Đăng nhập tài khoản'
+                    ? texts.loginForm.title
                     : form === 'register'
-                      ? 'Đăng ký tài khoản'
-                      : 'Quên mật khẩu'}
+                      ? texts.registerForm.title
+                      : texts.forgotPasswordForm.title}
             </span>
             <span className={styles['subtitle']}>
                 {form === 'login'
-                    ? 'Đăng nhập thành viên để mua hàng và nhận những ưu đãi đặc biệt từ chúng tôi'
+                    ? texts.loginForm.subtitle
                     : form === 'register'
-                      ? 'Đăng ký thành viên để mua hàng và nhận những ưu đãi đặc biệt từ chúng tôi'
-                      : 'Khôi phục mật khẩu tài khoản sử dụng địa chỉ email'}
+                      ? texts.registerForm.subtitle
+                      : texts.forgotPasswordForm.subtitle}
             </span>
             {form === 'login' ? (
                 <LoginForm />
@@ -760,36 +768,36 @@ const UserModalWindow: FunctionComponent<{
             <span className={styles['change-form']}>
                 {form === 'login' ? (
                     <span>
-                        Bạn chưa có tài khoản ?{' '}
+                        {texts.registerSuggestionText}{' '}
                         <span
                             className={styles['change-form-button']}
                             onClick={() => handleChangeForm('register')}
                         >
-                            Đăng kí ngay
+                            {texts.registerSuggestionTextLink}
                         </span>
                     </span>
                 ) : (
                     <span>
-                        Bạn đã có tài khoản ?{' '}
+                        {texts.loginSuggestionText}{' '}
                         <span
                             className={styles['change-form-button']}
                             onClick={() => handleChangeForm('login')}
                         >
-                            Đăng nhập ngay
+                            {texts.loginSuggestionTextLink}
                         </span>
                     </span>
                 )}
             </span>
             {form === 'login' && (
                 <>
-                    <div className={styles['hr']} />
+                    <Separator text={texts.separatorText} />
                     <span className={styles['change-form']}>
-                        Quên mật khẩu ?{' '}
+                        {texts.forgotPasswordSuggestionText}{' '}
                         <span
                             className={styles['change-form-button']}
                             onClick={() => handleChangeForm('forgot-password')}
                         >
-                            Khôi phục tài khoản
+                            {texts.forgotPasswordSuggestionTextLink}
                         </span>
                     </span>
                 </>

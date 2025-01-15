@@ -46,7 +46,7 @@ const AuthProvider: FunctionComponent<{ children: ReactNode }> = function ({
     const login: SessionLogin = async (sessionData: SessionData) => {
         if (!sessionData) {
             console.error('Invalid session data.');
-            await apis.backend.deauthorize();
+            await apis.emart.deauthorize();
             navigate(routes.home);
             return;
         }
@@ -63,7 +63,7 @@ const AuthProvider: FunctionComponent<{ children: ReactNode }> = function ({
         if (invalidSessionData) {
             console.error('Invalid session data.');
             setSessionData(null);
-            await apis.backend.deauthorize();
+            await apis.emart.deauthorize();
             navigate(routes.home);
             return;
         }
@@ -74,12 +74,12 @@ const AuthProvider: FunctionComponent<{ children: ReactNode }> = function ({
 
     const logout: SessionLogout = async (route?: string) => {
         setSessionData(null);
-        await apis.backend.deauthorize();
+        await apis.emart.deauthorize();
         navigate(route || routes.home, { replace: true });
     };
 
     const getSessionData: SessionGetSessionData = async () => {
-        const verifySessionResult = await apis.backend.verifySession(false);
+        const verifySessionResult = await apis.emart.verifySession(false);
         if (!verifySessionResult.success) {
             console.error('Phiên đăng nhập hết hạn.');
             setTimeout(
@@ -102,7 +102,7 @@ const AuthProvider: FunctionComponent<{ children: ReactNode }> = function ({
     };
 
     const refreshSessionData: SessionRefreshSessionData = async () => {
-        const verifySessionResult = await apis.backend.verifySession(true);
+        const verifySessionResult = await apis.emart.verifySession(true);
         if (!verifySessionResult.success) {
             console.error('Phiên đăng nhập hết hạn.');
             setTimeout(

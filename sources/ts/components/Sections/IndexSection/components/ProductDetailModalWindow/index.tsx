@@ -4,12 +4,12 @@
  */
 
 'use strict';
-import type { Product, CartItem } from '@sources/ts/types/VyFood';
+import type { Product, CartItem } from '@sources/ts/apis/emart/types';
 import { FunctionComponent, useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-import { useVyFood } from '@sources/ts/hooks/useVyFood';
+import { useAPI } from '@sources/ts/hooks/useAPI';
 import { useModal } from '@sources/ts/hooks/useModal';
 import CartModalWindow, {
     cartModalWindowStyles,
@@ -29,7 +29,7 @@ const texts = staticTexts.productsView.productDetailWindow;
 const ProductDetailModalWindow: FunctionComponent<{ productItem: Product }> = ({
     productItem,
 }) => {
-    const { cartItems, setCartItems } = useVyFood();
+    const { cartItems, setCartItems } = useAPI();
 
     const { setModal, setModalVisibility } = useModal();
     const modalWindow = useRef<HTMLDivElement>(),
@@ -102,7 +102,7 @@ const ProductDetailModalWindow: FunctionComponent<{ productItem: Product }> = ({
                     </span>
                     <div className={styles['product-price-wrapper']}>
                         <span className={styles['product-price']}>
-                            {window.myHelper.convertVNDNumberToString(
+                            {window.myHelper.convertUSDNumberToString(
                                 productItem.price
                             )}
                         </span>
@@ -180,9 +180,7 @@ const ProductDetailModalWindow: FunctionComponent<{ productItem: Product }> = ({
                         {texts.totalLabel}
                     </span>
                     <span className={styles['total-amount']}>
-                        {total
-                            ? `${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')} ₫`
-                            : '0 ₫'}
+                        {window.myHelper.convertUSDNumberToString(total || 0)}
                     </span>
                 </div>
                 <div className={styles['content-footer-buttons']}>

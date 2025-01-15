@@ -5,7 +5,6 @@
 
 'use strict';
 import { FunctionComponent, useState, useRef } from 'react';
-import jwt from 'jsonwebtoken';
 import classNames from 'classnames';
 
 import { useAuth } from '@sources/ts/hooks/useAuth';
@@ -16,6 +15,7 @@ import Button from '@sources/ts/components/Button';
 import Input from '@sources/ts/components/Input';
 import * as styles from '../../ProfileSection.module.css';
 import staticTexts from '@sources/ts/render/static-texts';
+import apiStaticTexts from '@sources/ts/apis/emart/static-texts';
 const texts = staticTexts?.profileSection?.updatePasswordCard;
 
 /**
@@ -71,7 +71,7 @@ const UpdatePasswordCard: FunctionComponent = () => {
                     newPasswordInputValue?.length > 32
                 ) {
                     newPasswordInputFormMessage.current.innerHTML =
-                        staticTexts.api.backend.invalidPasswordLength;
+                        apiStaticTexts.invalidPasswordLength;
                     if (!focusElement) focusElement = newPasswordInput.current;
                     isFormValid = false;
                 } else if (
@@ -106,7 +106,7 @@ const UpdatePasswordCard: FunctionComponent = () => {
                     return;
                 }
 
-                const { message, success } = await apis.backend.updatePassword(
+                const { message, success } = await apis.emart.updatePassword(
                     sessionData?.username,
                     currentPasswordInputValue,
                     newPasswordInputValue
@@ -132,7 +132,7 @@ const UpdatePasswordCard: FunctionComponent = () => {
                     return;
                 }
 
-                const loginResult = await apis.backend.authorize(
+                const loginResult = await apis.emart.authorize(
                     sessionData?.username,
                     newPasswordInput.current?.value
                 );
@@ -236,7 +236,7 @@ const UpdatePasswordCard: FunctionComponent = () => {
                                         event.currentTarget?.value?.length > 32
                                     )
                                         newPasswordInputFormMessage.current.innerHTML =
-                                            staticTexts.api.backend.invalidPasswordLength;
+                                            apiStaticTexts.invalidPasswordLength;
                                     else if (
                                         event.currentTarget?.value ===
                                         currentPasswordInput.current?.value

@@ -6,15 +6,15 @@
 'use strict';
 
 const staticUrls = {
-    brandLogoUrl: '/assets/VyFood/logo.png',
-    brandLogoOnly: '/assets/VyFood/brand-logo.png',
-    brandTextOnly: '/assets/VyFood/brand-text.png',
-    heroSliderImage1: '/assets/VyFood/hero-slider-image-1.jpg',
-    heroSliderImage2: '/assets/VyFood/hero-slider-image-2.jpg',
-    heroSliderImage3: '/assets/VyFood/hero-slider-image-3.jpg',
-    heroSliderImage4: '/assets/VyFood/hero-slider-image-4.jpg',
-    imagePlaceholder: '/assets/VyFood/product-placeholder.jpg',
-    avatarPlaceholder: '/assets/VyFood/avatar-placeholder.jpg',
+    brandLogoUrl: '/assets/emart/logo.png',
+    brandLogoOnly: '/assets/emart/logo.png',
+    brandTextOnly: '/assets/emart/logo-subtitle.png',
+    heroSliderImage1: '/assets/emart/hero-slider-image-1.webp',
+    heroSliderImage2: '/assets/emart/hero-slider-image-2.webp',
+    heroSliderImage3: '/assets/emart/hero-slider-image-3.webp',
+    imagePlaceholder: '/assets/emart/product-placeholder.jpg',
+    avatarPlaceholder: '/assets/emart/avatar-placeholder.jpg',
+    allCategory: '/assets/emart/all-category.webp',
 } as const;
 
 export default staticUrls;

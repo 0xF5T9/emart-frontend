@@ -4,7 +4,7 @@
  */
 
 'use strict';
-import type { User } from '@sources/ts/types/VyFood';
+import type { User } from '@sources/ts/apis/emart/types';
 import {
     FunctionComponent,
     CSSProperties,
@@ -103,7 +103,7 @@ const UserItem: FunctionComponent<
         setIsPending(true);
 
         (async () => {
-            const { message, success } = await apis.backend.deleteUserAsAdmin(
+            const { message, success } = await apis.emart.deleteUserAsAdmin(
                 user?.username
             );
             if (!success) {
@@ -230,7 +230,7 @@ const Users: FunctionComponent<{
         setIsPending(true);
         if (!silentFetch) setStatus('loading');
         (async () => {
-            const getUsersResult = await apis.backend.getUsersAsAdmin();
+            const getUsersResult = await apis.emart.getUsersAsAdmin();
             if (!getUsersResult.success) {
                 console.error(getUsersResult.message);
                 showToast({

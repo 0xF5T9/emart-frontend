@@ -16,6 +16,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PopupWindow, { PopupRender } from '@sources/ts/components/PopupWindow';
+import staticTexts from '@sources/ts/render/static-texts';
 import * as styles from './CustomSelect.module.css';
 
 export type SelectOption = {
@@ -238,7 +239,7 @@ const CustomSelect: FunctionComponent<
                                     styles['select-item-list-empty-text']
                                 }
                             >
-                                Không có lựa chọn nào
+                                {staticTexts.components.select.emptyText}
                             </span>
                         )}
                     </div>

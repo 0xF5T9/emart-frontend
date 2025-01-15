@@ -4,7 +4,7 @@
  */
 
 'use strict';
-import type { User } from '@sources/ts/types/VyFood';
+import type { User } from '@sources/ts/apis/emart/types';
 import { FunctionComponent, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -98,8 +98,9 @@ const ProfileSection: FunctionComponent = function () {
                 const sessionData = await refreshSessionData();
                 if (!sessionData) return;
 
-                const { message, success, data } =
-                    await apis.backend.getUserInfo(sessionData?.username);
+                const { message, success, data } = await apis.emart.getUserInfo(
+                    sessionData?.username
+                );
                 if (!success) {
                     console.error(message);
                     showToast({

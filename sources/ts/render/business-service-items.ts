@@ -8,24 +8,24 @@ import type { BusinessServiceItem } from '@sources/ts/components/Sections/IndexS
 
 const businessServiceItems: BusinessServiceItem[] = [
     {
-        title: 'MIỄN PHÍ GIAO HÀNG',
-        text: 'Cho bán kính dưới 5km',
+        title: 'FREE SHIPPING',
+        text: 'For a radius of under 5km',
         icon: 'fal fa-person-carry-box',
     },
     {
-        title: 'SẢN PHẨM AN TOÀN',
-        text: 'Cam kết chất lượng',
-        icon: 'fal fa-shield-heart',
+        title: 'PRODUCT COMMITMENT',
+        text: '100% Authentic',
+        icon: 'fal fa-badge-check',
     },
     {
-        title: 'THỜI GIAN MỞ CỬA',
-        text: 'Từ thứ 2 đến thứ 7',
-        icon: 'fal fa-business-time',
+        title: 'CHECKING GOODS',
+        text: 'Before payment',
+        icon: 'fal fa-money-bill',
     },
     {
-        title: 'THỰC ĐƠN',
-        text: 'Cập nhật mỗi ngày',
-        icon: 'fal fa-utensils',
+        title: 'NEW PRODUCTS',
+        text: 'Updated daily',
+        icon: 'fal fa-box',
     },
 ];
 

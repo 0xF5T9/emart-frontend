@@ -1,10 +1,10 @@
 :root {
-    --color-primary: rgb(225, 30, 49);
-    --color-primary-opa-0: rgba(225, 30, 49, 0);
-    --color-primary-opa-10: rgba(225, 30, 49, 0.1);
-    --color-primary-opa-20: rgba(225, 30, 49, 0.2);
-    --color-primary-opa-40: rgba(225, 30, 49, 0.4);
-    --color-primary-bright: #bd4044;
+    --color-primary: rgb(210, 0, 31);
+    --color-primary-opa-0: rgba(210, 0, 31, 0);
+    --color-primary-opa-10: rgba(210, 0, 31, 0.1);
+    --color-primary-opa-20: rgba(210, 0, 31, 0.2);
+    --color-primary-opa-40: rgba(210, 0, 31, 0.4);
+    --color-primary-bright: hsl(351, 100%, 46%);
     --color-success: var(--color-green, blue);
     --color-warning: var(--color-yellow, blue);
     --color-danger: var(--color-red, blue);
@@ -57,9 +57,12 @@
     --navbar-item-text-color-default: var(--text-high-contrast-color, blue);
     --navbar-item-text-color-hover: var(--color-primary, blue);
     --navbar-item-text-color-active: var(--color-primary, blue);
-    --navbar-item-background-color-default: var(--color-primary-opa-0);
+    /* --navbar-item-background-color-default: var(--color-primary-opa-0);
     --navbar-item-background-color-hover: var(--color-primary-opa-10);
-    --navbar-item-background-color-active: var(--color-primary-opa-20);
+    --navbar-item-background-color-active: var(--color-primary-opa-20); */
+    --navbar-item-background-color-default: transparent;
+    --navbar-item-background-color-hover: transparent;
+    --navbar-item-background-color-active: transparent;
 
     --popup-window-text-color: var(--text-color, blue);
     --popup-window-text-highlight-color: var(--text-highlight-color, blue);

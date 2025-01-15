@@ -4,7 +4,7 @@
  */
 
 'use strict';
-import type { CartItem } from '@sources/ts/types/VyFood';
+import type { CartItem } from '@sources/ts/apis/emart/types';
 import {
     FunctionComponent,
     useState,
@@ -21,7 +21,7 @@ import 'tippy.js/dist/tippy.css';
 import 'tippy.js/themes/light.css';
 
 import { useAuth } from '@sources/ts/hooks/useAuth';
-import { useVyFood } from '@sources/ts/hooks/useVyFood';
+import { useAPI } from '@sources/ts/hooks/useAPI';
 import { useLocalStorage } from '@sources/ts/hooks/useLocalStorage';
 import { useModal } from '@sources/ts/hooks/useModal';
 import { CircleLoadingThird } from '@sources/ts/components/Icons/CircleLoadingThird';
@@ -36,6 +36,7 @@ import CartModalWindow, {
 import staticTexts from '@sources/ts/render/static-texts';
 import staticUrls from '@sources/ts/render/static-urls';
 import * as styles from './Header.module.css';
+const texts = staticTexts.header;
 
 /**
  * Product search input.
@@ -55,7 +56,7 @@ const ProductSearchInput: FunctionComponent<{ debounceTime?: number }> = ({
         setProductSearchValue,
         isBackendUnavailable,
         cartItems,
-    } = useVyFood();
+    } = useAPI();
 
     const searchInput = useRef<HTMLInputElement>(null),
         timeoutId = useRef<NodeJS.Timeout>(null);
@@ -137,7 +138,7 @@ const ProductSearchInput: FunctionComponent<{ debounceTime?: number }> = ({
                                 });
                         }}
                     >
-                        Tìm kiếm
+                        {texts.productSearchInput.searchButton}
                     </button>
                     <input
                         ref={searchInput}
@@ -161,10 +162,10 @@ const ProductSearchInput: FunctionComponent<{ debounceTime?: number }> = ({
                             isBackendUnavailable
                                 ? ''
                                 : !productItems
-                                  ? 'Đang tải danh sách...'
+                                  ? texts.productSearchInput.loadingStateText
                                   : productItems && !productItems.length
-                                    ? 'Không có sản phẩm nào'
-                                    : 'Tìm kiếm món ăn...'
+                                    ? texts.productSearchInput.emptyStateText
+                                    : texts.productSearchInput.placeholder
                         }
                         onClick={() => {
                             if (!!!productItems || !!!productItems.length)
@@ -353,7 +354,7 @@ const Header: FunctionComponent = function () {
                                     <span
                                         className={styles['header-item-text']}
                                     >
-                                        Tìm kiếm
+                                        {texts.productSearchInput.searchButton}
                                     </span>
                                 </li>
                             )}
@@ -381,7 +382,9 @@ const Header: FunctionComponent = function () {
                                                   id: 'default',
                                                   menu: [
                                                       {
-                                                          title: 'Đăng nhập',
+                                                          title: texts
+                                                              .userOptionsIcon
+                                                              .loginText,
                                                           icon: {
                                                               icon: 'fal fa-right-to-bracket',
                                                               width: '16px',
@@ -402,7 +405,9 @@ const Header: FunctionComponent = function () {
                                                           hideOnClick: true,
                                                       },
                                                       {
-                                                          title: 'Đăng ký',
+                                                          title: texts
+                                                              .userOptionsIcon
+                                                              .registerText,
                                                           icon: {
                                                               icon: 'fal fa-user-plus',
                                                               width: '16px',
@@ -430,7 +435,9 @@ const Header: FunctionComponent = function () {
                                                   id: 'default',
                                                   menu: [
                                                       {
-                                                          title: 'Quản trị hệ thống',
+                                                          title: texts
+                                                              .userOptionsIcon
+                                                              .adminDashboard,
                                                           icon: {
                                                               icon: 'fal fa-briefcase',
                                                               width: '16px',
@@ -440,7 +447,9 @@ const Header: FunctionComponent = function () {
                                                           adminOnly: true,
                                                       },
                                                       {
-                                                          title: 'Thông tin tài khoản',
+                                                          title: texts
+                                                              .userOptionsIcon
+                                                              .accountSettings,
                                                           icon: {
                                                               icon: 'fal fa-user',
                                                               width: '16px',
@@ -450,7 +459,9 @@ const Header: FunctionComponent = function () {
                                                           hideOnClick: true,
                                                       },
                                                       {
-                                                          title: 'Đăng xuất',
+                                                          title: texts
+                                                              .userOptionsIcon
+                                                              .logoutText,
                                                           icon: {
                                                               icon: 'fal fa-right-to-bracket',
                                                               width: '16px',
@@ -479,7 +490,11 @@ const Header: FunctionComponent = function () {
                                                     'header-item-user-avatar'
                                                 ]
                                             }
-                                            src={`${process.env.UPLOAD_URL}/avatar/${sessionData?.avatarFileName}`}
+                                            src={
+                                                sessionData?.avatarFileName
+                                                    ? `${process.env.UPLOAD_URL}/avatar/${sessionData?.avatarFileName}`
+                                                    : staticUrls.avatarPlaceholder
+                                            }
                                             onError={(event) => {
                                                 event.currentTarget.src =
                                                     staticUrls.avatarPlaceholder;
@@ -507,7 +522,7 @@ const Header: FunctionComponent = function () {
                                             style={{ fontSize: '12px' }}
                                         >
                                             {!sessionData
-                                                ? 'Đăng nhập / Đăng ký'
+                                                ? texts.userOptionsIcon.topText
                                                 : sessionData?.username}
                                         </span>
                                         <span
@@ -517,7 +532,7 @@ const Header: FunctionComponent = function () {
                                                 ]
                                             }
                                         >
-                                            Tài khoản{' '}
+                                            {texts.userOptionsIcon.bottomText}{' '}
                                             <i className="fas fa-caret-down" />
                                         </span>
                                     </div>
@@ -544,7 +559,7 @@ const Header: FunctionComponent = function () {
                                     )}
                                 />
                                 <span className={styles['header-item-text']}>
-                                    Giỏ hàng
+                                    {texts.shoppingCartIconText}
                                 </span>
                             </li>
                         </ul>

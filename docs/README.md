@@ -1,6 +1,6 @@
-# VyFood Frontend
+# E-Mart Frontend
 
-> VyFood NodeJS frontend repository.
+> E-Mart NodeJS frontend repository.
 
 ## Preview
 
@@ -15,7 +15,7 @@
 - nginx >= 1.26.2
 - Domain with SSL
 - Port forwarding: 80, 443 (Alternatively Cloudflare Tunnel)
-- [VyFood Backend](https://github.com/0xF5T9/VyFood-backend)
+- [E-Mart Backend](https://github.com/0xF5T9/E-Mart-backend)
 
 ## Install
 

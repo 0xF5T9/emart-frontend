@@ -13,6 +13,8 @@ import apis from '@sources/ts/apis';
 import { FlexibleSection } from '@sources/ts/components/Content/components/GridSection';
 import Button from '@sources/ts/components/Button';
 import * as styles from './UpdateEmailSection.module.css';
+import staticTexts from '@sources/ts/render/static-texts';
+const texts = staticTexts.updateEmailSection;
 
 /**
  * Update email section.
@@ -24,20 +26,20 @@ const UpdateEmailSection: FunctionComponent = function () {
     if (!token) return <Navigate to={routes.home} />;
 
     const [pending, setPending] = useState(true),
-        [statusText, setStatusText] = useState('Đang xử lý yêu cầu ...');
+        [statusText, setStatusText] = useState<string>(texts.processingMessage);
 
     useEffect(() => {
         setPending(true);
         (async () => {
             const { message, success } =
-                await apis.backend.updateEmailAddress(token);
+                await apis.emart.updateEmailAddress(token);
             if (!success) {
                 setStatusText(message);
                 setPending(false);
                 return;
             }
 
-            setStatusText('Địa chỉ email đã được cập nhật thành công.');
+            setStatusText(texts.successfulMessage);
             setPending(false);
         })();
     }, []);
@@ -56,9 +58,7 @@ const UpdateEmailSection: FunctionComponent = function () {
                 }}
             >
                 <div className={styles['wrapper']}>
-                    <span className={styles['title']}>
-                        Cập nhật địa chỉ email
-                    </span>
+                    <span className={styles['title']}>{texts.title}</span>
                     <p className={styles['status-text']}>
                         {pending && (
                             <i
@@ -78,7 +78,7 @@ const UpdateEmailSection: FunctionComponent = function () {
                             loading={pending}
                             onClick={() => navigate(routes.profile)}
                         >
-                            Quay trở lại VyFood
+                            {texts.backToHomepage}
                         </Button>
                     )}
                 </div>

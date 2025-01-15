@@ -5,7 +5,7 @@
 
 'use strict';
 
-import type { Category } from '@sources/ts/types/VyFood';
+import type { Category } from '@sources/ts/apis/emart/types';
 import { FunctionComponent, useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -38,7 +38,6 @@ const CreateProductModalWindow: FunctionComponent<{
         productPriceInput = useRef<HTMLInputElement>(null),
         productQuantityInput = useRef<HTMLInputElement>(null),
         productPriorityInput = useRef<HTMLInputElement>(null),
-        productDescInput = useRef<HTMLTextAreaElement>(null),
         productUploadImageInput = useRef<HTMLInputElement>(null);
 
     const [productNameInputValue, setProductNameInputValue] = useState(''),
@@ -121,11 +120,11 @@ const CreateProductModalWindow: FunctionComponent<{
                 return;
             }
 
-            const { message, success } = await apis.backend.createProduct(
+            const { message, success } = await apis.emart.createProduct(
                 productNameInputValue,
                 productSelectedCategories?.join(','),
                 productDescInputValue,
-                parseInt(productPriceInputValue as string),
+                parseFloat(productPriceInputValue as string),
                 parseInt(productQuantityInputValue as string),
                 productPriorityInputValue as number,
                 productUploadImageInput.current?.files?.length
@@ -166,7 +165,7 @@ const CreateProductModalWindow: FunctionComponent<{
     useEffect(() => {
         setIsPending(true);
         (async () => {
-            const { message, success, data } = await apis.backend.getCategories(
+            const { message, success, data } = await apis.emart.getCategories(
                 1,
                 99999
             );
@@ -358,6 +357,9 @@ const CreateProductModalWindow: FunctionComponent<{
                             <Input
                                 inputRef={productPriceInput}
                                 type="number"
+                                min="0"
+                                max="9999999"
+                                step="1.00"
                                 id="product-price-input"
                                 className={styles['input']}
                                 height={40}
@@ -375,7 +377,7 @@ const CreateProductModalWindow: FunctionComponent<{
                                 }
                                 onChange={(event) => {
                                     setProductPriceInputValue(
-                                        parseInt(event.currentTarget.value)
+                                        event.currentTarget.value
                                     );
                                     const formMessage = document.getElementById(
                                         'product-price-input-form-message'

@@ -16,6 +16,9 @@ import { FlexibleSection } from '@sources/ts/components/Content/components/GridS
 import Input from '@sources/ts/components/Input';
 import Button from '@sources/ts/components/Button';
 import * as styles from './ResetPasswordSection.module.css';
+import staticTexts from '@sources/ts/render/static-texts';
+import apiStaticTexts from '@sources/ts/apis/emart/static-texts';
+const texts = staticTexts.resetPasswordSection;
 
 /**
  * Reset password section.
@@ -58,33 +61,33 @@ const ResetPasswordSection: FunctionComponent = function () {
         if (!passwordInputValue) {
             passwordInput?.current?.focus();
             document.getElementById('password-input-form-message').innerHTML =
-                'Vui lòng nhập mật khẩu mới';
+                texts.passwordInputFormMessageRequire;
             return;
         }
         if (passwordInputValue.length < 8 || passwordInputValue.length > 32) {
             passwordInput?.current?.focus();
             document.getElementById('password-input-form-message').innerHTML =
-                'Mật khẩu phải có tối thiểu 8 ký tự và tối đa 32 ký tự';
+                texts.passwordInputFormMessageInvalidPasswordLength;
             return;
         }
         if (!passwordConfirmInputValue) {
             passwordConfirmInput?.current?.focus();
             document.getElementById(
                 'password-confirm-input-form-message'
-            ).innerHTML = 'Vui lòng nhập mật khẩu mới';
+            ).innerHTML = texts.passwordInputFormMessageRequire;
             return;
         }
         if (passwordConfirmInputValue !== passwordInputValue) {
             passwordConfirmInput?.current?.focus();
             document.getElementById(
                 'password-confirm-input-form-message'
-            ).innerHTML = 'Mật khẩu không trùng khớp';
+            ).innerHTML = texts.passwordInputFormMessageNotMatch;
             return;
         }
 
         setPending(true);
 
-        const { message, success } = await apis.backend.resetPassword(
+        const { message, success } = await apis.emart.resetPassword(
             token,
             passwordInputValue
         );
@@ -92,8 +95,8 @@ const ResetPasswordSection: FunctionComponent = function () {
             console.warn(message);
             setPending(false);
             serverMessage.current.innerHTML =
-                message === 'Có lỗi xảy ra.'
-                    ? 'Hệ thống đang bảo trì, vui lòng thử lại sau.'
+                message === apiStaticTexts.unknownError
+                    ? apiStaticTexts.maintenanceError
                     : message;
             return;
         }
@@ -103,16 +106,18 @@ const ResetPasswordSection: FunctionComponent = function () {
             type: 'custom',
             content: (
                 <div className={styles['success-modal-window']}>
-                    <span className={styles['title']}>Thành công</span>
+                    <span className={styles['title']}>
+                        {texts.successfulTitle}
+                    </span>
                     <span className={styles['subtitle']}>
-                        Mật khẩu mới đã được cập nhật.
+                        {texts.successfulMessage}
                     </span>
                     <Button
                         className={classNames(styles['submit'], 'default')}
                         height={40}
                         onClick={() => setModalVisibility(false)}
                     >
-                        Quay lại trang chủ
+                        {texts.backToHomepage}
                     </Button>
                 </div>
             ),
@@ -134,17 +139,15 @@ const ResetPasswordSection: FunctionComponent = function () {
                 }}
             >
                 <div className={styles['wrapper']}>
-                    <span className={styles['title']}>Khôi phục mật khẩu</span>
-                    <span className={styles['subtitle']}>
-                        Cập nhật mật khẩu mới cho tài khoản của bạn
-                    </span>
+                    <span className={styles['title']}>{texts.title}</span>
+                    <span className={styles['subtitle']}>{texts.subtitle}</span>
                     <form className={styles['form']} onSubmit={handleSubmit}>
                         <div className={styles['form-group']}>
                             <label
                                 className={styles['label']}
                                 htmlFor="password-input"
                             >
-                                Mật khẩu
+                                {texts.passwordInputLabel}
                             </label>
                             <Input
                                 inputRef={passwordInput}
@@ -152,7 +155,7 @@ const ResetPasswordSection: FunctionComponent = function () {
                                 id="password-input"
                                 height={40}
                                 icon={{ position: 'left', icon: 'fal fa-lock' }}
-                                placeholder="Nhập mật khẩu"
+                                placeholder={texts.passwordInputPlaceholder}
                                 value={passwordInputValue}
                                 disabled={pending}
                                 autoComplete="on"
@@ -172,7 +175,7 @@ const ResetPasswordSection: FunctionComponent = function () {
                                     if (formMessage) {
                                         if (!passwordInputValue)
                                             formMessage.innerHTML =
-                                                'Vui lòng nhập mật khẩu mới';
+                                                texts.passwordInputFormMessageRequire;
                                         else formMessage.innerHTML = '';
                                     }
                                 }}
@@ -187,7 +190,7 @@ const ResetPasswordSection: FunctionComponent = function () {
                                 className={styles['label']}
                                 htmlFor="password-confirm-input"
                             >
-                                Nhập lại mật khẩu
+                                {texts.confirmPasswordInputLabel}
                             </label>
                             <Input
                                 inputRef={passwordConfirmInput}
@@ -196,7 +199,9 @@ const ResetPasswordSection: FunctionComponent = function () {
                                 className={styles['input']}
                                 height={40}
                                 icon={{ position: 'left', icon: 'fal fa-lock' }}
-                                placeholder="Nhập lại mật khẩu"
+                                placeholder={
+                                    texts.confirmPasswordInputPlaceholder
+                                }
                                 value={passwordConfirmInputValue}
                                 disabled={pending}
                                 autoComplete="on"
@@ -216,7 +221,7 @@ const ResetPasswordSection: FunctionComponent = function () {
                                     if (formMessage) {
                                         if (!passwordConfirmInputValue)
                                             formMessage.innerHTML =
-                                                'Vui lòng nhập mật khẩu mới';
+                                                texts.passwordInputFormMessageRequire;
                                         else formMessage.innerHTML = '';
                                     }
                                 }}
@@ -232,7 +237,7 @@ const ResetPasswordSection: FunctionComponent = function () {
                             disabled={pending}
                             loading={pending}
                         >
-                            Khôi phục
+                            {texts.recoverButton}
                         </Button>
                         <span
                             ref={serverMessage}

@@ -4,7 +4,7 @@
  */
 
 'use strict';
-import type { CartItem } from '@sources/ts/types/VyFood';
+import type { CartItem } from '@sources/ts/apis/emart/types';
 import {
     FunctionComponent,
     useEffect,
@@ -15,7 +15,7 @@ import {
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { useVyFood } from '@sources/ts/hooks/useVyFood';
+import { useAPI } from '@sources/ts/hooks/useAPI';
 import { useModal } from '@sources/ts/hooks/useModal';
 import { showToast } from '@sources/ts/components/Toast';
 import apis from '@sources/ts/apis';
@@ -41,7 +41,7 @@ const PaymentWindow: FunctionComponent<{
         string | React.JSXElementConstructor<any>
     >;
 }> = ({ children }) => {
-    const { cartItems, setCartItems, handleRefreshProduct } = useVyFood();
+    const { cartItems, setCartItems, handleRefreshProduct } = useAPI();
     const { setModal, setModalVisibility } = useModal();
 
     const goBackButton = useRef<HTMLButtonElement>(),
@@ -126,7 +126,7 @@ const PaymentWindow: FunctionComponent<{
             );
 
             const { message, success, statusCode } =
-                await apis.backend.createOrder(
+                await apis.emart.createOrder(
                     deliveryMethod,
                     customerNameInput?.value,
                     customerPhoneNumberInput?.value,
@@ -206,9 +206,7 @@ const PaymentWindow: FunctionComponent<{
         );
         if (tSubtotal) {
             setSubtotal(tSubtotal);
-            setTotal(
-                deliveryMethod === 'shipping' ? tSubtotal + 30000 : tSubtotal
-            );
+            setTotal(deliveryMethod === 'shipping' ? tSubtotal + 1 : tSubtotal);
         }
     }, [parsedCartItems, deliveryMethod]);
 
@@ -865,12 +863,9 @@ const PaymentWindow: FunctionComponent<{
                                                     ]
                                                 }
                                             >
-                                                {`${subtotal
-                                                    .toString()
-                                                    .replace(
-                                                        /\B(?=(\d{3})+(?!\d))/g,
-                                                        '.'
-                                                    )} ₫`}
+                                                {window.myHelper.convertUSDNumberToString(
+                                                    subtotal
+                                                )}
                                             </span>
                                         </div>
                                         {deliveryMethod === 'shipping' && (
@@ -921,7 +916,7 @@ const PaymentWindow: FunctionComponent<{
                                                     texts.invoiceCard
                                                         .agreementTextLink
                                                 }
-                                            </a>{' '}
+                                            </a>
                                             {texts.invoiceCard.agreementText2}
                                         </span>
                                     </div>
@@ -938,12 +933,9 @@ const PaymentWindow: FunctionComponent<{
                                                 styles['total-checkout-number']
                                             }
                                         >
-                                            {`${total
-                                                .toString()
-                                                .replace(
-                                                    /\B(?=(\d{3})+(?!\d))/g,
-                                                    '.'
-                                                )} ₫`}
+                                            {window.myHelper.convertUSDNumberToString(
+                                                total
+                                            )}
                                         </span>
                                     </div>
                                     <Button

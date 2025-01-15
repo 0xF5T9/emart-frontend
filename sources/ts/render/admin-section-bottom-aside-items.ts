@@ -9,17 +9,17 @@ import routes from '@sources/ts/global/react-router/routes';
 
 const adminSectionBottomAsideItems: AdminAsideItem[] = [
     {
-        text: 'Quay lại trang chủ',
+        text: 'Back to Homepage',
         icon: 'fal fa-circle-chevron-left',
         to: routes.home,
     },
     {
-        text: 'Thông tin tài khoản',
+        text: 'Account settings',
         icon: 'fal fa-user-circle',
         to: routes.profile,
     },
     {
-        text: 'Đăng xuất',
+        text: 'Logout',
         icon: 'fal fa-arrow-right-from-bracket',
         action: 'logout',
     },

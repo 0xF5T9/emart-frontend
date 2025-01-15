@@ -5,7 +5,7 @@
 
 'use strict';
 
-import type { Category } from '@sources/ts/types/VyFood';
+import type { Category } from '@sources/ts/apis/emart/types';
 import { FunctionComponent, useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -101,11 +101,10 @@ const UpdateCategoryModalWindow: FunctionComponent<{
             }
 
             if (categoryUploadImageInput.current?.files?.length) {
-                const uploadImageResult =
-                    await apis.backend.uploadCategoryImage(
-                        category.slug,
-                        categoryUploadImageInput.current?.files[0]
-                    );
+                const uploadImageResult = await apis.emart.uploadCategoryImage(
+                    category.slug,
+                    categoryUploadImageInput.current?.files[0]
+                );
                 if (!uploadImageResult.success) {
                     console.error(uploadImageResult.message);
                     setTimeout(
@@ -128,7 +127,7 @@ const UpdateCategoryModalWindow: FunctionComponent<{
                 }
             }
 
-            const { message, success } = await apis.backend.updateCategory(
+            const { message, success } = await apis.emart.updateCategory(
                 category.slug,
                 categoryNameInputValue,
                 categoryDescInputValue,

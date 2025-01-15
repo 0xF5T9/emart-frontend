@@ -72,7 +72,7 @@ const DeleteAccountCard: FunctionComponent = () => {
             const sessionData = await getSessionData();
             if (!sessionData) return;
 
-            const { message, success } = await apis.backend.deleteUser(
+            const { message, success } = await apis.emart.deleteUser(
                 sessionData?.username,
                 passwordInputValue
             );

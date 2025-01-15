@@ -15,6 +15,7 @@ import {
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import staticTexts from '@sources/ts/render/static-texts';
 import * as styles from './MultipleSelect.module.css';
 
 type SelectOption = {
@@ -219,7 +220,7 @@ const MultipleSelect: FunctionComponent<
                 ) : null}
                 {!options?.length && (
                     <span className={styles['select-item-list-empty-text']}>
-                        Không có lựa chọn nào
+                        {staticTexts.components.select.emptyText}
                     </span>
                 )}
             </div>

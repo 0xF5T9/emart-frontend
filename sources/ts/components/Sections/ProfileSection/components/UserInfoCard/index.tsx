@@ -4,7 +4,7 @@
  */
 
 'use strict';
-import type { User } from '@sources/ts/types/VyFood';
+import type { User } from '@sources/ts/apis/emart/types';
 import { FunctionComponent, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -17,6 +17,7 @@ import Input from '@sources/ts/components/Input';
 import * as styles from '../../ProfileSection.module.css';
 import * as infoCardStyles from './UserInfoCard.module.css';
 import staticTexts from '@sources/ts/render/static-texts';
+import apiStaticTexts from '@sources/ts/apis/emart/static-texts';
 import staticUrls from '@sources/ts/render/static-urls';
 const texts = staticTexts?.profileSection?.userInfoCard;
 
@@ -76,7 +77,7 @@ const UserInfoCard: FunctionComponent<{
                     )
                 ) {
                     emailInputFormMessage.current.innerHTML =
-                        staticTexts.api.backend.invalidEmail;
+                        apiStaticTexts.invalidEmail;
                     if (!focusElement) focusElement = emailInput.current;
                     isFormValid = false;
                 }
@@ -93,11 +94,10 @@ const UserInfoCard: FunctionComponent<{
                 }
 
                 if (userUploadImageInput.current?.files?.length) {
-                    const uploadImageResult =
-                        await apis.backend.uploadUserAvatar(
-                            user?.username,
-                            userUploadImageInput.current?.files[0]
-                        );
+                    const uploadImageResult = await apis.emart.uploadUserAvatar(
+                        user?.username,
+                        userUploadImageInput.current?.files[0]
+                    );
                     if (!uploadImageResult.success) {
                         console.error(uploadImageResult.message);
                         setTimeout(
@@ -119,7 +119,7 @@ const UserInfoCard: FunctionComponent<{
                     }
                 }
 
-                const { message, success } = await apis.backend.updateUserInfo(
+                const { message, success } = await apis.emart.updateUserInfo(
                     sessionData?.username,
                     {
                         email:

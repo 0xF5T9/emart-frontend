@@ -4,12 +4,12 @@
  */
 
 'use strict';
-import type { Product } from '@sources/ts/types/VyFood';
+import type { Product } from '@sources/ts/apis/emart/types';
 import { FunctionComponent, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { useVyFood } from '@sources/ts/hooks/useVyFood';
+import { useAPI } from '@sources/ts/hooks/useAPI';
 import { useModal } from '@sources/ts/hooks/useModal';
 import { CircleLoading } from '@sources/ts/components/Icons/CircleLoading';
 import ProductDetailModalWindow from '../ProductDetailModalWindow';
@@ -38,7 +38,7 @@ const ProductsView: FunctionComponent<{
         setProductFilter,
         setProductSearchValue,
         isBackendUnavailable,
-    } = useVyFood();
+    } = useAPI();
 
     const [filteredItems, setFilteredItems] = useState(() => {
             if (!productItems) return null;
@@ -82,29 +82,7 @@ const ProductsView: FunctionComponent<{
             })
         );
         setPagination(1);
-        if (productFilter) {
-            if (productFilter.type === 'category') {
-                setProductSearchValue('');
-
-                setFilteredItems(
-                    productItems.filter((item) =>
-                        item.category.includes(productFilter.value)
-                    )
-                );
-            } else if (productFilter.type === 'name') {
-                setFilteredItems(
-                    productItems.filter((item) =>
-                        item.name
-                            .toLowerCase()
-                            .includes(productFilter.value.toLowerCase())
-                    )
-                );
-            }
-            setPagination(1);
-        } else {
-            setProductSearchValue('');
-            // setFilteredItems(productItems);
-        }
+        setProductFilter(null);
     }, [productItems]);
 
     useEffect(() => {
@@ -151,6 +129,7 @@ const ProductsView: FunctionComponent<{
                             className={classNames(styles['product-item'], {
                                 [styles['unavailable']]: item.quantity === 0,
                             })}
+                            onClick={() => handleOpenProductDetail(item)}
                         >
                             <div
                                 className={styles['product-image-wrapper']}
@@ -179,7 +158,7 @@ const ProductsView: FunctionComponent<{
                                     {item.name}
                                 </span>
                                 <span className={styles['product-price-tag']}>
-                                    {window.myHelper.convertVNDNumberToString(
+                                    {window.myHelper.convertUSDNumberToString(
                                         item.price
                                     )}
                                 </span>
@@ -198,6 +177,12 @@ const ProductsView: FunctionComponent<{
                                         : texts.orderButtonOutOfStock}
                                 </button>
                             </div>
+                            <i
+                                className={classNames(
+                                    styles['product-item-arrow'],
+                                    'fal fa-arrow-right'
+                                )}
+                            />
                         </div>
                     ))}
                 {!isBackendUnavailable &&

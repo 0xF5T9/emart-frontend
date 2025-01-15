@@ -144,7 +144,7 @@ const UpdateUserModalWindow: FunctionComponent<{
 
             if (userUploadImageInput.current?.files?.length) {
                 const uploadImageResult =
-                    await apis.backend.uploadUserAvatarAsAdmin(
+                    await apis.emart.uploadUserAvatarAsAdmin(
                         usernameInputValue,
                         userUploadImageInput.current?.files[0]
                     );
@@ -170,7 +170,7 @@ const UpdateUserModalWindow: FunctionComponent<{
                 }
             }
 
-            const { message, success } = await apis.backend.updateUserAsAdmin(
+            const { message, success } = await apis.emart.updateUserAsAdmin(
                 user?.username,
                 usernameInputValue,
                 passwordInputValue,

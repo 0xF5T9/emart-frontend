@@ -19,12 +19,19 @@
     flex-flow: row nowrap;
     align-items: center;
     text-align: center;
+    column-gap: 8px;
 }
 
 .navbar-item {
     flex-shrink: 0;
     padding: 0px 12px;
     user-select: none;
+    padding: 0;
+}
+
+.navbar-item:hover .navbar-item-image {
+    filter: brightness(1.2);
+    /* transition: all 0.15s ease; */
 }
 
 .navbar-item-link {
@@ -72,13 +79,15 @@
 .navbar-item-image {
     width: 1rem;
     height: 1rem;
+    object-fit: cover;
+    border-radius: 4px;
+    transition: all 0.15s ease;
 }
 
 .navbar-item-text {
     font-weight: 400;
     text-transform: uppercase;
 }
-
 .navbar-subitem {
     font-weight: 400;
     height: 64px;

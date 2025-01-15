@@ -4,8 +4,8 @@
  */
 
 'use strict';
-import type { GetCategoriesCountResponseData } from '@sources/ts/types/backend-api';
-import type { Category } from '@sources/ts/types/VyFood';
+import type { GetCategoriesCountResponseData } from '@sources/ts/apis/emart/types';
+import type { Category } from '@sources/ts/apis/emart/types';
 import {
     FunctionComponent,
     CSSProperties,
@@ -83,7 +83,7 @@ const Categories: FunctionComponent<{
         setIsPending(true);
         if (!silentFetch) setStatus('loading');
         (async () => {
-            const getCategoriesResult = await apis.backend.getCategories(
+            const getCategoriesResult = await apis.emart.getCategories(
                 1,
                 99999
             );
@@ -115,7 +115,7 @@ const Categories: FunctionComponent<{
                 );
 
             const getCategoriesCountResult =
-                await apis.backend.getCategoriesCount();
+                await apis.emart.getCategoriesCount();
             if (!getCategoriesCountResult.success) {
                 console.error(getCategoriesCountResult.message);
                 setIsPending(false);
@@ -207,7 +207,7 @@ const Categories: FunctionComponent<{
         setIsPending(true);
 
         (async () => {
-            const { message, success } = await apis.backend.deleteCategory(
+            const { message, success } = await apis.emart.deleteCategory(
                 category.slug
             );
             if (!success) {
@@ -405,7 +405,7 @@ const Categories: FunctionComponent<{
                                                     item?.slug ===
                                                     category?.slug
                                             )?.count || 0
-                                        } Sản phẩm`}
+                                        } ${texts.productUnitText}`}
                                     </span>
                                     <div
                                         className={
