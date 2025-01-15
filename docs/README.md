@@ -127,3 +127,7 @@ npm start # Start production server
 ```
 
 Check `package.json`, `.vscode` folder for scripts and tasks.
+
+## Credits
+
+- Frontend design originally by [VyFood](https://github.com/hgbaodev/Webbanhang).
