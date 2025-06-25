@@ -41,7 +41,7 @@ server {
     listen 80;
     server_name mydomain.com;
     client_max_body_size 100M;
-    return 301 https://mydomain.com$request_uri;
+    return 308 https://mydomain.com$request_uri;
 }
 
 # Proxy pass to webpack dev server.
@@ -74,7 +74,7 @@ server {
     listen 80;
     server_name mydomain.com;
     client_max_body_size 100M;
-    return 301 https://mydomain.com$request_uri;
+    return 308 https://mydomain.com$request_uri;
 }
 
 # Proxy pass to node frontend server.
